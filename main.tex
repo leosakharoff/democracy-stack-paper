@@ -24,18 +24,57 @@
 \usetikzlibrary{positioning, fit, backgrounds, calc}
 \usepackage{xcolor}
 
-% --- Title ---
-\title{\textbf{Building the Democracy Stack:\\What Software Architecture Decisions Matter\\for Democratic Digital Infrastructure?}}
-\author{Leo Sandvig Andersen\\[4pt]
-\textit{MSc Software Design, IT University of Copenhagen}\\
-Supervisor: Konstantinos Manikas}
-\date{May 2026}
-
+% --- No default title ---
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\newpage
+% ============================================================
+% TITLE PAGE
+% ============================================================
+\begin{titlepage}
+\newgeometry{margin=3cm}
+
+\begin{flushleft}
+\includegraphics[width=3.2cm]{itu_logo.png}
+\end{flushleft}
+
+\vspace{1.2cm}
+
+\begin{flushleft}
+{\fontsize{11}{13}\selectfont\textcolor{gray}{\textsf{IT University of Copenhagen}}}
+\end{flushleft}
+
+\vspace{2.5cm}
+
+\begin{flushleft}
+{\fontsize{26}{32}\selectfont\bfseries\sffamily Building the Democracy Stack}\\[12pt]
+{\fontsize{15}{20}\selectfont\sffamily\textcolor{gray!80!black}{What Software Architecture Decisions Matter\\for Democratic Digital Infrastructure?}}
+\end{flushleft}
+
+\vspace{1.8cm}
+
+{\color{black}\rule{\textwidth}{0.8pt}}
+
+\vspace{1cm}
+
+\begin{flushleft}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll}
+\textsf{\textcolor{gray}{Author}}      & \textsf{Leo Sandvig Andersen} \\
+\textsf{\textcolor{gray}{Programme}}   & \textsf{MSc Software Design} \\
+\textsf{\textcolor{gray}{Supervisor}}  & \textsf{Konstantinos Manikas} \\
+\textsf{\textcolor{gray}{Course}}      & \textsf{Research Project (7.5 ECTS)} \\
+\textsf{\textcolor{gray}{Date}}        & \textsf{May 2026} \\
+\end{tabular}
+\end{flushleft}
+
+\vfill
+
+\begin{flushleft}
+{\footnotesize\textsf{\textcolor{gray}{IT University of Copenhagen $\cdot$ Rued Langgaards Vej 7 $\cdot$ 2300 Copenhagen S}}}
+\end{flushleft}
+
+\restoregeometry
+\end{titlepage}
 
 % ============================================================
 % ABSTRACT

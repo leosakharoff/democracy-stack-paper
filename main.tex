@@ -20,6 +20,9 @@
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{csquotes}
+\usepackage{tikz}
+\usetikzlibrary{positioning, fit, backgrounds, calc}
+\usepackage{xcolor}
 
 % --- Title ---
 \title{\textbf{Building the Democracy Stack:\\What Software Architecture Decisions Matter\\for Democratic Digital Infrastructure?}}
@@ -128,10 +131,146 @@ Decidim is a modular monolith built with Ruby on Rails. The monorepo at \texttt{
 The engines are organized in layers. At the base is \texttt{decidim-core}, which every other engine depends on. Above that are infrastructure engines: \texttt{decidim-admin} (the administration panel), \texttt{decidim-system} (multi-tenant superadmin), \texttt{decidim-api} (GraphQL interface), \texttt{decidim-verifications} (identity verification), \texttt{decidim-forms} (shared form primitives), and \texttt{decidim-comments} (cross-engine commenting). Then come the participatory spaces --- \texttt{decidim-participatory\_processes}, \texttt{decidim-assemblies}, \texttt{decidim-conferences}, \texttt{decidim-initiatives} --- each a separate engine. Finally, the participatory components: \texttt{decidim-proposals}, \texttt{decidim-meetings}, \texttt{decidim-budgets}, \texttt{decidim-surveys}, \texttt{decidim-debates}, \texttt{decidim-blogs}, \texttt{decidim-pages}, \texttt{decidim-accountability}, and \texttt{decidim-sortitions}.
 
 \paragraph{Dependency graph.}
-The dependency structure forms a hub-and-spoke pattern. Every engine declares \texttt{add\_dependency "decidim-core"} in its gemspec file. No engine-to-engine dependency bypasses core. \texttt{decidim-admin} and \texttt{decidim-api} serve as secondary hubs. The result is a layered star: core at layer~0, infrastructure engines at layer~1, and space and component engines at layer~2.
+The dependency structure forms a hub-and-spoke pattern. Every engine declares \texttt{add\_dependency "decidim-core"} in its gemspec file. No engine-to-engine dependency bypasses core. \texttt{decidim-admin} and \texttt{decidim-api} serve as secondary hubs. The result is a layered star: core at layer~0, infrastructure engines at layer~1, and space and component engines at layer~2. Figure~\ref{fig:dependency} visualizes this structure.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  core/.style={rectangle, rounded corners=4pt, draw=none, fill=blue!55!black, text=white, font=\footnotesize\bfseries, minimum width=2.6cm, minimum height=0.7cm},
+  infra/.style={rectangle, rounded corners=3pt, draw=blue!55!black, line width=0.8pt, fill=white, font=\scriptsize\bfseries, minimum width=2cm, minimum height=0.55cm},
+  space/.style={rectangle, rounded corners=3pt, draw=orange!70!black, line width=0.8pt, fill=orange!4, font=\scriptsize\bfseries, minimum width=2cm, minimum height=0.55cm},
+  comp/.style={rectangle, rounded corners=3pt, draw=blue!60, line width=0.8pt, fill=blue!3, font=\scriptsize\bfseries, minimum width=1.7cm, minimum height=0.55cm},
+  depline/.style={->, >=stealth, thin, gray!50},
+]
+
+% Core
+\node[core] (core) at (0,0) {decidim-core};
+
+% Infrastructure (Layer 1) — left
+\node[infra] (admin) at (-3.2, 0.7) {admin};
+\node[infra] (system) at (-3.2, 0) {system};
+\node[infra] (api) at (-3.2, -0.7) {api};
+
+% Infrastructure (Layer 1) — right
+\node[infra] (verif) at (3.2, 0.7) {verifications};
+\node[infra] (forms) at (3.2, 0) {forms};
+\node[infra] (comments) at (3.2, -0.7) {comments};
+
+% Spaces (Layer 2) — top
+\node[space] (proc) at (-3.6, 2.4) {processes};
+\node[space] (assem) at (-1.2, 2.4) {assemblies};
+\node[space] (conf) at (1.2, 2.4) {conferences};
+\node[space] (init) at (3.6, 2.4) {initiatives};
+
+% Components (Layer 2) — bottom row 1
+\node[comp] (prop) at (-4.2, -2.2) {proposals};
+\node[comp] (meet) at (-2.5, -2.2) {meetings};
+\node[comp] (budg) at (-0.8, -2.2) {budgets};
+\node[comp] (surv) at (0.8, -2.2) {surveys};
+\node[comp] (deb) at (2.5, -2.2) {debates};
+\node[comp] (blog) at (4.2, -2.2) {blogs};
+
+% Components — bottom row 2
+\node[comp] (acc) at (-2.5, -3.1) {accountability};
+\node[comp] (pages) at (-0.2, -3.1) {pages};
+\node[comp] (sort) at (2.2, -3.1) {sortitions};
+
+% Dependency lines — infra to core
+\foreach \n in {admin, system, api, verif, forms, comments}
+  \draw[depline] (\n) -- (core);
+
+% Dependency lines — spaces to core
+\foreach \n in {proc, assem, conf, init}
+  \draw[depline] (\n) -- (core);
+
+% Dependency lines — components to core
+\foreach \n in {prop, meet, budg, surv, deb, blog, acc, pages, sort}
+  \draw[depline] (\n) -- (core);
+
+% Layer labels
+\node[font=\tiny\sffamily, gray] at (0, 0.5) {Layer 0};
+
+% Background boxes for layers
+\begin{scope}[on background layer]
+  \node[fit=(admin)(system)(api)(verif)(forms)(comments), inner sep=6pt, fill=gray!6, rounded corners=6pt] {};
+  \node[font=\tiny\sffamily, gray] at (0, 1.3) {Layer 1 — Infrastructure};
+\end{scope}
+
+% Legend
+\node[font=\tiny\sffamily] at (-3, -3.9) {
+  \tikz{\node[space, minimum width=0.7cm, minimum height=0.3cm] {};} Spaces
+  \quad
+  \tikz{\node[comp, minimum width=0.7cm, minimum height=0.3cm] {};} Components
+  \quad
+  \tikz{\draw[->, >=stealth, thin, gray!50] (0,0) -- (0.5,0);} depends on core
+};
+
+\end{tikzpicture}
+\caption{Decidim engine dependency graph. All 23 engines depend on \texttt{decidim-core} (hub-and-spoke). Infrastructure engines form Layer~1; participatory spaces and components form Layer~2. No engine-to-engine dependency bypasses core.}
+\label{fig:dependency}
+\end{figure}
 
 \paragraph{The space/component matrix.}
-This is the key architectural pattern. Spaces and components compose at runtime through a polymorphic association. The \texttt{decidim\_components} table in \texttt{decidim-core} stores a \texttt{participatory\_space\_id} and a \texttt{participatory\_space\_type} (a polymorphic \texttt{belongs\_to}). An administrator can attach any component to any space without writing code --- proposals in a participatory process, budgets in an assembly, debates in a conference. This $N \times M$ composition is Decidim's central architectural innovation. \citet[p.~75]{barandiaran2024decidim} describe it as a ``combinatorial matrix,'' and use the metaphor that ``participatory components are to participatory spaces what furniture is to rooms'' (p.~82). The matrix enables combinatorial participation design without combinatorial code.
+This is the key architectural pattern. Spaces and components compose at runtime through a polymorphic association. The \texttt{decidim\_components} table in \texttt{decidim-core} stores a \texttt{participatory\_space\_id} and a \texttt{participatory\_space\_type} (a polymorphic \texttt{belongs\_to}). An administrator can attach any component to any space without writing code --- proposals in a participatory process, budgets in an assembly, debates in a conference. This $N \times M$ composition is Decidim's central architectural innovation. \citet[p.~75]{barandiaran2024decidim} describe it as a ``combinatorial matrix,'' and use the metaphor that ``participatory components are to participatory spaces what furniture is to rooms'' (p.~82). The matrix enables combinatorial participation design without combinatorial code. Figure~\ref{fig:matrix} illustrates this composition.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  font=\scriptsize\sffamily,
+  sbox/.style={rectangle, rounded corners=2pt, draw=orange!70!black, line width=0.7pt, fill=orange!5, minimum width=1.6cm, minimum height=0.5cm, font=\scriptsize\bfseries},
+  cbox/.style={rectangle, rounded corners=2pt, draw=blue!60, line width=0.7pt, fill=blue!4, minimum width=1.8cm, minimum height=0.5cm, font=\scriptsize\bfseries},
+]
+
+% Column headers (Spaces)
+\node[sbox] at (2.2, 0) {Processes};
+\node[sbox] at (4.2, 0) {Assemblies};
+\node[sbox] at (6.2, 0) {Conferences};
+\node[sbox] at (8.2, 0) {Initiatives};
+
+% Row headers (Components)
+\node[cbox, anchor=east] at (0.8, -0.8) {Proposals};
+\node[cbox, anchor=east] at (0.8, -1.5) {Meetings};
+\node[cbox, anchor=east] at (0.8, -2.2) {Budgets};
+\node[cbox, anchor=east] at (0.8, -2.9) {Surveys};
+\node[cbox, anchor=east] at (0.8, -3.6) {Debates};
+\node[cbox, anchor=east] at (0.8, -4.3) {Blogs};
+\node[cbox, anchor=east] at (0.8, -5.0) {Accountability};
+
+% Grid
+\draw[gray!30] (1.2, -0.4) grid[step=2cm, xstep=2cm, ystep=0.7cm] (9.2, -5.3);
+
+% Checkmarks and circles
+% Column positions: 2.2, 4.2, 6.2, 8.2
+% Row positions: -0.8, -1.5, -2.2, -2.9, -3.6, -4.3, -5.0
+
+% Processes (all on)
+\foreach \y in {-0.8, -1.5, -2.2, -2.9, -3.6, -4.3, -5.0}
+  \node[green!50!black, font=\bfseries] at (2.2, \y) {\checkmark};
+
+% Assemblies
+\foreach \y in {-0.8, -1.5, -2.2, -3.6, -5.0}
+  \node[green!50!black, font=\bfseries] at (4.2, \y) {\checkmark};
+\foreach \y in {-2.9, -4.3}
+  \node[gray!50] at (4.2, \y) {$\circ$};
+
+% Conferences
+\foreach \y in {-0.8, -1.5, -2.9, -3.6}
+  \node[green!50!black, font=\bfseries] at (6.2, \y) {\checkmark};
+\foreach \y in {-2.2, -4.3, -5.0}
+  \node[gray!50] at (6.2, \y) {$\circ$};
+
+% Initiatives (minimal)
+\node[green!50!black, font=\bfseries] at (8.2, -0.8) {\checkmark};
+\foreach \y in {-1.5, -2.2, -2.9, -3.6, -4.3, -5.0}
+  \node[gray!50] at (8.2, \y) {$\circ$};
+
+% Legend
+\node[anchor=west] at (1.2, -5.8) {\textcolor{green!50!black}{\checkmark}~Commonly activated \quad \textcolor{gray!50}{$\circ$}~Available, not default \quad \textit{Any component can attach to any space at runtime}};
+
+\end{tikzpicture}
+\caption{The Decidim space/component matrix. Administrators compose participation designs by activating components within spaces --- an $N \times M$ combinatorial architecture implemented through a polymorphic database association. Adapted from \citet[Fig.~3.1]{barandiaran2024decidim}.}
+\label{fig:matrix}
+\end{figure}
 
 \paragraph{Four interaction mechanisms.}
 The engines interact through four mechanisms that define the internal API boundaries:
@@ -214,6 +353,29 @@ Polis shows that architectural decisions about algorithms are also governance de
 
 
 \subsection{Synthesis: The Trade-off Map}\label{sec:synthesis}
+
+Table~\ref{tab:ecosystem} summarizes the three platforms across key ecosystem and architectural indicators. The numbers make concrete what the case descriptions narrate: Decidim's modular architecture produced a shared-module ecosystem, Consul's monolith produced diverging forks, and Polis's tight coupling produced algorithmic depth but ecosystem thinness.
+
+\begin{table}[ht]
+\centering
+\caption{Ecosystem comparison of the three platforms (GitHub data as of 2023--2025)}
+\label{tab:ecosystem}
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Indicator} & \textbf{Decidim} & \textbf{Consul} & \textbf{Polis} \\
+\midrule
+Architecture     & Modular monolith (23 Rails engines) & Monolithic Rails app & Monolithic (Clojure + JS) \\
+Extension model  & Gem-based plugins            & Fork + shadow folders      & None (tight coupling) \\
+License          & AGPL v3                      & AGPL v3                    & AGPL v3 \\
+GitHub stars     & $\sim$1,265                  & $\sim$1,500                & $\sim$517 \\
+Forks            & $\sim$368                    & $\sim$700                  & $\sim$130 \\
+Contributors     & $\sim$135                    & $\sim$100 (est.)           & $\sim$50 (est.) \\
+Community modules & 80+                         & Few                        & Few \\
+Deployments      & 450+ in 30 countries         & 250+ cities                & 20--30 documented \\
+Governance       & Democratic association        & Municipal $\to$ foundation & Project maintainer \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 The three cases reveal four trade-offs that any builder of democratic digital infrastructure needs to navigate. These are summarized in Table~\ref{tab:tradeoffs}.
 

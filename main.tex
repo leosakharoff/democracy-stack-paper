@@ -266,61 +266,28 @@ The dependency structure forms a hub-and-spoke pattern. Every engine declares \t
 \paragraph{The space/component matrix.}
 This is the key architectural pattern. Spaces and components compose at runtime through a polymorphic association. The \texttt{decidim\_components} table in \texttt{decidim-core} stores a \texttt{participatory\_space\_id} and a \texttt{participatory\_space\_type} (a polymorphic \texttt{belongs\_to}). An administrator can attach any component to any space without writing code --- proposals in a participatory process, budgets in an assembly, debates in a conference. This $N \times M$ composition is Decidim's central architectural innovation. \citet[p.~75]{barandiaran2024decidim} describe it as a ``combinatorial matrix,'' and use the metaphor that ``participatory components are to participatory spaces what furniture is to rooms'' (p.~82). The matrix enables combinatorial participation design without combinatorial code. Figure~\ref{fig:matrix} illustrates this composition.
 
+\newcommand{\yon}{\tikz\fill[black] (0,0) circle (4pt);}
+\newcommand{\yav}{\tikz\draw[gray!60, line width=0.6pt] (0,0) circle (3.5pt);}
+
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[
-  font=\scriptsize\sffamily,
-  sbox/.style={rectangle, rounded corners=2pt, draw=orange!70!black, line width=0.7pt, fill=orange!5, minimum width=1.6cm, minimum height=0.5cm, font=\scriptsize\bfseries},
-  cbox/.style={rectangle, rounded corners=2pt, draw=blue!60, line width=0.7pt, fill=blue!4, minimum width=1.8cm, minimum height=0.5cm, font=\scriptsize\bfseries},
-]
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l|cccc}
+\toprule
+ & \textbf{Processes} & \textbf{Assemblies} & \textbf{Conferences} & \textbf{Initiatives} \\
+\midrule
+\textbf{Proposals}       & \yon & \yon & \yon & \yon \\
+\textbf{Meetings}        & \yon & \yon & \yon & \yav \\
+\textbf{Budgets}         & \yon & \yon & \yav & \yav \\
+\textbf{Surveys}         & \yon & \yav & \yon & \yav \\
+\textbf{Debates}         & \yon & \yon & \yon & \yav \\
+\textbf{Blogs}           & \yon & \yav & \yav & \yav \\
+\textbf{Accountability}  & \yon & \yon & \yav & \yav \\
+\bottomrule
+\end{tabular}
 
-% Column headers (Spaces)
-\node[sbox] at (2.2, 0) {Processes};
-\node[sbox] at (4.2, 0) {Assemblies};
-\node[sbox] at (6.2, 0) {Conferences};
-\node[sbox] at (8.2, 0) {Initiatives};
-
-% Row headers (Components)
-\node[cbox, anchor=east] at (0.8, -0.8) {Proposals};
-\node[cbox, anchor=east] at (0.8, -1.5) {Meetings};
-\node[cbox, anchor=east] at (0.8, -2.2) {Budgets};
-\node[cbox, anchor=east] at (0.8, -2.9) {Surveys};
-\node[cbox, anchor=east] at (0.8, -3.6) {Debates};
-\node[cbox, anchor=east] at (0.8, -4.3) {Blogs};
-\node[cbox, anchor=east] at (0.8, -5.0) {Accountability};
-
-% Grid
-\draw[gray!30] (1.2, -0.4) grid[step=2cm, xstep=2cm, ystep=0.7cm] (9.2, -5.3);
-
-% Checkmarks and circles
-% Column positions: 2.2, 4.2, 6.2, 8.2
-% Row positions: -0.8, -1.5, -2.2, -2.9, -3.6, -4.3, -5.0
-
-% Processes (all on)
-\foreach \y in {-0.8, -1.5, -2.2, -2.9, -3.6, -4.3, -5.0}
-  \node[green!50!black, font=\bfseries] at (2.2, \y) {\checkmark};
-
-% Assemblies
-\foreach \y in {-0.8, -1.5, -2.2, -3.6, -5.0}
-  \node[green!50!black, font=\bfseries] at (4.2, \y) {\checkmark};
-\foreach \y in {-2.9, -4.3}
-  \node[gray!50] at (4.2, \y) {$\circ$};
-
-% Conferences
-\foreach \y in {-0.8, -1.5, -2.9, -3.6}
-  \node[green!50!black, font=\bfseries] at (6.2, \y) {\checkmark};
-\foreach \y in {-2.2, -4.3, -5.0}
-  \node[gray!50] at (6.2, \y) {$\circ$};
-
-% Initiatives (minimal)
-\node[green!50!black, font=\bfseries] at (8.2, -0.8) {\checkmark};
-\foreach \y in {-1.5, -2.2, -2.9, -3.6, -4.3, -5.0}
-  \node[gray!50] at (8.2, \y) {$\circ$};
-
-% Legend
-\node[anchor=west] at (1.2, -5.8) {\textcolor{green!50!black}{\checkmark}~Commonly activated \quad \textcolor{gray!50}{$\circ$}~Available, not default \quad \textit{Any component can attach to any space at runtime}};
-
-\end{tikzpicture}
+\vspace{6pt}
+{\small \yon~Commonly activated \qquad \yav~Available, not default \qquad \textit{Any component can attach to any space at runtime}}
 \caption{The Decidim space/component matrix. Administrators compose participation designs by activating components within spaces --- an $N \times M$ combinatorial architecture implemented through a polymorphic database association. Adapted from \citet[Fig.~3.1]{barandiaran2024decidim}.}
 \label{fig:matrix}
 \end{figure}

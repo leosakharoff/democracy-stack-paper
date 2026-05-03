@@ -189,11 +189,11 @@ The dependency structure forms a hub-and-spoke pattern. Every engine declares \t
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-  core/.style={rectangle, rounded corners=4pt, draw=none, fill=blue!55!black, text=white, font=\footnotesize\bfseries, minimum width=2.6cm, minimum height=0.7cm},
-  infra/.style={rectangle, rounded corners=3pt, draw=blue!55!black, line width=0.8pt, fill=white, font=\scriptsize\bfseries, minimum width=2cm, minimum height=0.55cm},
-  space/.style={rectangle, rounded corners=3pt, draw=orange!70!black, line width=0.8pt, fill=orange!4, font=\scriptsize\bfseries, minimum width=2cm, minimum height=0.55cm},
-  comp/.style={rectangle, rounded corners=3pt, draw=blue!60, line width=0.8pt, fill=blue!3, font=\scriptsize\bfseries, minimum width=1.7cm, minimum height=0.55cm},
-  depline/.style={->, >=stealth, thin, gray!50},
+  core/.style={rectangle, rounded corners=3pt, draw=black, line width=1.2pt, fill=black, text=white, font=\footnotesize\bfseries\sffamily, minimum width=2.6cm, minimum height=0.7cm},
+  infra/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=2cm, minimum height=0.55cm},
+  space/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=gray!10, font=\scriptsize\bfseries\sffamily, minimum width=2cm, minimum height=0.55cm},
+  comp/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=1.7cm, minimum height=0.55cm},
+  depline/.style={->, >=stealth, thin, black!40},
 ]
 
 % Core
@@ -241,21 +241,19 @@ The dependency structure forms a hub-and-spoke pattern. Every engine declares \t
   \draw[depline] (\n) -- (core);
 
 % Layer labels
-\node[font=\tiny\sffamily, gray] at (0, 0.5) {Layer 0};
-
-% Background boxes for layers
 \begin{scope}[on background layer]
-  \node[fit=(admin)(system)(api)(verif)(forms)(comments), inner sep=6pt, fill=gray!6, rounded corners=6pt] {};
-  \node[font=\tiny\sffamily, gray] at (0, 1.3) {Layer 1 — Infrastructure};
+  \node[fit=(admin)(system)(api)(verif)(forms)(comments), inner sep=8pt, fill=gray!8, rounded corners=4pt] {};
 \end{scope}
+\node[font=\tiny\sffamily, black!50] at (0, 1.35) {\textit{Layer 1 --- Infrastructure}};
+\node[font=\tiny\sffamily, black!50] at (0, 0.45) {\textit{Layer 0}};
 
 % Legend
-\node[font=\tiny\sffamily] at (-3, -3.9) {
-  \tikz{\node[space, minimum width=0.7cm, minimum height=0.3cm] {};} Spaces
+\node[font=\tiny\sffamily, anchor=west] at (-4.5, -3.9) {%
+  \tikz[baseline=-0.5ex]{\node[space, minimum width=0.6cm, minimum height=0.25cm, font=\tiny] {};}~Spaces
   \quad
-  \tikz{\node[comp, minimum width=0.7cm, minimum height=0.3cm] {};} Components
+  \tikz[baseline=-0.5ex]{\node[comp, minimum width=0.6cm, minimum height=0.25cm, font=\tiny] {};}~Components
   \quad
-  \tikz{\draw[->, >=stealth, thin, gray!50] (0,0) -- (0.5,0);} depends on core
+  \tikz[baseline=-0.5ex]{\draw[->, >=stealth, thin, black!40] (0,0) -- (0.5,0);}~depends on core
 };
 
 \end{tikzpicture}

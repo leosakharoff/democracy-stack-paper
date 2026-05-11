@@ -94,7 +94,7 @@
 % ABSTRACT
 % ============================================================
 \begin{abstract}
-Europe is investing in democratic digital infrastructure, but there is little guidance on what good software architecture looks like when the goal is democracy rather than service delivery. Architecture shapes governance --- this idea is well established in science and technology studies (STS) and platform studies --- yet to the best of our knowledge, no study has applied software architecture or software ecosystem methods to civic technology platforms. This paper addresses that gap through a multi-case analysis of three platforms: Decidim (deep case with architectural recovery), Consul (comparison case --- shared origin, opposite architecture), and Polis (contrasting algorithmic paradigm). The analysis identifies four quality attribute trade-offs that are both technical and political: modifiability versus sustainability, interoperability versus autonomy, deployability versus transparency, and algorithmic depth versus ecosystem extensibility (Polis built a powerful deliberation algorithm, but its tight coupling means nobody can extend it or build on it). The Decidim/Consul divergence --- same origin, opposite architecture, very different ecosystem outcomes --- provides the strongest evidence that architectural decisions in civic tech function as governance decisions. The paper connects software architecture and ecosystem research to the emerging European conversation about a ``democracy stack.''
+Europe is investing in democratic digital infrastructure, but there is little guidance on what good software architecture looks like when the goal is democracy rather than service delivery. Architecture shapes governance --- this idea is well established in science and technology studies (STS) and platform studies --- yet to the best of our knowledge, no study has applied software architecture or software ecosystem methods to civic technology platforms. This paper addresses that gap through a multi-case analysis of three platforms: Decidim (deep case with architectural recovery), Consul (comparison case --- shared origin, opposite architecture), and Polis (contrasting algorithmic paradigm). The analysis identifies four quality attribute trade-offs that are both technical and political: modifiability versus sustainability, interoperability versus autonomy, deployability versus transparency, and algorithmic depth versus ecosystem extensibility (Polis built a powerful deliberation algorithm, but its tight coupling means nobody can extend it or build on it). The Decidim/Consul divergence --- same origin, opposite architecture, very different ecosystem outcomes --- provides the strongest evidence that architectural decisions in civic tech function as governance decisions. The paper brings software architecture and ecosystem research into the European policy debate about building a ``democracy stack.''
 \end{abstract}
 
 \newpage
@@ -130,7 +130,7 @@ The paper is structured as follows. Section~\ref{sec:background} covers the theo
 
 \subsection{Software Architecture for Public Infrastructure}\label{sec:sa}
 
-Software architecture is the set of structures needed to reason about a system --- the elements, the relations between them, and the properties of both \citep{bass2021software}. Architecture decisions shape what a system can and cannot do over its lifetime, mainly through quality attributes: measurable properties like modifiability, interoperability, availability, performance, security, deployability, and testability. In commercial software, these are optimized for business value. When the system is democratic infrastructure, the same reasoning applies but the goal is different: which architecture best supports democratic participation and public legitimacy?
+Software architecture is ``the set of structures needed to reason about a system'' --- the elements, the relations between them, and the properties of both \citep[p.~2]{bass2021software}. Architecture decisions shape what a system can and cannot do over its lifetime, mainly through quality attributes: measurable properties like modifiability, interoperability, availability, performance, security, deployability, and testability. In commercial software, these are optimized for business value. When the system is democratic infrastructure, the same reasoning applies but the goal is different: which architecture best supports democratic participation and public legitimacy?
 
 This paper focuses on four quality attributes that are especially important for democratic infrastructure. \emph{Modifiability} is how easily a system can be changed. In democratic infrastructure, it matters because communities with different institutional rules, languages, and participatory traditions need to adapt the platform without hard forking the codebase --- if they cannot, the platform can only accommodate one way of doing things, which limits how many different communities can use it meaningfully. \emph{Interoperability} is how well a system can exchange data and services with others. It determines whether a platform can work with other democratic tools or stays isolated. \emph{Deployability} is how easily new organizations can adopt and run the platform. A platform that requires a lot of technical expertise to deploy will in practice only be available to well-resourced institutions --- so deployability determines who gets to participate. \emph{Transparency} or auditability does not appear in Bass et al.'s standard taxonomy but is essential here. Citizens need to understand what the system does and how it handles their input. A participatory budgeting platform with opaque vote-counting logic undermines the democratic purpose it is supposed to serve.
 
@@ -142,7 +142,47 @@ These four attributes pull against each other in ways specific to public infrast
   \item \emph{Deployability vs.\ customizability:} Making a platform easy to deploy often means reducing options for local adaptation.
 \end{itemize}
 
-These tensions are not problems to solve --- they are features of the design space. \citet{heeks2025three} identify similar tensions at the policy level in public sector digital platforms (openness vs.\ control, stability vs.\ flexibility, inclusiveness vs.\ efficiency). The value of looking at this through an architectural lens is that it makes the tensions concrete: they show up in specific decisions about module boundaries, APIs, and deployment pipelines.
+Figure~\ref{fig:tradeoffs} visualizes these tensions. They are not problems to solve --- they are features of the design space. \citet{heeks2025three} identify similar tensions at the policy level in public sector digital platforms. The value of looking at this through an architectural lens is that it makes the tensions concrete: they show up in specific decisions about module boundaries, APIs, and deployment pipelines.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  qa/.style={rectangle, rounded corners=3pt, draw=black, line width=0.8pt, fill=white, font=\small\bfseries\sffamily, minimum width=2.8cm, minimum height=0.8cm, align=center},
+  cost/.style={font=\scriptsize\sffamily, text=black!60, align=center},
+  dem/.style={font=\scriptsize\sffamily\itshape, align=center},
+  tensionline/.style={<->, >=stealth, black!30, line width=0.6pt},
+]
+
+% Four QA nodes in a diamond
+\node[qa] (mod) at (0, 2.2) {Modifiability};
+\node[qa] (int) at (4, 2.2) {Interoperability};
+\node[qa] (dep) at (0, -0.2) {Deployability};
+\node[qa] (tra) at (4, -0.2) {Transparency};
+
+% Democratic benefits (above/below)
+\node[dem] at (0, 3.1) {enables pluralism};
+\node[dem] at (4, 3.1) {enables collaboration};
+\node[dem] at (0, -1.1) {enables access};
+\node[dem] at (4, -1.1) {enables trust};
+
+% Tension lines with labels
+\draw[tensionline] (mod.south) -- node[cost, right=2pt] {vs.} (dep.north);
+\draw[tensionline] (int.south) -- node[cost, right=2pt] {vs.} (tra.north);
+\draw[tensionline] (mod.east) -- node[cost, above=2pt] {vs.} (int.west);
+\draw[tensionline] (dep.east) -- node[cost, above=2pt] {vs.} (tra.west);
+
+% Diagonal tensions
+\draw[tensionline, dashed] (mod.south east) -- (tra.north west);
+\draw[tensionline, dashed] (int.south west) -- (dep.north east);
+
+% Cost labels on sides
+\node[cost] at (-2.2, 1) {coherence\\risk};
+\node[cost] at (6.2, 1) {opacity\\risk};
+
+\end{tikzpicture}
+\caption{The four quality attributes for democratic infrastructure and their tensions. Each attribute enables a democratic benefit but pulls against others. Solid lines show direct tensions; dashed lines show cross-tensions.}
+\label{fig:tradeoffs}
+\end{figure}
 
 \subsection{Software Ecosystems and Democratic Governance}\label{sec:seco}
 
@@ -160,7 +200,7 @@ As introduced in Section~\ref{sec:sa}, the idea that architecture functions as g
 
 The work closest to ours comes from within the Decidim project itself. \citet[p.~68]{barandiaran2024decidim} write that ``Decidim must take into account the democratic implications of any technical decision.'' \citet{palacin2024configurations} studied how Decidim's modularity translates into 25 distinct configurations across 31 participatory budgeting cases, asking ``which political values should be enforced by platform design?'' But neither performs formal software architecture analysis. The Plurality framework \citep{weyl2025plurality}, which defines democratic technology as ``technology for collaboration across social difference,'' offers normative vocabulary but no grounding in architectural methods.
 
-Our contribution is to apply the architecture-as-governance insight using software architecture and SECO methods to civic technology --- a domain where this combination has not been tried. The mappings we propose --- modifiability enabling pluralism, transparency enabling legitimacy, interoperability enabling collaboration, deployability enabling access --- are informed by this literature and examined against architectural evidence. These are reasoned arguments based on architectural evidence, not proven cause-and-effect relationships. Our evidence shows that certain architectures \emph{make it possible} for democratic outcomes to happen (e.g., modularity makes it possible for diverse communities to adapt the platform), but we cannot prove from code analysis alone that these outcomes actually happened in every case. Proving that would require field studies and interviews with deployers, which is beyond this paper's scope.
+Our contribution is to apply architecture-as-governance using software architecture and SECO methods in civic technology --- a combination that has not been tried. We map quality attributes to democratic outcomes: modifiability to pluralism, transparency to legitimacy, interoperability to collaboration, deployability to access. These mappings are reasoned arguments, not proven causal links. Our architectural evidence shows that certain designs \emph{make it possible} for democratic outcomes to happen --- for instance, modularity lets diverse communities adapt the platform --- but proving that these outcomes actually materialized in every deployment would require field studies beyond this paper's scope.
 
 
 % ============================================================
@@ -199,71 +239,62 @@ The dependency structure forms a hub-and-spoke pattern. Every engine declares \t
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-  core/.style={rectangle, rounded corners=3pt, draw=black, line width=1.2pt, fill=black, text=white, font=\footnotesize\bfseries\sffamily, minimum width=2.6cm, minimum height=0.7cm},
-  infra/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=2cm, minimum height=0.55cm},
-  space/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=gray!10, font=\scriptsize\bfseries\sffamily, minimum width=2cm, minimum height=0.55cm},
-  comp/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=1.7cm, minimum height=0.55cm},
-  depline/.style={->, >=stealth, thin, black!40},
+  core/.style={rectangle, rounded corners=3pt, draw=black, line width=1.2pt, fill=black, text=white, font=\small\bfseries\sffamily, minimum width=3cm, minimum height=0.8cm},
+  infra/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=1.8cm, minimum height=0.5cm},
+  space/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=gray!12, font=\scriptsize\bfseries\sffamily, minimum width=1.8cm, minimum height=0.5cm},
+  comp/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=1.5cm, minimum height=0.5cm},
+  layerbox/.style={draw=black!15, rounded corners=5pt, fill=gray!4, inner sep=8pt},
+  layerlabel/.style={font=\tiny\sffamily\bfseries, black!45},
 ]
 
-% Core
-\node[core] (core) at (0,0) {decidim-core};
+% === Layer 0: Core ===
+\node[core] (core) at (0, 0) {decidim-core};
+\node[layerlabel, right] at (4.5, 0) {LAYER 0};
 
-% Infrastructure (Layer 1) — left
-\node[infra] (admin) at (-3.2, 0.7) {admin};
-\node[infra] (system) at (-3.2, 0) {system};
-\node[infra] (api) at (-3.2, -0.7) {api};
+% === Layer 1: Infrastructure ===
+\node[infra] (admin) at (-3.5, 1.8) {admin};
+\node[infra] (system) at (-1.8, 1.8) {system};
+\node[infra] (api) at (0, 1.8) {api};
+\node[infra] (verif) at (1.8, 1.8) {verifications};
+\node[infra] (forms) at (3.5, 1.8) {forms};
+\node[infra] (comments) at (5.2, 1.8) {comments};
+\node[layerlabel, right] at (4.5, 2.5) {LAYER 1};
 
-% Infrastructure (Layer 1) — right
-\node[infra] (verif) at (3.2, 0.7) {verifications};
-\node[infra] (forms) at (3.2, 0) {forms};
-\node[infra] (comments) at (3.2, -0.7) {comments};
+% === Layer 2: Spaces ===
+\node[space] (proc) at (-2.8, 3.6) {processes};
+\node[space] (assem) at (-0.7, 3.6) {assemblies};
+\node[space] (conf) at (1.4, 3.6) {conferences};
+\node[space] (init) at (3.5, 3.6) {initiatives};
 
-% Spaces (Layer 2) — top
-\node[space] (proc) at (-3.6, 2.4) {processes};
-\node[space] (assem) at (-1.2, 2.4) {assemblies};
-\node[space] (conf) at (1.2, 2.4) {conferences};
-\node[space] (init) at (3.6, 2.4) {initiatives};
+% === Layer 2: Components ===
+\node[comp] (prop) at (-4.5, 4.6) {proposals};
+\node[comp] (meet) at (-3, 4.6) {meetings};
+\node[comp] (budg) at (-1.5, 4.6) {budgets};
+\node[comp] (surv) at (0, 4.6) {surveys};
+\node[comp] (deb) at (1.5, 4.6) {debates};
+\node[comp] (blog) at (3, 4.6) {blogs};
+\node[comp] (acc) at (-2.2, 5.5) {accountability};
+\node[comp] (pages) at (0, 5.5) {pages};
+\node[comp] (sort) at (2.2, 5.5) {sortitions};
+\node[layerlabel, right] at (4.5, 4.6) {LAYER 2};
 
-% Components (Layer 2) — bottom row 1
-\node[comp] (prop) at (-4.2, -2.2) {proposals};
-\node[comp] (meet) at (-2.5, -2.2) {meetings};
-\node[comp] (budg) at (-0.8, -2.2) {budgets};
-\node[comp] (surv) at (0.8, -2.2) {surveys};
-\node[comp] (deb) at (2.5, -2.2) {debates};
-\node[comp] (blog) at (4.2, -2.2) {blogs};
-
-% Components — bottom row 2
-\node[comp] (acc) at (-2.5, -3.1) {accountability};
-\node[comp] (pages) at (-0.2, -3.1) {pages};
-\node[comp] (sort) at (2.2, -3.1) {sortitions};
-
-% Dependency lines — infra to core
-\foreach \n in {admin, system, api, verif, forms, comments}
-  \draw[depline] (\n) -- (core);
-
-% Dependency lines — spaces to core
-\foreach \n in {proc, assem, conf, init}
-  \draw[depline] (\n) -- (core);
-
-% Dependency lines — components to core
-\foreach \n in {prop, meet, budg, surv, deb, blog, acc, pages, sort}
-  \draw[depline] (\n) -- (core);
-
-% Layer labels
+% === Background layers ===
 \begin{scope}[on background layer]
-  \node[fit=(admin)(system)(api)(verif)(forms)(comments), inner sep=8pt, fill=gray!8, rounded corners=4pt] {};
+  \node[layerbox, fit=(admin)(system)(api)(verif)(forms)(comments)] {};
+  \node[layerbox, fit=(proc)(assem)(conf)(init)(prop)(meet)(budg)(surv)(deb)(blog)(acc)(pages)(sort), inner sep=10pt] {};
 \end{scope}
-\node[font=\tiny\sffamily, black!50] at (0, 1.35) {\textit{Layer 1 --- Infrastructure}};
-\node[font=\tiny\sffamily, black!50] at (0, 0.45) {\textit{Layer 0}};
 
-% Legend
-\node[font=\tiny\sffamily, anchor=west] at (-4.5, -3.9) {%
-  \tikz[baseline=-0.5ex]{\node[space, minimum width=0.6cm, minimum height=0.25cm, font=\tiny] {};}~Spaces
+% === Dependency arrows (all point DOWN to core) ===
+% Use a single thick bar to represent "all depend on core" instead of 19 arrows
+\draw[black!25, line width=4pt, rounded corners=2pt] (-4.5, 0.9) -- (5.2, 0.9);
+\draw[->, >=stealth, black!40, line width=1pt] (0, 0.9) -- (0, 0.45);
+\node[font=\tiny\sffamily, black!40, anchor=west] at (0.3, 0.65) {all engines depend on core};
+
+% === Legend ===
+\node[font=\tiny\sffamily, anchor=west] at (-4.5, -0.8) {%
+  \tikz[baseline=-0.5ex]{\node[space, minimum width=0.5cm, minimum height=0.2cm, font=\tiny] {};}~Participatory spaces
   \quad
-  \tikz[baseline=-0.5ex]{\node[comp, minimum width=0.6cm, minimum height=0.25cm, font=\tiny] {};}~Components
-  \quad
-  \tikz[baseline=-0.5ex]{\draw[->, >=stealth, thin, black!40] (0,0) -- (0.5,0);}~depends on core
+  \tikz[baseline=-0.5ex]{\node[comp, minimum width=0.5cm, minimum height=0.2cm, font=\tiny] {};}~Components \& infrastructure
 };
 
 \end{tikzpicture}
@@ -474,7 +505,7 @@ The architecture-as-governance thesis is well established --- from \citet{winner
 
 Decidim's modular architecture did not just make the code flexible --- it made it possible for diverse communities to shape the platform without needing permission from the core team. Any organization can build a module, publish it as a gem, and have it work alongside the official engines. This resembles what \citet{schneider2021modular} call ``modular politics'' --- composable governance primitives implemented as software. Schneider et al.\ envision governance rules that can be mixed and matched; Decidim achieves something analogous at the participation-design level, where spaces and components can be combined freely. The parallel is architectural, not exact --- Decidim's modules are participation features, not governance rules per se. Consul's monolith, by contrast, concentrated decision-making. If you wanted to change how the platform works, you either convinced the Madrid team or you forked. In practice, most deployers forked, and the changes stayed local. \citet{schneider2024governable} argues that platform defaults encode governance --- Consul's defaults encoded centralization, even though nobody intended it.
 
-Polis shows a different version of the same pattern. The PCA + k-means algorithm is a decision about what counts as consensus. It is not technically wrong --- it is a reasonable approach to finding common ground in large groups. But it is also not neutral. It makes certain kinds of agreement visible (clusters that converge on bridging statements) and other kinds invisible (minority positions that do not form clean clusters). As \citet{bowker1999sorting} argue, classification systems are political because every category privileges one view and silences another. The same is true for dimensionality reduction on opinion space.
+Polis shows a different version of the same pattern. The PCA + k-means algorithm is a decision about what counts as consensus. It is not technically wrong --- it is a reasonable approach to finding common ground in large groups. But it is also not neutral. It makes certain kinds of agreement visible (clusters that converge on bridging statements) and other kinds invisible (minority positions that do not form clean clusters). As \citet{bowker1999sorting} argue, classification systems are political because every category privileges one view and silences another. Dimensionality reduction on opinion space is a classification system: PCA decides which axes of disagreement matter most, and k-means decides where the boundaries between groups fall. Opinions that do not align with the principal components get compressed away --- they are still there in the raw data, but invisible in the output that decision-makers see.
 
 This extends the SECO literature into new territory. \citet{christensen2014analysis} describe how software structure shapes organizational and business structures. Our cases show that this relationship is especially strong in civic tech, where the political consequences of architectural choices are explicit. The Decidim/Consul divergence is the clearest example: the same starting point, the same political movement, but opposite architectural decisions produced radically different ecosystems. This parallels what \citet{noori2025patterns} find in open-source projects more broadly --- that governance transitions are constrained by early architectural choices. Civic tech is no different, except that the stakes are democratic rather than commercial.
 
@@ -494,7 +525,7 @@ Our findings suggest several concrete principles. First, democratic DPI needs mo
 
 \subsection{Evaluating the Approach}\label{sec:evaluation}
 
-Applying software architecture and SECO methods to civic tech revealed both strengths and limitations of the approach, which are worth reflecting on.
+Applying software architecture and SECO methods to civic tech revealed both strengths and limitations of the approach.
 
 The framework worked best where architectural decisions had clearly documented consequences. The Decidim/Consul divergence is the strongest case precisely because the causal chain is traceable: a proposed modularization was rejected, a fork happened, different architectures were built, and different ecosystem outcomes followed. This is the kind of evidence that architectural analysis is designed to handle. But the causal claim should be qualified. The divergence between Decidim and Consul was not only architectural --- it was also organizational and political. Barcelona and Madrid had different governance cultures, different levels of institutional support, and different political trajectories (Madrid's Ahora Madrid government lost power in 2019, which weakened Consul's institutional backing). The architecture mattered, but it was not the only factor. Disentangling architectural from organizational causes would require interview-based research that was beyond this study's scope.
 
@@ -514,7 +545,7 @@ This paper asked what software architecture trade-offs builders of democratic di
 
 These are not abstract observations. If Copenhagen, or any European city, wanted to build democratic participation infrastructure tomorrow, these are the trade-offs they would face. A decade of civic tech experience shows what happens when you navigate them in one direction versus another.
 
-The architecture-as-governance thesis is well established in STS, law, and platform studies \citep{winner1980artifacts, lessig2006code, schneider2024governable}. This paper shows what it looks like in practice when applied to civic technology through software architecture and SECO methods. The Decidim/Consul divergence --- same origin, opposite architecture, radically different ecosystem outcomes --- is the clearest demonstration. This finding connects software architecture research to the emerging European conversation about democratic digital public infrastructure. It also enriches SECO research with a normative dimension: the health of a civic tech ecosystem should be evaluated not just by productivity and robustness, but by whether the architecture actually supports the democratic values it claims to serve.
+The architecture-as-governance thesis is well established in STS, law, and platform studies \citep{winner1980artifacts, lessig2006code, schneider2024governable}. This paper shows what it looks like in practice when applied to civic technology through software architecture and SECO methods. The Decidim/Consul divergence --- same origin, opposite architecture, radically different ecosystem outcomes --- is the clearest demonstration. For European policymakers debating democratic digital public infrastructure, this means that architecture is not a procurement detail --- it is a governance choice. And for SECO research, it means that ecosystem health metrics need a normative layer: not just ``is the ecosystem growing?'' but ``does the architecture actually support the democratic values it claims to serve?''
 
 \paragraph{Returning to Denmark.}
 Borgerforslag.dk made every trade-off in the direction of simplicity: closed-source, single-purpose, no ecosystem. That works for a petition tool. But if Denmark wants participation infrastructure that lets diverse communities deliberate, adapt, and govern, the architectural lessons from a decade of civic tech suggest very different choices would be needed. The architecture is not a technical detail to be decided in procurement. It is the democratic decision.

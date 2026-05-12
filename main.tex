@@ -49,7 +49,7 @@
 \newgeometry{margin=3cm}
 
 \begin{flushleft}
-\includegraphics[width=3.2cm]{itu_logo.png}
+\includegraphics[width=3.2cm]{figures/itu_logo.png}
 \end{flushleft}
 
 \vspace{1.2cm}
@@ -133,12 +133,12 @@ Software architecture is ``the set of structures needed to reason about a system
 
 This paper focuses on four quality attributes that are especially important for democratic infrastructure. \emph{Modifiability} is how easily a system can be changed. In democratic infrastructure, it matters because communities with different institutional rules, languages, and participatory traditions need to adapt the platform without hard forking the codebase --- if they cannot, the platform can only accommodate one way of doing things, which limits how many different communities can use it meaningfully. \emph{Interoperability} is how well a system can exchange data and services with others. It determines whether a platform can work with other democratic tools or stays isolated. \emph{Deployability} is how easily new organizations can adopt and run the platform. A platform that requires a lot of technical expertise to deploy will in practice only be available to well-resourced institutions --- so deployability determines who gets to participate. \emph{Transparency} or auditability does not appear in Bass et al.'s standard taxonomy but is essential here. Citizens need to understand what the system does and how it handles their input. A participatory budgeting platform with opaque vote-counting logic undermines the democratic purpose it is supposed to serve.
 
-These attributes pull against each other --- modifiability risks fragmentation, interoperability can exclude, deployability limits adaptation. Figure~\ref{fig:tradeoffs} maps these tensions with case examples. They are design trade-offs, not problems to solve; \citet{heeks2025three} identify similar tensions at the policy level. The architectural lens makes them concrete: they show up in module boundaries, APIs, and deployment pipelines.
+These attributes pull against each other --- modifiability risks fragmentation, interoperability can exclude, deployability limits adaptation. Figure~\ref{fig:tradeoffs} positions the three cases on two of these attributes and previews the trade-off pattern that the analysis develops in full. They are design trade-offs, not problems to solve; \citet{heeks2025three} identify similar tensions at the policy level. The architectural lens makes them concrete: they show up in module boundaries, APIs, and deployment pipelines.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{tensions.pdf}
-\caption{Three architectural tensions in democratic infrastructure. Each row shows a trade-off between competing quality attributes, with the democratic value each enables and a case example.}
+\includegraphics[width=0.85\textwidth]{figures/tensions.pdf}
+\caption{Decidim, Consul, and Polis positioned on two competing quality attributes. Modifiability and deployability are shown here because they separate the three cases most cleanly; the other trade-offs --- which do not all reduce to the same diagonal --- are summarised in Table~\ref{tab:tradeoffs}. Consul sits inside the frontier --- neither modular nor especially easy to deploy --- which previews the fork-fragmentation problem analysed in Section~\ref{sec:consul}.}
 \label{fig:tradeoffs}
 \end{figure}
 

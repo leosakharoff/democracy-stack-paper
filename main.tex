@@ -146,40 +146,38 @@ Figure~\ref{fig:tradeoffs} visualizes these tensions. They are not problems to s
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
-  qa/.style={rectangle, rounded corners=3pt, draw=black, line width=0.8pt, fill=white, font=\small\bfseries\sffamily, minimum width=2.8cm, minimum height=0.8cm, align=center},
-  cost/.style={font=\scriptsize\sffamily, text=black!60, align=center},
-  dem/.style={font=\scriptsize\sffamily\itshape, align=center},
-  tensionline/.style={<->, >=stealth, black!30, line width=0.6pt},
+  qa/.style={rectangle, rounded corners=3pt, draw=black, line width=0.8pt, fill=white, font=\small\bfseries\sffamily, minimum width=2.6cm, minimum height=0.7cm, align=center},
+  dem/.style={font=\scriptsize\sffamily\itshape, align=center, text=black!70},
+  tension/.style={font=\scriptsize\sffamily, text=black!50, align=center},
+  tensionline/.style={<->, >=stealth, black!35, line width=0.6pt},
 ]
 
-% Four QA nodes in a diamond
-\node[qa] (mod) at (0, 2.2) {Modifiability};
-\node[qa] (int) at (4, 2.2) {Interoperability};
-\node[qa] (dep) at (0, -0.2) {Deployability};
-\node[qa] (tra) at (4, -0.2) {Transparency};
+% Row 1: Modifiability <-> Coherence
+\node[qa] (mod) at (0, 0) {Modifiability};
+\node[dem, left=0.3cm of mod] {pluralism};
+\node[qa] (coh) at (7, 0) {Coherence};
+\node[dem, right=0.3cm of coh] {ecosystem unity};
+\draw[tensionline] (mod.east) -- node[tension, above=2pt] {too easy to modify $\rightarrow$ ecosystem fragments} (coh.west);
+\node[tension, below=3pt] at (3.5, -0.35) {\emph{Consul: 250 diverging forks}};
 
-% Democratic benefits (above/below)
-\node[dem] at (0, 3.1) {enables pluralism};
-\node[dem] at (4, 3.1) {enables collaboration};
-\node[dem] at (0, -1.1) {enables access};
-\node[dem] at (4, -1.1) {enables trust};
+% Row 2: Interoperability <-> Autonomy
+\node[qa] (int) at (0, -2) {Interoperability};
+\node[dem, left=0.3cm of int] {collaboration};
+\node[qa] (aut) at (7, -2) {Autonomy};
+\node[dem, right=0.3cm of aut] {local control};
+\draw[tensionline] (int.east) -- node[tension, above=2pt] {shared standards can exclude non-fitting practices} (aut.west);
+\node[tension, below=3pt] at (3.5, -2.35) {\emph{Decidim: spaces model fits some workflows, not all}};
 
-% Tension lines with labels
-\draw[tensionline] (mod.south) -- node[cost, right=2pt] {vs.} (dep.north);
-\draw[tensionline] (int.south) -- node[cost, right=2pt] {vs.} (tra.north);
-\draw[tensionline] (mod.east) -- node[cost, above=2pt] {vs.} (int.west);
-\draw[tensionline] (dep.east) -- node[cost, above=2pt] {vs.} (tra.west);
-
-% Diagonal tensions
-\draw[tensionline, dashed] (mod.south east) -- (tra.north west);
-\draw[tensionline, dashed] (int.south west) -- (dep.north east);
-
-% Cost labels on sides
-\node[cost] at (-2.2, 1) {coherence\\risk};
-\node[cost] at (6.2, 1) {opacity\\risk};
+% Row 3: Deployability <-> Customizability
+\node[qa] (dep) at (0, -4) {Deployability};
+\node[dem, left=0.3cm of dep] {access};
+\node[qa] (cus) at (7, -4) {Customizability};
+\node[dem, right=0.3cm of cus] {local adaptation};
+\draw[tensionline] (dep.east) -- node[tension, above=2pt] {easier to deploy $\rightarrow$ fewer options to adapt} (cus.west);
+\node[tension, below=3pt] at (3.5, -4.35) {\emph{Polis: easy to deploy, impossible to extend}};
 
 \end{tikzpicture}
-\caption{The four quality attributes for democratic infrastructure and their tensions. Each attribute enables a democratic benefit but pulls against others. Solid lines show direct tensions; dashed lines show cross-tensions.}
+\caption{Three architectural tensions in democratic infrastructure. Each row shows a trade-off between competing quality attributes, with a case example illustrating where each tension is most visible.}
 \label{fig:tradeoffs}
 \end{figure}
 
@@ -189,15 +187,15 @@ A software ecosystem (SECO) is ``the interaction of a set of actors on top of a 
 
 \citet{christensen2014analysis} propose that ecosystems can be analyzed through three structures: \emph{organizational} (who is involved and how they relate), \emph{business} (how value and money flow), and \emph{software} (the technical platform and how it can be extended). In commercial ecosystems like app stores, the business structure usually dominates --- Apple's revenue model shapes what apps get built and who builds them. We hypothesize that in civic tech ecosystems, it works differently: the software structure shapes the other two. Technical decisions about modularity and APIs determine which organizations can participate and on what terms. This is not a universal law --- Christensen et al.\ do not claim any fixed ordering between the structures --- but it is a pattern we observe across all three cases and examine in the analysis (see Table~\ref{tab:threestructure}).
 
-Ecosystem health is a framework for evaluating whether an ecosystem works well. \citet{jansen2014measuring} identifies three dimensions: productivity (how fast the ecosystem generates new functionality), robustness (whether it can survive disruptions, including the loss of key actors), and niche creation (whether it supports diversity by letting new actors find roles). These dimensions connect to democratic values in interesting ways. Niche creation, for example, relates to the concern that diverse communities should have space for meaningful participation. But this connection has not been explored systematically. \citet{iansiti2004strategy} classify ecosystem actors into three roles: keystones (who create value by sharing assets and enabling others), dominators (who capture most of the value), and niche creators (who specialize in narrow segments). These roles map onto civic tech in ways we examine in the analysis: Decidim's technical office operates as a keystone (maintaining shared infrastructure while enabling independent module development), while Consul's Madrid team functioned more as a dominator (controlling the codebase without mechanisms for external contribution).
+\citet{iansiti2004strategy} classify ecosystem actors into roles: keystones create value by sharing assets and enabling others, dominators capture most of the value, and niche creators specialize in narrow segments. These roles map onto civic tech in ways we examine in the analysis: Decidim's technical office operates as a keystone (maintaining shared infrastructure while enabling independent module development), while Consul's Madrid team functioned more as a dominator (controlling the codebase without mechanisms for external contribution). We also draw on ecosystem health dimensions --- productivity, robustness, niche creation \citep{jansen2014measuring} --- as qualitative lenses in the discussion (Section~\ref{sec:disc-seco}).
 
-Despite the clear relevance of ecosystem thinking to civic technology, there is a gap in the literature. Manikas's \citeyearpar{manikas2016revisiting} systematic review covered 231 studies on software ecosystems and found none that looked at commons-based, civic, or democratic platforms. While nearly a decade has passed since that review, we have not found subsequent SECO studies that fill this gap. The ecosystems studied were almost all commercial: app stores, enterprise platforms, proprietary developer ecosystems. \citet{knutas2020local} recognized this gap and proposed applying the OSSECO (open-source software ecosystem) framework to civic tech, but the empirical work was never done. More recently, \citet{noori2025patterns} have studied governance transitions in open-source projects --- the shift from founder-led to community governance --- which is directly relevant to how civic tech platforms mature. Still, the intersection of SECO analysis and democratic digital infrastructure is mostly unexplored. This paper begins to fill that gap.
+Despite the clear relevance of ecosystem thinking to civic technology, there is a gap in the literature. Manikas's \citeyearpar{manikas2016revisiting} systematic review covered 231 studies on software ecosystems and found none that looked at commons-based, civic, or democratic platforms. While nearly a decade has passed since that review, we have not found subsequent SECO studies that fill this gap. The ecosystems studied were almost all commercial: app stores, enterprise platforms, proprietary developer ecosystems. \citet{knutas2020local} recognized this gap and proposed applying the OSSECO (open-source software ecosystem) framework to civic tech, but the empirical work was never done. The intersection of SECO analysis and democratic digital infrastructure remains mostly unexplored. This paper begins to fill that gap.
 
 \subsection{Architecture as Governance: Applying the Thesis to Civic Tech}\label{sec:arch-gov}
 
 As introduced in Section~\ref{sec:sa}, the idea that architecture functions as governance is well established --- from \citet{winner1980artifacts} through \citet{lessig2006code} to \citet{schneider2024governable}. But this literature has focused mostly on online communities (Reddit, Discord, DAOs) and internet infrastructure, not on civic technology platforms used by public institutions.
 
-The work closest to ours comes from within the Decidim project itself. \citet[p.~68]{barandiaran2024decidim} write that ``Decidim must take into account the democratic implications of any technical decision.'' \citet{palacin2024configurations} studied how Decidim's modularity translates into 25 distinct configurations across 31 participatory budgeting cases, asking ``which political values should be enforced by platform design?'' But neither performs formal software architecture analysis. The Plurality framework \citep{weyl2025plurality}, which defines democratic technology as ``technology for collaboration across social difference,'' offers normative vocabulary but no grounding in architectural methods.
+The work closest to ours comes from within the Decidim project itself. \citet[p.~68]{barandiaran2024decidim} write that ``Decidim must take into account the democratic implications of any technical decision.'' \citet{palacin2024configurations} studied how Decidim's modularity translates into 25 distinct configurations across 31 participatory budgeting cases, asking ``which political values should be enforced by platform design?'' But neither performs formal software architecture analysis.
 
 Our contribution is to apply architecture-as-governance using software architecture and SECO methods in civic technology --- a combination that has not been tried. We map quality attributes to democratic outcomes: modifiability to pluralism, transparency to legitimacy, interoperability to collaboration, deployability to access. These mappings are reasoned arguments, not proven causal links. Our architectural evidence shows that certain designs \emph{make it possible} for democratic outcomes to happen --- for instance, modularity lets diverse communities adapt the platform --- but proving that these outcomes actually materialized in every deployment would require field studies beyond this paper's scope.
 

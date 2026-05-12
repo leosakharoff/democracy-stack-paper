@@ -137,42 +137,7 @@ These attributes pull against each other --- modifiability risks fragmentation, 
 
 \begin{figure}[ht]
 \centering
-\begin{tikzpicture}[
-  qa/.style={rectangle, rounded corners=3pt, draw=black, line width=0.8pt, fill=white, font=\small\bfseries\sffamily, minimum width=2.8cm, minimum height=0.8cm, align=center},
-  dem/.style={font=\scriptsize\sffamily\itshape, text=black!60},
-  tensdesc/.style={font=\scriptsize\sffamily, text=black!50, align=center},
-  caseex/.style={font=\scriptsize\sffamily\itshape, text=black!40, align=center},
-  tensionline/.style={<->, >=stealth, black!30, line width=0.5pt},
-]
-
-% --- Row 1: Modifiability <-> Coherence ---
-\node[qa] (mod) at (0, 0) {Modifiability};
-\node[qa] (coh) at (8, 0) {Coherence};
-\node[tensdesc] at (4, 0.5) {easy to modify $\rightarrow$ fragmentation};
-\draw[tensionline] (mod.east) -- (coh.west);
-\node[caseex] at (4, -0.5) {Consul: 250 diverging forks};
-\node[dem] at (-0.0, -0.65) {pluralism};
-\node[dem] at (8.0, -0.65) {ecosystem unity};
-
-% --- Row 2: Interoperability <-> Autonomy ---
-\node[qa] (int) at (0, -2.8) {Interoperability};
-\node[qa] (aut) at (8, -2.8) {Autonomy};
-\node[tensdesc] at (4, -2.3) {shared standards can exclude};
-\draw[tensionline] (int.east) -- (aut.west);
-\node[caseex] at (4, -3.3) {Decidim: spaces model fits some workflows, not all};
-\node[dem] at (-0.0, -3.45) {collaboration};
-\node[dem] at (8.0, -3.45) {local control};
-
-% --- Row 3: Deployability <-> Customizability ---
-\node[qa] (dep) at (0, -5.6) {Deployability};
-\node[qa] (cus) at (8, -5.6) {Customizability};
-\node[tensdesc] at (4, -5.1) {easy to deploy $\rightarrow$ fewer options};
-\draw[tensionline] (dep.east) -- (cus.west);
-\node[caseex] at (4, -6.1) {Polis: easy to deploy, impossible to extend};
-\node[dem] at (-0.0, -6.25) {access};
-\node[dem] at (8.0, -6.25) {local adaptation};
-
-\end{tikzpicture}
+\includegraphics[width=\textwidth]{tensions.pdf}
 \caption{Three architectural tensions in democratic infrastructure. Each row shows a trade-off between competing quality attributes, with the democratic value each enables and a case example.}
 \label{fig:tradeoffs}
 \end{figure}

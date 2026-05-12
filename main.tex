@@ -148,7 +148,7 @@ Figure~\ref{fig:tradeoffs} visualizes these tensions. They are not problems to s
 \begin{tikzpicture}[
   qa/.style={rectangle, rounded corners=3pt, draw=black, line width=0.8pt, fill=white, font=\small\bfseries\sffamily, minimum width=2.6cm, minimum height=0.7cm, align=center},
   dem/.style={font=\scriptsize\sffamily\itshape, align=center, text=black!70},
-  tension/.style={font=\scriptsize\sffamily, text=black!50, align=center},
+  tenslabel/.style={font=\scriptsize\sffamily, text=black!50, align=center},
   tensionline/.style={<->, >=stealth, black!35, line width=0.6pt},
 ]
 
@@ -157,24 +157,24 @@ Figure~\ref{fig:tradeoffs} visualizes these tensions. They are not problems to s
 \node[dem, left=0.3cm of mod] {pluralism};
 \node[qa] (coh) at (7, 0) {Coherence};
 \node[dem, right=0.3cm of coh] {ecosystem unity};
-\draw[tensionline] (mod.east) -- node[tension, above=2pt] {too easy to modify $\rightarrow$ ecosystem fragments} (coh.west);
-\node[tension, below=3pt] at (3.5, -0.35) {\emph{Consul: 250 diverging forks}};
+\draw[tensionline] (mod.east) -- node[tenslabel, above=2pt] {too easy to modify $\rightarrow$ ecosystem fragments} (coh.west);
+\node[tenslabel, below=3pt] at (3.5, -0.35) {\emph{Consul: 250 diverging forks}};
 
 % Row 2: Interoperability <-> Autonomy
 \node[qa] (int) at (0, -2) {Interoperability};
 \node[dem, left=0.3cm of int] {collaboration};
 \node[qa] (aut) at (7, -2) {Autonomy};
 \node[dem, right=0.3cm of aut] {local control};
-\draw[tensionline] (int.east) -- node[tension, above=2pt] {shared standards can exclude non-fitting practices} (aut.west);
-\node[tension, below=3pt] at (3.5, -2.35) {\emph{Decidim: spaces model fits some workflows, not all}};
+\draw[tensionline] (int.east) -- node[tenslabel, above=2pt] {shared standards can exclude non-fitting practices} (aut.west);
+\node[tenslabel, below=3pt] at (3.5, -2.35) {\emph{Decidim: spaces model fits some workflows, not all}};
 
 % Row 3: Deployability <-> Customizability
 \node[qa] (dep) at (0, -4) {Deployability};
 \node[dem, left=0.3cm of dep] {access};
 \node[qa] (cus) at (7, -4) {Customizability};
 \node[dem, right=0.3cm of cus] {local adaptation};
-\draw[tensionline] (dep.east) -- node[tension, above=2pt] {easier to deploy $\rightarrow$ fewer options to adapt} (cus.west);
-\node[tension, below=3pt] at (3.5, -4.35) {\emph{Polis: easy to deploy, impossible to extend}};
+\draw[tensionline] (dep.east) -- node[tenslabel, above=2pt] {easier to deploy $\rightarrow$ fewer options to adapt} (cus.west);
+\node[tenslabel, below=3pt] at (3.5, -4.35) {\emph{Polis: easy to deploy, impossible to extend}};
 
 \end{tikzpicture}
 \caption{Three architectural tensions in democratic infrastructure. Each row shows a trade-off between competing quality attributes, with a case example illustrating where each tension is most visible.}

@@ -1,0 +1,678 @@
+{
+  "snapshot": {
+    "repo": "decidim/decidim",
+    "sha": "be39c244035485e2eba7181252aea487f5897cef",
+    "date": "2026-05-12 15:05:37 +0200"
+  },
+  "engine_count": 27,
+  "engines": [
+    {
+      "name": "decidim-accountability",
+      "short": "accountability",
+      "gemspec_path": "decidim-accountability/decidim-accountability.gemspec",
+      "runtime_deps_internal": [
+        "decidim-comments",
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-assemblies",
+        "decidim-comments",
+        "decidim-dev",
+        "decidim-meetings",
+        "decidim-participatory_processes",
+        "decidim-proposals"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-admin",
+      "short": "admin",
+      "gemspec_path": "decidim-admin/decidim-admin.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [
+        "active_link_to",
+        "devise",
+        "devise-i18n",
+        "devise_invitable"
+      ],
+      "dev_deps_internal": [
+        "decidim-dev",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-ai",
+      "short": "ai",
+      "gemspec_path": "decidim-ai/decidim-ai.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [
+        "classifier-reborn"
+      ],
+      "dev_deps_internal": [
+        "decidim-debates",
+        "decidim-initiatives",
+        "decidim-meetings",
+        "decidim-proposals"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-api",
+      "short": "api",
+      "gemspec_path": "decidim-api/decidim-api.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [
+        "devise-jwt",
+        "graphql",
+        "graphql-docs",
+        "rack-cors"
+      ],
+      "dev_deps_internal": [
+        "decidim-assemblies",
+        "decidim-comments",
+        "decidim-dev",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-assemblies",
+      "short": "assemblies",
+      "gemspec_path": "decidim-assemblies/decidim-assemblies.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev",
+        "decidim-meetings",
+        "decidim-proposals"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-blogs",
+      "short": "blogs",
+      "gemspec_path": "decidim-blogs/decidim-blogs.gemspec",
+      "runtime_deps_internal": [
+        "decidim-admin",
+        "decidim-comments",
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-assemblies",
+        "decidim-dev",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-budgets",
+      "short": "budgets",
+      "gemspec_path": "decidim-budgets/decidim-budgets.gemspec",
+      "runtime_deps_internal": [
+        "decidim-comments",
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev",
+        "decidim-proposals"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-collaborative_texts",
+      "short": "collaborative_texts",
+      "gemspec_path": "decidim-collaborative_texts/decidim-collaborative_texts.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-comments",
+      "short": "comments",
+      "gemspec_path": "decidim-comments/decidim-comments.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [
+        "redcarpet"
+      ],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-conferences",
+      "short": "conferences",
+      "gemspec_path": "decidim-conferences/decidim-conferences.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core",
+        "decidim-meetings"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-core",
+      "short": "core",
+      "gemspec_path": "decidim-core/decidim-core.gemspec",
+      "runtime_deps_internal": [],
+      "runtime_deps_external": [
+        "concurrent-ruby",
+        "active_link_to",
+        "acts_as_list",
+        "batch-loader",
+        "browser",
+        "cells-erb",
+        "cells-rails",
+        "charlock_holmes",
+        "chartkick",
+        "connection_pool",
+        "data_migrate",
+        "date_validator",
+        "devise",
+        "devise-i18n",
+        "diffy",
+        "doorkeeper",
+        "doorkeeper-i18n",
+        "file_validators",
+        "fog-local",
+        "geocoder",
+        "hashdiff",
+        "hexapdf",
+        "image_processing",
+        "invisible_captcha",
+        "kaminari",
+        "loofah",
+        "mime-types",
+        "net-smtp",
+        "nokogiri",
+        "omniauth",
+        "omniauth-facebook",
+        "omniauth-google-oauth2",
+        "omniauth-rails_csrf_protection",
+        "omniauth-twitter",
+        "paper_trail",
+        "paranoia",
+        "pg",
+        "pg_search",
+        "premailer-rails",
+        "rack",
+        "rack-attack",
+        "rails",
+        "rails-i18n",
+        "ransack",
+        "redis",
+        "request_store",
+        "rqrcode",
+        "ruby-vips",
+        "rubyXL",
+        "rubyzip",
+        "shakapacker",
+        "valid_email2",
+        "web-push",
+        "wisper"
+      ],
+      "dev_deps_internal": [
+        "decidim-api",
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-debates",
+      "short": "debates",
+      "gemspec_path": "decidim-debates/decidim-debates.gemspec",
+      "runtime_deps_internal": [
+        "decidim-comments",
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-assemblies",
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-demographics",
+      "short": "demographics",
+      "gemspec_path": "decidim-demographics/decidim-demographics.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core",
+        "decidim-forms"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-design",
+      "short": "design",
+      "gemspec_path": "decidim-design/decidim-design.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-accountability",
+        "decidim-assemblies",
+        "decidim-blogs",
+        "decidim-budgets",
+        "decidim-conferences",
+        "decidim-debates",
+        "decidim-dev",
+        "decidim-initiatives",
+        "decidim-meetings",
+        "decidim-participatory_processes",
+        "decidim-proposals"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-dev",
+      "short": "dev",
+      "gemspec_path": "decidim-dev/decidim-dev.gemspec",
+      "runtime_deps_internal": [
+        "decidim-admin",
+        "decidim-api",
+        "decidim-comments",
+        "decidim-core",
+        "decidim-generators",
+        "decidim-verifications"
+      ],
+      "runtime_deps_external": [
+        "capybara",
+        "factory_bot_rails",
+        "faker",
+        "bullet",
+        "byebug",
+        "erb_lint",
+        "i18n-tasks",
+        "nokogiri",
+        "parallel_tests",
+        "puma",
+        "rails-controller-testing",
+        "rspec",
+        "rspec-cells",
+        "rspec-html-matchers",
+        "rspec_junit_formatter",
+        "rspec-rails",
+        "rspec-retry",
+        "rubocop",
+        "rubocop-capybara",
+        "rubocop-factory_bot",
+        "rubocop-faker",
+        "rubocop-graphql",
+        "rubocop-performance",
+        "rubocop-rails",
+        "rubocop-rspec",
+        "rubocop-rspec_rails",
+        "rubocop-rubycw",
+        "rubocop-yard",
+        "selenium-webdriver",
+        "simplecov",
+        "simplecov-cobertura",
+        "spring",
+        "spring-watcher-listen",
+        "w3c_rspec_validators",
+        "webmock",
+        "wisper-rspec"
+      ],
+      "dev_deps_internal": [],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-elections",
+      "short": "elections",
+      "gemspec_path": "decidim-elections/decidim-elections.gemspec",
+      "runtime_deps_internal": [
+        "decidim-admin",
+        "decidim-core",
+        "decidim-forms"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-forms",
+      "short": "forms",
+      "gemspec_path": "decidim-forms/decidim-forms.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-generators",
+      "short": "generators",
+      "gemspec_path": "decidim-generators/decidim-generators.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [],
+      "dev_deps_external": [
+        "bundler"
+      ]
+    },
+    {
+      "name": "decidim-initiatives",
+      "short": "initiatives",
+      "gemspec_path": "decidim-initiatives/decidim-initiatives.gemspec",
+      "runtime_deps_internal": [
+        "decidim-admin",
+        "decidim-comments",
+        "decidim-core",
+        "decidim-verifications"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-dev",
+        "decidim-meetings"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-meetings",
+      "short": "meetings",
+      "gemspec_path": "decidim-meetings/decidim-meetings.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core",
+        "decidim-forms"
+      ],
+      "runtime_deps_external": [
+        "icalendar"
+      ],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-assemblies",
+        "decidim-dev",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-pages",
+      "short": "pages",
+      "gemspec_path": "decidim-pages/decidim-pages.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-dev",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-participatory_processes",
+      "short": "participatory_processes",
+      "gemspec_path": "decidim-participatory_processes/decidim-participatory_processes.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-accountability",
+        "decidim-admin",
+        "decidim-budgets",
+        "decidim-dev",
+        "decidim-meetings",
+        "decidim-proposals"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-proposals",
+      "short": "proposals",
+      "gemspec_path": "decidim-proposals/decidim-proposals.gemspec",
+      "runtime_deps_internal": [
+        "decidim-comments",
+        "decidim-core"
+      ],
+      "runtime_deps_external": [
+        "doc2text",
+        "redcarpet"
+      ],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-assemblies",
+        "decidim-budgets",
+        "decidim-conference",
+        "decidim-dev",
+        "decidim-meetings",
+        "decidim-participatory_processes"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-surveys",
+      "short": "surveys",
+      "gemspec_path": "decidim-surveys/decidim-surveys.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core",
+        "decidim-forms"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev",
+        "decidim-participatory_processes",
+        "decidim-templates"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-system",
+      "short": "system",
+      "gemspec_path": "decidim-system/decidim-system.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [
+        "active_link_to",
+        "devise",
+        "devise-i18n",
+        "devise_invitable"
+      ],
+      "dev_deps_internal": [
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-templates",
+      "short": "templates",
+      "gemspec_path": "decidim-templates/decidim-templates.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core",
+        "decidim-forms"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev",
+        "decidim-participatory_processes",
+        "decidim-proposals",
+        "decidim-surveys"
+      ],
+      "dev_deps_external": []
+    },
+    {
+      "name": "decidim-verifications",
+      "short": "verifications",
+      "gemspec_path": "decidim-verifications/decidim-verifications.gemspec",
+      "runtime_deps_internal": [
+        "decidim-core"
+      ],
+      "runtime_deps_external": [],
+      "dev_deps_internal": [
+        "decidim-admin",
+        "decidim-dev"
+      ],
+      "dev_deps_external": []
+    }
+  ],
+  "fact_checks": {
+    "engines_depending_on_core": [
+      "decidim-accountability",
+      "decidim-admin",
+      "decidim-ai",
+      "decidim-api",
+      "decidim-assemblies",
+      "decidim-blogs",
+      "decidim-budgets",
+      "decidim-collaborative_texts",
+      "decidim-comments",
+      "decidim-conferences",
+      "decidim-debates",
+      "decidim-demographics",
+      "decidim-design",
+      "decidim-dev",
+      "decidim-elections",
+      "decidim-forms",
+      "decidim-generators",
+      "decidim-initiatives",
+      "decidim-meetings",
+      "decidim-pages",
+      "decidim-participatory_processes",
+      "decidim-proposals",
+      "decidim-surveys",
+      "decidim-system",
+      "decidim-templates",
+      "decidim-verifications"
+    ],
+    "engines_missing_core_dep": [
+      "decidim-core"
+    ],
+    "cross_engine_runtime_deps": [
+      {
+        "engine": "decidim-accountability",
+        "depends_on": [
+          "decidim-comments"
+        ]
+      },
+      {
+        "engine": "decidim-blogs",
+        "depends_on": [
+          "decidim-admin",
+          "decidim-comments"
+        ]
+      },
+      {
+        "engine": "decidim-budgets",
+        "depends_on": [
+          "decidim-comments"
+        ]
+      },
+      {
+        "engine": "decidim-conferences",
+        "depends_on": [
+          "decidim-meetings"
+        ]
+      },
+      {
+        "engine": "decidim-debates",
+        "depends_on": [
+          "decidim-comments"
+        ]
+      },
+      {
+        "engine": "decidim-demographics",
+        "depends_on": [
+          "decidim-forms"
+        ]
+      },
+      {
+        "engine": "decidim-dev",
+        "depends_on": [
+          "decidim-admin",
+          "decidim-api",
+          "decidim-comments",
+          "decidim-generators",
+          "decidim-verifications"
+        ]
+      },
+      {
+        "engine": "decidim-elections",
+        "depends_on": [
+          "decidim-admin",
+          "decidim-forms"
+        ]
+      },
+      {
+        "engine": "decidim-initiatives",
+        "depends_on": [
+          "decidim-admin",
+          "decidim-comments",
+          "decidim-verifications"
+        ]
+      },
+      {
+        "engine": "decidim-meetings",
+        "depends_on": [
+          "decidim-forms"
+        ]
+      },
+      {
+        "engine": "decidim-proposals",
+        "depends_on": [
+          "decidim-comments"
+        ]
+      },
+      {
+        "engine": "decidim-surveys",
+        "depends_on": [
+          "decidim-forms"
+        ]
+      },
+      {
+        "engine": "decidim-templates",
+        "depends_on": [
+          "decidim-forms"
+        ]
+      }
+    ]
+  }
+}

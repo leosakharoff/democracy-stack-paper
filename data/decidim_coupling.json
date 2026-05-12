@@ -1,0 +1,2427 @@
+{
+  "snapshot": {
+    "repo": "decidim/decidim",
+    "sha": "be39c244035485e2eba7181252aea487f5897cef"
+  },
+  "params": {
+    "tooling_excluded": [
+      "decidim-design",
+      "decidim-dev",
+      "decidim-generators"
+    ],
+    "mega_threshold_engines": 8
+  },
+  "stats": {
+    "total_commits_no_merges": 7756,
+    "human_commits": 7078,
+    "bot_commits": 678,
+    "mega_commits_excluded": 375,
+    "single_engine_commits": 3525,
+    "multi_engine_commits": 1992,
+    "isolation_rate": 0.6389342033713975
+  },
+  "engines": [
+    "decidim-accountability",
+    "decidim-admin",
+    "decidim-ai",
+    "decidim-api",
+    "decidim-assemblies",
+    "decidim-blogs",
+    "decidim-budgets",
+    "decidim-collaborative_texts",
+    "decidim-comments",
+    "decidim-conferences",
+    "decidim-core",
+    "decidim-debates",
+    "decidim-demographics",
+    "decidim-elections",
+    "decidim-forms",
+    "decidim-initiatives",
+    "decidim-meetings",
+    "decidim-pages",
+    "decidim-participatory_processes",
+    "decidim-proposals",
+    "decidim-surveys",
+    "decidim-system",
+    "decidim-templates",
+    "decidim-verifications"
+  ],
+  "engine_commits_count": {
+    "decidim-accountability": 192,
+    "decidim-admin": 1054,
+    "decidim-ai": 10,
+    "decidim-api": 135,
+    "decidim-assemblies": 395,
+    "decidim-blogs": 96,
+    "decidim-budgets": 337,
+    "decidim-collaborative_texts": 12,
+    "decidim-comments": 368,
+    "decidim-conferences": 263,
+    "decidim-core": 3110,
+    "decidim-debates": 210,
+    "decidim-demographics": 7,
+    "decidim-elections": 314,
+    "decidim-forms": 150,
+    "decidim-initiatives": 428,
+    "decidim-meetings": 729,
+    "decidim-pages": 71,
+    "decidim-participatory_processes": 479,
+    "decidim-proposals": 1071,
+    "decidim-surveys": 157,
+    "decidim-system": 231,
+    "decidim-templates": 54,
+    "decidim-verifications": 140
+  },
+  "pairs": [
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-participatory_processes",
+      "co_changes": 264,
+      "a_total": 395,
+      "b_total": 479,
+      "jaccard": 0.43278688524590164,
+      "p_b_given_a": 0.6683544303797468,
+      "p_a_given_b": 0.5511482254697286
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-conferences",
+      "co_changes": 127,
+      "a_total": 395,
+      "b_total": 263,
+      "jaccard": 0.2391713747645951,
+      "p_b_given_a": 0.32151898734177214,
+      "p_a_given_b": 0.4828897338403042
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-proposals",
+      "co_changes": 297,
+      "a_total": 729,
+      "b_total": 1071,
+      "jaccard": 0.19760479041916168,
+      "p_b_given_a": 0.4074074074074074,
+      "p_a_given_b": 0.2773109243697479
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-participatory_processes",
+      "co_changes": 119,
+      "a_total": 263,
+      "b_total": 479,
+      "jaccard": 0.19101123595505617,
+      "p_b_given_a": 0.4524714828897338,
+      "p_a_given_b": 0.24843423799582465
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-core",
+      "co_changes": 647,
+      "a_total": 1054,
+      "b_total": 3110,
+      "jaccard": 0.18396360534546488,
+      "p_b_given_a": 0.6138519924098672,
+      "p_a_given_b": 0.2080385852090032
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-proposals",
+      "co_changes": 580,
+      "a_total": 3110,
+      "b_total": 1071,
+      "jaccard": 0.16106637045265204,
+      "p_b_given_a": 0.1864951768488746,
+      "p_a_given_b": 0.5415499533146592
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-surveys",
+      "co_changes": 42,
+      "a_total": 150,
+      "b_total": 157,
+      "jaccard": 0.15849056603773584,
+      "p_b_given_a": 0.28,
+      "p_a_given_b": 0.267515923566879
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-debates",
+      "co_changes": 40,
+      "a_total": 96,
+      "b_total": 210,
+      "jaccard": 0.15037593984962405,
+      "p_b_given_a": 0.4166666666666667,
+      "p_a_given_b": 0.19047619047619047
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-initiatives",
+      "co_changes": 87,
+      "a_total": 263,
+      "b_total": 428,
+      "jaccard": 0.14403973509933773,
+      "p_b_given_a": 0.33079847908745247,
+      "p_a_given_b": 0.20327102803738317
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-meetings",
+      "co_changes": 133,
+      "a_total": 337,
+      "b_total": 729,
+      "jaccard": 0.14255091103965703,
+      "p_b_given_a": 0.39465875370919884,
+      "p_a_given_b": 0.18244170096021947
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-initiatives",
+      "co_changes": 100,
+      "a_total": 395,
+      "b_total": 428,
+      "jaccard": 0.13831258644536654,
+      "p_b_given_a": 0.25316455696202533,
+      "p_a_given_b": 0.2336448598130841
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-proposals",
+      "co_changes": 168,
+      "a_total": 337,
+      "b_total": 1071,
+      "jaccard": 0.13548387096774195,
+      "p_b_given_a": 0.49851632047477745,
+      "p_a_given_b": 0.1568627450980392
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-participatory_processes",
+      "co_changes": 101,
+      "a_total": 428,
+      "b_total": 479,
+      "jaccard": 0.12531017369727046,
+      "p_b_given_a": 0.23598130841121495,
+      "p_a_given_b": 0.21085594989561587
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-meetings",
+      "co_changes": 103,
+      "a_total": 210,
+      "b_total": 729,
+      "jaccard": 0.12320574162679426,
+      "p_b_given_a": 0.49047619047619045,
+      "p_a_given_b": 0.1412894375857339
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-system",
+      "co_changes": 138,
+      "a_total": 1054,
+      "b_total": 231,
+      "jaccard": 0.12031386224934612,
+      "p_b_given_a": 0.13092979127134724,
+      "p_a_given_b": 0.5974025974025974
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-meetings",
+      "co_changes": 396,
+      "a_total": 3110,
+      "b_total": 729,
+      "jaccard": 0.11501597444089456,
+      "p_b_given_a": 0.12733118971061094,
+      "p_a_given_b": 0.5432098765432098
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-participatory_processes",
+      "co_changes": 158,
+      "a_total": 1054,
+      "b_total": 479,
+      "jaccard": 0.1149090909090909,
+      "p_b_given_a": 0.14990512333965844,
+      "p_a_given_b": 0.3298538622129436
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-proposals",
+      "co_changes": 127,
+      "a_total": 210,
+      "b_total": 1071,
+      "jaccard": 0.11005199306759099,
+      "p_b_given_a": 0.6047619047619047,
+      "p_a_given_b": 0.11858076563958916
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-proposals",
+      "co_changes": 199,
+      "a_total": 1054,
+      "b_total": 1071,
+      "jaccard": 0.10332294911734165,
+      "p_b_given_a": 0.1888045540796964,
+      "p_a_given_b": 0.1858076563958917
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-budgets",
+      "co_changes": 48,
+      "a_total": 192,
+      "b_total": 337,
+      "jaccard": 0.0997920997920998,
+      "p_b_given_a": 0.25,
+      "p_a_given_b": 0.142433234421365
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-assemblies",
+      "co_changes": 130,
+      "a_total": 1054,
+      "b_total": 395,
+      "jaccard": 0.09855951478392722,
+      "p_b_given_a": 0.12333965844402277,
+      "p_a_given_b": 0.3291139240506329
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-meetings",
+      "co_changes": 148,
+      "a_total": 1054,
+      "b_total": 729,
+      "jaccard": 0.09051987767584098,
+      "p_b_given_a": 0.14041745730550284,
+      "p_a_given_b": 0.2030178326474623
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-debates",
+      "co_changes": 45,
+      "a_total": 337,
+      "b_total": 210,
+      "jaccard": 0.08964143426294821,
+      "p_b_given_a": 0.13353115727002968,
+      "p_a_given_b": 0.21428571428571427
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-debates",
+      "co_changes": 32,
+      "a_total": 192,
+      "b_total": 210,
+      "jaccard": 0.08648648648648649,
+      "p_b_given_a": 0.16666666666666666,
+      "p_a_given_b": 0.1523809523809524
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-elections",
+      "co_changes": 45,
+      "a_total": 263,
+      "b_total": 314,
+      "jaccard": 0.08458646616541353,
+      "p_b_given_a": 0.17110266159695817,
+      "p_a_given_b": 0.14331210191082802
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-proposals",
+      "co_changes": 110,
+      "a_total": 368,
+      "b_total": 1071,
+      "jaccard": 0.08276899924755456,
+      "p_b_given_a": 0.29891304347826086,
+      "p_a_given_b": 0.10270774976657329
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-pages",
+      "co_changes": 31,
+      "a_total": 337,
+      "b_total": 71,
+      "jaccard": 0.08222811671087533,
+      "p_b_given_a": 0.09198813056379822,
+      "p_a_given_b": 0.43661971830985913
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-meetings",
+      "co_changes": 66,
+      "a_total": 192,
+      "b_total": 729,
+      "jaccard": 0.07719298245614035,
+      "p_b_given_a": 0.34375,
+      "p_a_given_b": 0.09053497942386832
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-elections",
+      "co_changes": 50,
+      "a_total": 395,
+      "b_total": 314,
+      "jaccard": 0.07587253414264036,
+      "p_b_given_a": 0.12658227848101267,
+      "p_a_given_b": 0.1592356687898089
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-participatory_processes",
+      "co_changes": 251,
+      "a_total": 3110,
+      "b_total": 479,
+      "jaccard": 0.07519472738166567,
+      "p_b_given_a": 0.08070739549839229,
+      "p_a_given_b": 0.524008350730689
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-participatory_processes",
+      "co_changes": 84,
+      "a_total": 729,
+      "b_total": 479,
+      "jaccard": 0.07473309608540925,
+      "p_b_given_a": 0.11522633744855967,
+      "p_a_given_b": 0.17536534446764093
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-system",
+      "co_changes": 25,
+      "a_total": 135,
+      "b_total": 231,
+      "jaccard": 0.07331378299120235,
+      "p_b_given_a": 0.18518518518518517,
+      "p_a_given_b": 0.10822510822510822
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-initiatives",
+      "co_changes": 49,
+      "a_total": 314,
+      "b_total": 428,
+      "jaccard": 0.0707070707070707,
+      "p_b_given_a": 0.15605095541401273,
+      "p_a_given_b": 0.11448598130841121
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-proposals",
+      "co_changes": 83,
+      "a_total": 192,
+      "b_total": 1071,
+      "jaccard": 0.07033898305084746,
+      "p_b_given_a": 0.4322916666666667,
+      "p_a_given_b": 0.07749766573295985
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-budgets",
+      "co_changes": 28,
+      "a_total": 96,
+      "b_total": 337,
+      "jaccard": 0.0691358024691358,
+      "p_b_given_a": 0.2916666666666667,
+      "p_a_given_b": 0.0830860534124629
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-budgets",
+      "co_changes": 89,
+      "a_total": 1054,
+      "b_total": 337,
+      "jaccard": 0.06835637480798772,
+      "p_b_given_a": 0.08444022770398482,
+      "p_a_given_b": 0.26409495548961426
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-templates",
+      "co_changes": 13,
+      "a_total": 150,
+      "b_total": 54,
+      "jaccard": 0.06806282722513089,
+      "p_b_given_a": 0.08666666666666667,
+      "p_a_given_b": 0.24074074074074073
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-conferences",
+      "co_changes": 83,
+      "a_total": 1054,
+      "b_total": 263,
+      "jaccard": 0.06726094003241491,
+      "p_b_given_a": 0.07874762808349146,
+      "p_a_given_b": 0.3155893536121673
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-blogs",
+      "co_changes": 18,
+      "a_total": 192,
+      "b_total": 96,
+      "jaccard": 0.06666666666666667,
+      "p_b_given_a": 0.09375,
+      "p_a_given_b": 0.1875
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-debates",
+      "co_changes": 36,
+      "a_total": 368,
+      "b_total": 210,
+      "jaccard": 0.06642066420664207,
+      "p_b_given_a": 0.09782608695652174,
+      "p_a_given_b": 0.17142857142857143
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-proposals",
+      "co_changes": 93,
+      "a_total": 428,
+      "b_total": 1071,
+      "jaccard": 0.06614509246088193,
+      "p_b_given_a": 0.21728971962616822,
+      "p_a_given_b": 0.08683473389355742
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-meetings",
+      "co_changes": 68,
+      "a_total": 368,
+      "b_total": 729,
+      "jaccard": 0.06608357628765792,
+      "p_b_given_a": 0.18478260869565216,
+      "p_a_given_b": 0.09327846364883402
+    },
+    {
+      "a": "decidim-participatory_processes",
+      "b": "decidim-proposals",
+      "co_changes": 96,
+      "a_total": 479,
+      "b_total": 1071,
+      "jaccard": 0.06602475928473177,
+      "p_b_given_a": 0.20041753653444677,
+      "p_a_given_b": 0.0896358543417367
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-core",
+      "co_changes": 213,
+      "a_total": 368,
+      "b_total": 3110,
+      "jaccard": 0.06523736600306279,
+      "p_b_given_a": 0.5788043478260869,
+      "p_a_given_b": 0.0684887459807074
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-comments",
+      "co_changes": 87,
+      "a_total": 1054,
+      "b_total": 368,
+      "jaccard": 0.0651685393258427,
+      "p_b_given_a": 0.0825426944971537,
+      "p_a_given_b": 0.23641304347826086
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-core",
+      "co_changes": 209,
+      "a_total": 395,
+      "b_total": 3110,
+      "jaccard": 0.06341019417475728,
+      "p_b_given_a": 0.529113924050633,
+      "p_a_given_b": 0.06720257234726688
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-comments",
+      "co_changes": 40,
+      "a_total": 337,
+      "b_total": 368,
+      "jaccard": 0.06015037593984962,
+      "p_b_given_a": 0.11869436201780416,
+      "p_a_given_b": 0.10869565217391304
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-initiatives",
+      "co_changes": 36,
+      "a_total": 210,
+      "b_total": 428,
+      "jaccard": 0.059800664451827246,
+      "p_b_given_a": 0.17142857142857143,
+      "p_a_given_b": 0.08411214953271028
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-participatory_processes",
+      "co_changes": 44,
+      "a_total": 314,
+      "b_total": 479,
+      "jaccard": 0.05874499332443257,
+      "p_b_given_a": 0.14012738853503184,
+      "p_a_given_b": 0.0918580375782881
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-meetings",
+      "co_changes": 62,
+      "a_total": 395,
+      "b_total": 729,
+      "jaccard": 0.0583804143126177,
+      "p_b_given_a": 0.1569620253164557,
+      "p_a_given_b": 0.0850480109739369
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-surveys",
+      "co_changes": 27,
+      "a_total": 337,
+      "b_total": 157,
+      "jaccard": 0.057815845824411134,
+      "p_b_given_a": 0.08011869436201781,
+      "p_a_given_b": 0.17197452229299362
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-meetings",
+      "co_changes": 48,
+      "a_total": 150,
+      "b_total": 729,
+      "jaccard": 0.05776173285198556,
+      "p_b_given_a": 0.32,
+      "p_a_given_b": 0.06584362139917696
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-initiatives",
+      "co_changes": 80,
+      "a_total": 1054,
+      "b_total": 428,
+      "jaccard": 0.05706134094151213,
+      "p_b_given_a": 0.07590132827324478,
+      "p_a_given_b": 0.18691588785046728
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-meetings",
+      "co_changes": 62,
+      "a_total": 428,
+      "b_total": 729,
+      "jaccard": 0.05662100456621005,
+      "p_b_given_a": 0.14485981308411214,
+      "p_a_given_b": 0.0850480109739369
+    },
+    {
+      "a": "decidim-pages",
+      "b": "decidim-system",
+      "co_changes": 16,
+      "a_total": 71,
+      "b_total": 231,
+      "jaccard": 0.055944055944055944,
+      "p_b_given_a": 0.22535211267605634,
+      "p_a_given_b": 0.06926406926406926
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-core",
+      "co_changes": 182,
+      "a_total": 337,
+      "b_total": 3110,
+      "jaccard": 0.0557427258805513,
+      "p_b_given_a": 0.5400593471810089,
+      "p_a_given_b": 0.05852090032154341
+    },
+    {
+      "a": "decidim-surveys",
+      "b": "decidim-templates",
+      "co_changes": 11,
+      "a_total": 157,
+      "b_total": 54,
+      "jaccard": 0.055,
+      "p_b_given_a": 0.07006369426751592,
+      "p_a_given_b": 0.2037037037037037
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-system",
+      "co_changes": 174,
+      "a_total": 3110,
+      "b_total": 231,
+      "jaccard": 0.05494158509630565,
+      "p_b_given_a": 0.05594855305466238,
+      "p_a_given_b": 0.7532467532467533
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-initiatives",
+      "co_changes": 183,
+      "a_total": 3110,
+      "b_total": 428,
+      "jaccard": 0.05454545454545454,
+      "p_b_given_a": 0.058842443729903535,
+      "p_a_given_b": 0.42757009345794394
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-comments",
+      "co_changes": 26,
+      "a_total": 135,
+      "b_total": 368,
+      "jaccard": 0.05450733752620545,
+      "p_b_given_a": 0.1925925925925926,
+      "p_a_given_b": 0.07065217391304347
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-surveys",
+      "co_changes": 43,
+      "a_total": 729,
+      "b_total": 157,
+      "jaccard": 0.051008303677342826,
+      "p_b_given_a": 0.05898491083676269,
+      "p_a_given_b": 0.27388535031847133
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-meetings",
+      "co_changes": 48,
+      "a_total": 263,
+      "b_total": 729,
+      "jaccard": 0.05084745762711865,
+      "p_b_given_a": 0.18250950570342206,
+      "p_a_given_b": 0.06584362139917696
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-initiatives",
+      "co_changes": 37,
+      "a_total": 337,
+      "b_total": 428,
+      "jaccard": 0.050824175824175824,
+      "p_b_given_a": 0.10979228486646884,
+      "p_a_given_b": 0.08644859813084112
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-proposals",
+      "co_changes": 70,
+      "a_total": 395,
+      "b_total": 1071,
+      "jaccard": 0.050143266475644696,
+      "p_b_given_a": 0.17721518987341772,
+      "p_a_given_b": 0.06535947712418301
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-meetings",
+      "co_changes": 38,
+      "a_total": 96,
+      "b_total": 729,
+      "jaccard": 0.048284625158831,
+      "p_b_given_a": 0.3958333333333333,
+      "p_a_given_b": 0.05212620027434842
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-verifications",
+      "co_changes": 25,
+      "a_total": 428,
+      "b_total": 140,
+      "jaccard": 0.04604051565377532,
+      "p_b_given_a": 0.05841121495327103,
+      "p_a_given_b": 0.17857142857142858
+    },
+    {
+      "a": "decidim-pages",
+      "b": "decidim-surveys",
+      "co_changes": 10,
+      "a_total": 71,
+      "b_total": 157,
+      "jaccard": 0.045871559633027525,
+      "p_b_given_a": 0.14084507042253522,
+      "p_a_given_b": 0.06369426751592357
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-pages",
+      "co_changes": 9,
+      "a_total": 135,
+      "b_total": 71,
+      "jaccard": 0.04568527918781726,
+      "p_b_given_a": 0.06666666666666667,
+      "p_a_given_b": 0.1267605633802817
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-pages",
+      "co_changes": 19,
+      "a_total": 368,
+      "b_total": 71,
+      "jaccard": 0.04523809523809524,
+      "p_b_given_a": 0.051630434782608696,
+      "p_a_given_b": 0.2676056338028169
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-proposals",
+      "co_changes": 48,
+      "a_total": 96,
+      "b_total": 1071,
+      "jaccard": 0.04289544235924933,
+      "p_b_given_a": 0.5,
+      "p_a_given_b": 0.04481792717086835
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-participatory_processes",
+      "co_changes": 27,
+      "a_total": 192,
+      "b_total": 479,
+      "jaccard": 0.04192546583850932,
+      "p_b_given_a": 0.140625,
+      "p_a_given_b": 0.05636743215031315
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-initiatives",
+      "co_changes": 21,
+      "a_total": 96,
+      "b_total": 428,
+      "jaccard": 0.041749502982107355,
+      "p_b_given_a": 0.21875,
+      "p_a_given_b": 0.04906542056074766
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-core",
+      "co_changes": 133,
+      "a_total": 263,
+      "b_total": 3110,
+      "jaccard": 0.04104938271604938,
+      "p_b_given_a": 0.5057034220532319,
+      "p_a_given_b": 0.042765273311897105
+    },
+    {
+      "a": "decidim-proposals",
+      "b": "decidim-surveys",
+      "co_changes": 48,
+      "a_total": 1071,
+      "b_total": 157,
+      "jaccard": 0.04067796610169491,
+      "p_b_given_a": 0.04481792717086835,
+      "p_a_given_b": 0.3057324840764331
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-pages",
+      "co_changes": 31,
+      "a_total": 729,
+      "b_total": 71,
+      "jaccard": 0.04031209362808843,
+      "p_b_given_a": 0.04252400548696845,
+      "p_a_given_b": 0.43661971830985913
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-verifications",
+      "co_changes": 46,
+      "a_total": 1054,
+      "b_total": 140,
+      "jaccard": 0.04006968641114982,
+      "p_b_given_a": 0.04364326375711575,
+      "p_a_given_b": 0.32857142857142857
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-initiatives",
+      "co_changes": 22,
+      "a_total": 150,
+      "b_total": 428,
+      "jaccard": 0.039568345323741004,
+      "p_b_given_a": 0.14666666666666667,
+      "p_a_given_b": 0.0514018691588785
+    },
+    {
+      "a": "decidim-pages",
+      "b": "decidim-proposals",
+      "co_changes": 43,
+      "a_total": 71,
+      "b_total": 1071,
+      "jaccard": 0.039126478616924476,
+      "p_b_given_a": 0.6056338028169014,
+      "p_a_given_b": 0.040149393090569564
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-assemblies",
+      "co_changes": 22,
+      "a_total": 192,
+      "b_total": 395,
+      "jaccard": 0.03893805309734513,
+      "p_b_given_a": 0.11458333333333333,
+      "p_a_given_b": 0.05569620253164557
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-meetings",
+      "co_changes": 39,
+      "a_total": 314,
+      "b_total": 729,
+      "jaccard": 0.03884462151394422,
+      "p_b_given_a": 0.12420382165605096,
+      "p_a_given_b": 0.053497942386831275
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-initiatives",
+      "co_changes": 23,
+      "a_total": 192,
+      "b_total": 428,
+      "jaccard": 0.038525963149078725,
+      "p_b_given_a": 0.11979166666666667,
+      "p_a_given_b": 0.053738317757009345
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-debates",
+      "co_changes": 123,
+      "a_total": 3110,
+      "b_total": 210,
+      "jaccard": 0.03847356897091023,
+      "p_b_given_a": 0.03954983922829582,
+      "p_a_given_b": 0.5857142857142857
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-system",
+      "co_changes": 22,
+      "a_total": 368,
+      "b_total": 231,
+      "jaccard": 0.038128249566724434,
+      "p_b_given_a": 0.059782608695652176,
+      "p_a_given_b": 0.09523809523809523
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-elections",
+      "co_changes": 50,
+      "a_total": 1054,
+      "b_total": 314,
+      "jaccard": 0.03793626707132018,
+      "p_b_given_a": 0.04743833017077799,
+      "p_a_given_b": 0.1592356687898089
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-forms",
+      "co_changes": 15,
+      "a_total": 263,
+      "b_total": 150,
+      "jaccard": 0.03768844221105527,
+      "p_b_given_a": 0.057034220532319393,
+      "p_a_given_b": 0.1
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-participatory_processes",
+      "co_changes": 25,
+      "a_total": 210,
+      "b_total": 479,
+      "jaccard": 0.03765060240963856,
+      "p_b_given_a": 0.11904761904761904,
+      "p_a_given_b": 0.05219206680584551
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-debates",
+      "co_changes": 21,
+      "a_total": 395,
+      "b_total": 210,
+      "jaccard": 0.03595890410958904,
+      "p_b_given_a": 0.053164556962025315,
+      "p_a_given_b": 0.1
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-surveys",
+      "co_changes": 12,
+      "a_total": 192,
+      "b_total": 157,
+      "jaccard": 0.03560830860534125,
+      "p_b_given_a": 0.0625,
+      "p_a_given_b": 0.07643312101910828
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-participatory_processes",
+      "co_changes": 28,
+      "a_total": 337,
+      "b_total": 479,
+      "jaccard": 0.03553299492385787,
+      "p_b_given_a": 0.0830860534124629,
+      "p_a_given_b": 0.05845511482254697
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-budgets",
+      "co_changes": 25,
+      "a_total": 395,
+      "b_total": 337,
+      "jaccard": 0.03536067892503536,
+      "p_b_given_a": 0.06329113924050633,
+      "p_a_given_b": 0.07418397626112759
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-elections",
+      "co_changes": 22,
+      "a_total": 337,
+      "b_total": 314,
+      "jaccard": 0.034976152623211444,
+      "p_b_given_a": 0.06528189910979229,
+      "p_a_given_b": 0.07006369426751592
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-proposals",
+      "co_changes": 46,
+      "a_total": 314,
+      "b_total": 1071,
+      "jaccard": 0.03435399551904406,
+      "p_b_given_a": 0.1464968152866242,
+      "p_a_given_b": 0.04295051353874883
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-verifications",
+      "co_changes": 15,
+      "a_total": 314,
+      "b_total": 140,
+      "jaccard": 0.03416856492027335,
+      "p_b_given_a": 0.04777070063694268,
+      "p_a_given_b": 0.10714285714285714
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-forms",
+      "co_changes": 15,
+      "a_total": 314,
+      "b_total": 150,
+      "jaccard": 0.0334075723830735,
+      "p_b_given_a": 0.04777070063694268,
+      "p_a_given_b": 0.1
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-surveys",
+      "co_changes": 38,
+      "a_total": 1054,
+      "b_total": 157,
+      "jaccard": 0.03239556692242114,
+      "p_b_given_a": 0.036053130929791274,
+      "p_a_given_b": 0.24203821656050956
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-pages",
+      "co_changes": 35,
+      "a_total": 1054,
+      "b_total": 71,
+      "jaccard": 0.03211009174311927,
+      "p_b_given_a": 0.03320683111954459,
+      "p_a_given_b": 0.49295774647887325
+    },
+    {
+      "a": "decidim-participatory_processes",
+      "b": "decidim-verifications",
+      "co_changes": 19,
+      "a_total": 479,
+      "b_total": 140,
+      "jaccard": 0.03166666666666667,
+      "p_b_given_a": 0.03966597077244259,
+      "p_a_given_b": 0.1357142857142857
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-comments",
+      "co_changes": 17,
+      "a_total": 192,
+      "b_total": 368,
+      "jaccard": 0.03130755064456722,
+      "p_b_given_a": 0.08854166666666667,
+      "p_a_given_b": 0.04619565217391304
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-api",
+      "co_changes": 36,
+      "a_total": 1054,
+      "b_total": 135,
+      "jaccard": 0.031222896790980052,
+      "p_b_given_a": 0.03415559772296015,
+      "p_a_given_b": 0.26666666666666666
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-system",
+      "co_changes": 17,
+      "a_total": 337,
+      "b_total": 231,
+      "jaccard": 0.030852994555353903,
+      "p_b_given_a": 0.050445103857566766,
+      "p_a_given_b": 0.0735930735930736
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-forms",
+      "co_changes": 36,
+      "a_total": 1054,
+      "b_total": 150,
+      "jaccard": 0.030821917808219176,
+      "p_b_given_a": 0.03415559772296015,
+      "p_a_given_b": 0.24
+    },
+    {
+      "a": "decidim-participatory_processes",
+      "b": "decidim-surveys",
+      "co_changes": 19,
+      "a_total": 479,
+      "b_total": 157,
+      "jaccard": 0.03079416531604538,
+      "p_b_given_a": 0.03966597077244259,
+      "p_a_given_b": 0.12101910828025478
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-admin",
+      "co_changes": 37,
+      "a_total": 192,
+      "b_total": 1054,
+      "jaccard": 0.030603804797353185,
+      "p_b_given_a": 0.19270833333333334,
+      "p_a_given_b": 0.03510436432637571
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-proposals",
+      "co_changes": 38,
+      "a_total": 263,
+      "b_total": 1071,
+      "jaccard": 0.029320987654320986,
+      "p_b_given_a": 0.1444866920152091,
+      "p_a_given_b": 0.035480859010270774
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-comments",
+      "co_changes": 13,
+      "a_total": 96,
+      "b_total": 368,
+      "jaccard": 0.028824833702882482,
+      "p_b_given_a": 0.13541666666666666,
+      "p_a_given_b": 0.035326086956521736
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-initiatives",
+      "co_changes": 22,
+      "a_total": 368,
+      "b_total": 428,
+      "jaccard": 0.028423772609819122,
+      "p_b_given_a": 0.059782608695652176,
+      "p_a_given_b": 0.0514018691588785
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-verifications",
+      "co_changes": 8,
+      "a_total": 150,
+      "b_total": 140,
+      "jaccard": 0.028368794326241134,
+      "p_b_given_a": 0.05333333333333334,
+      "p_a_given_b": 0.05714285714285714
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-verifications",
+      "co_changes": 11,
+      "a_total": 263,
+      "b_total": 140,
+      "jaccard": 0.02806122448979592,
+      "p_b_given_a": 0.04182509505703422,
+      "p_a_given_b": 0.07857142857142857
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-surveys",
+      "co_changes": 15,
+      "a_total": 395,
+      "b_total": 157,
+      "jaccard": 0.027932960893854747,
+      "p_b_given_a": 0.0379746835443038,
+      "p_a_given_b": 0.09554140127388536
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-elections",
+      "co_changes": 93,
+      "a_total": 3110,
+      "b_total": 314,
+      "jaccard": 0.027919543680576402,
+      "p_b_given_a": 0.02990353697749196,
+      "p_a_given_b": 0.2961783439490446
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-system",
+      "co_changes": 26,
+      "a_total": 729,
+      "b_total": 231,
+      "jaccard": 0.027837259100642397,
+      "p_b_given_a": 0.03566529492455418,
+      "p_a_given_b": 0.11255411255411256
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-templates",
+      "co_changes": 13,
+      "a_total": 428,
+      "b_total": 54,
+      "jaccard": 0.02771855010660981,
+      "p_b_given_a": 0.030373831775700934,
+      "p_a_given_b": 0.24074074074074073
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-core",
+      "co_changes": 89,
+      "a_total": 192,
+      "b_total": 3110,
+      "jaccard": 0.027699968876439465,
+      "p_b_given_a": 0.4635416666666667,
+      "p_a_given_b": 0.028617363344051447
+    },
+    {
+      "a": "decidim-demographics",
+      "b": "decidim-forms",
+      "co_changes": 4,
+      "a_total": 7,
+      "b_total": 150,
+      "jaccard": 0.026143790849673203,
+      "p_b_given_a": 0.5714285714285714,
+      "p_a_given_b": 0.02666666666666667
+    },
+    {
+      "a": "decidim-proposals",
+      "b": "decidim-system",
+      "co_changes": 33,
+      "a_total": 1071,
+      "b_total": 231,
+      "jaccard": 0.026004728132387706,
+      "p_b_given_a": 0.03081232492997199,
+      "p_a_given_b": 0.14285714285714285
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-templates",
+      "co_changes": 8,
+      "a_total": 263,
+      "b_total": 54,
+      "jaccard": 0.025889967637540454,
+      "p_b_given_a": 0.030418250950570342,
+      "p_a_given_b": 0.14814814814814814
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-verifications",
+      "co_changes": 12,
+      "a_total": 337,
+      "b_total": 140,
+      "jaccard": 0.025806451612903226,
+      "p_b_given_a": 0.03560830860534125,
+      "p_a_given_b": 0.08571428571428572
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-surveys",
+      "co_changes": 13,
+      "a_total": 368,
+      "b_total": 157,
+      "jaccard": 0.025390625,
+      "p_b_given_a": 0.035326086956521736,
+      "p_a_given_b": 0.08280254777070063
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-verifications",
+      "co_changes": 80,
+      "a_total": 3110,
+      "b_total": 140,
+      "jaccard": 0.025236593059936908,
+      "p_b_given_a": 0.02572347266881029,
+      "p_a_given_b": 0.5714285714285714
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-templates",
+      "co_changes": 9,
+      "a_total": 314,
+      "b_total": 54,
+      "jaccard": 0.025069637883008356,
+      "p_b_given_a": 0.028662420382165606,
+      "p_a_given_b": 0.16666666666666666
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-participatory_processes",
+      "co_changes": 20,
+      "a_total": 368,
+      "b_total": 479,
+      "jaccard": 0.02418379685610641,
+      "p_b_given_a": 0.05434782608695652,
+      "p_a_given_b": 0.04175365344467641
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-budgets",
+      "co_changes": 11,
+      "a_total": 135,
+      "b_total": 337,
+      "jaccard": 0.02386117136659436,
+      "p_b_given_a": 0.08148148148148149,
+      "p_a_given_b": 0.032640949554896145
+    },
+    {
+      "a": "decidim-proposals",
+      "b": "decidim-verifications",
+      "co_changes": 28,
+      "a_total": 1071,
+      "b_total": 140,
+      "jaccard": 0.023668639053254437,
+      "p_b_given_a": 0.026143790849673203,
+      "p_a_given_b": 0.2
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-verifications",
+      "co_changes": 20,
+      "a_total": 729,
+      "b_total": 140,
+      "jaccard": 0.023557126030624265,
+      "p_b_given_a": 0.027434842249657063,
+      "p_a_given_b": 0.14285714285714285
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-debates",
+      "co_changes": 29,
+      "a_total": 1054,
+      "b_total": 210,
+      "jaccard": 0.02348178137651822,
+      "p_b_given_a": 0.027514231499051234,
+      "p_a_given_b": 0.1380952380952381
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-elections",
+      "co_changes": 12,
+      "a_total": 210,
+      "b_total": 314,
+      "jaccard": 0.0234375,
+      "p_b_given_a": 0.05714285714285714,
+      "p_a_given_b": 0.03821656050955414
+    },
+    {
+      "a": "decidim-participatory_processes",
+      "b": "decidim-templates",
+      "co_changes": 12,
+      "a_total": 479,
+      "b_total": 54,
+      "jaccard": 0.023032629558541268,
+      "p_b_given_a": 0.025052192066805846,
+      "p_a_given_b": 0.2222222222222222
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-proposals",
+      "co_changes": 27,
+      "a_total": 135,
+      "b_total": 1071,
+      "jaccard": 0.022900763358778626,
+      "p_b_given_a": 0.2,
+      "p_a_given_b": 0.025210084033613446
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-templates",
+      "co_changes": 10,
+      "a_total": 395,
+      "b_total": 54,
+      "jaccard": 0.022779043280182234,
+      "p_b_given_a": 0.02531645569620253,
+      "p_a_given_b": 0.18518518518518517
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-conferences",
+      "co_changes": 10,
+      "a_total": 192,
+      "b_total": 263,
+      "jaccard": 0.02247191011235955,
+      "p_b_given_a": 0.052083333333333336,
+      "p_a_given_b": 0.03802281368821293
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-core",
+      "co_changes": 71,
+      "a_total": 135,
+      "b_total": 3110,
+      "jaccard": 0.02236925015752993,
+      "p_b_given_a": 0.5259259259259259,
+      "p_a_given_b": 0.02282958199356913
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-surveys",
+      "co_changes": 8,
+      "a_total": 210,
+      "b_total": 157,
+      "jaccard": 0.022284122562674095,
+      "p_b_given_a": 0.0380952380952381,
+      "p_a_given_b": 0.050955414012738856
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-elections",
+      "co_changes": 11,
+      "a_total": 192,
+      "b_total": 314,
+      "jaccard": 0.022222222222222223,
+      "p_b_given_a": 0.057291666666666664,
+      "p_a_given_b": 0.03503184713375796
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-templates",
+      "co_changes": 24,
+      "a_total": 1054,
+      "b_total": 54,
+      "jaccard": 0.02214022140221402,
+      "p_b_given_a": 0.022770398481973434,
+      "p_a_given_b": 0.4444444444444444
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-system",
+      "co_changes": 14,
+      "a_total": 428,
+      "b_total": 231,
+      "jaccard": 0.021705426356589147,
+      "p_b_given_a": 0.03271028037383177,
+      "p_a_given_b": 0.06060606060606061
+    },
+    {
+      "a": "decidim-templates",
+      "b": "decidim-verifications",
+      "co_changes": 4,
+      "a_total": 54,
+      "b_total": 140,
+      "jaccard": 0.021052631578947368,
+      "p_b_given_a": 0.07407407407407407,
+      "p_a_given_b": 0.02857142857142857
+    },
+    {
+      "a": "decidim-surveys",
+      "b": "decidim-system",
+      "co_changes": 8,
+      "a_total": 157,
+      "b_total": 231,
+      "jaccard": 0.021052631578947368,
+      "p_b_given_a": 0.050955414012738856,
+      "p_a_given_b": 0.03463203463203463
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-surveys",
+      "co_changes": 66,
+      "a_total": 3110,
+      "b_total": 157,
+      "jaccard": 0.020618556701030927,
+      "p_b_given_a": 0.02122186495176849,
+      "p_a_given_b": 0.42038216560509556
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-conferences",
+      "co_changes": 12,
+      "a_total": 337,
+      "b_total": 263,
+      "jaccard": 0.02040816326530612,
+      "p_b_given_a": 0.03560830860534125,
+      "p_a_given_b": 0.045627376425855515
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-forms",
+      "co_changes": 62,
+      "a_total": 3110,
+      "b_total": 150,
+      "jaccard": 0.01938711694809256,
+      "p_b_given_a": 0.019935691318327974,
+      "p_a_given_b": 0.41333333333333333
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-surveys",
+      "co_changes": 11,
+      "a_total": 428,
+      "b_total": 157,
+      "jaccard": 0.01916376306620209,
+      "p_b_given_a": 0.02570093457943925,
+      "p_a_given_b": 0.07006369426751592
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-verifications",
+      "co_changes": 10,
+      "a_total": 395,
+      "b_total": 140,
+      "jaccard": 0.01904761904761905,
+      "p_b_given_a": 0.02531645569620253,
+      "p_a_given_b": 0.07142857142857142
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-meetings",
+      "co_changes": 16,
+      "a_total": 135,
+      "b_total": 729,
+      "jaccard": 0.018867924528301886,
+      "p_b_given_a": 0.11851851851851852,
+      "p_a_given_b": 0.02194787379972565
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-conferences",
+      "co_changes": 7,
+      "a_total": 135,
+      "b_total": 263,
+      "jaccard": 0.017902813299232736,
+      "p_b_given_a": 0.05185185185185185,
+      "p_a_given_b": 0.026615969581749048
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-conferences",
+      "co_changes": 11,
+      "a_total": 368,
+      "b_total": 263,
+      "jaccard": 0.017741935483870968,
+      "p_b_given_a": 0.029891304347826088,
+      "p_a_given_b": 0.04182509505703422
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-proposals",
+      "co_changes": 21,
+      "a_total": 150,
+      "b_total": 1071,
+      "jaccard": 0.0175,
+      "p_b_given_a": 0.14,
+      "p_a_given_b": 0.0196078431372549
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-elections",
+      "co_changes": 7,
+      "a_total": 96,
+      "b_total": 314,
+      "jaccard": 0.017369727047146403,
+      "p_b_given_a": 0.07291666666666667,
+      "p_a_given_b": 0.022292993630573247
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-comments",
+      "co_changes": 13,
+      "a_total": 395,
+      "b_total": 368,
+      "jaccard": 0.017333333333333333,
+      "p_b_given_a": 0.03291139240506329,
+      "p_a_given_b": 0.035326086956521736
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-core",
+      "co_changes": 53,
+      "a_total": 96,
+      "b_total": 3110,
+      "jaccard": 0.016809387884554394,
+      "p_b_given_a": 0.5520833333333334,
+      "p_a_given_b": 0.017041800643086816
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-pages",
+      "co_changes": 52,
+      "a_total": 3110,
+      "b_total": 71,
+      "jaccard": 0.016618728028124002,
+      "p_b_given_a": 0.016720257234726688,
+      "p_a_given_b": 0.7323943661971831
+    },
+    {
+      "a": "decidim-system",
+      "b": "decidim-verifications",
+      "co_changes": 6,
+      "a_total": 231,
+      "b_total": 140,
+      "jaccard": 0.01643835616438356,
+      "p_b_given_a": 0.025974025974025976,
+      "p_a_given_b": 0.04285714285714286
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-initiatives",
+      "co_changes": 9,
+      "a_total": 135,
+      "b_total": 428,
+      "jaccard": 0.016245487364620937,
+      "p_b_given_a": 0.06666666666666667,
+      "p_a_given_b": 0.02102803738317757
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-system",
+      "co_changes": 6,
+      "a_total": 150,
+      "b_total": 231,
+      "jaccard": 0.016,
+      "p_b_given_a": 0.04,
+      "p_a_given_b": 0.025974025974025976
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-verifications",
+      "co_changes": 8,
+      "a_total": 368,
+      "b_total": 140,
+      "jaccard": 0.016,
+      "p_b_given_a": 0.021739130434782608,
+      "p_a_given_b": 0.05714285714285714
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-forms",
+      "co_changes": 8,
+      "a_total": 368,
+      "b_total": 150,
+      "jaccard": 0.01568627450980392,
+      "p_b_given_a": 0.021739130434782608,
+      "p_a_given_b": 0.05333333333333334
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-assemblies",
+      "co_changes": 8,
+      "a_total": 135,
+      "b_total": 395,
+      "jaccard": 0.01532567049808429,
+      "p_b_given_a": 0.05925925925925926,
+      "p_a_given_b": 0.020253164556962026
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-verifications",
+      "co_changes": 5,
+      "a_total": 192,
+      "b_total": 140,
+      "jaccard": 0.01529051987767584,
+      "p_b_given_a": 0.026041666666666668,
+      "p_a_given_b": 0.03571428571428571
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-debates",
+      "co_changes": 7,
+      "a_total": 263,
+      "b_total": 210,
+      "jaccard": 0.015021459227467811,
+      "p_b_given_a": 0.026615969581749048,
+      "p_a_given_b": 0.03333333333333333
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-forms",
+      "co_changes": 7,
+      "a_total": 337,
+      "b_total": 150,
+      "jaccard": 0.014583333333333334,
+      "p_b_given_a": 0.020771513353115726,
+      "p_a_given_b": 0.04666666666666667
+    },
+    {
+      "a": "decidim-forms",
+      "b": "decidim-participatory_processes",
+      "co_changes": 9,
+      "a_total": 150,
+      "b_total": 479,
+      "jaccard": 0.014516129032258065,
+      "p_b_given_a": 0.06,
+      "p_a_given_b": 0.018789144050104383
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-blogs",
+      "co_changes": 7,
+      "a_total": 395,
+      "b_total": 96,
+      "jaccard": 0.014462809917355372,
+      "p_b_given_a": 0.017721518987341773,
+      "p_a_given_b": 0.07291666666666667
+    },
+    {
+      "a": "decidim-participatory_processes",
+      "b": "decidim-system",
+      "co_changes": 10,
+      "a_total": 479,
+      "b_total": 231,
+      "jaccard": 0.014285714285714285,
+      "p_b_given_a": 0.020876826722338204,
+      "p_a_given_b": 0.04329004329004329
+    },
+    {
+      "a": "decidim-surveys",
+      "b": "decidim-verifications",
+      "co_changes": 4,
+      "a_total": 157,
+      "b_total": 140,
+      "jaccard": 0.013651877133105802,
+      "p_b_given_a": 0.025477707006369428,
+      "p_a_given_b": 0.02857142857142857
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-blogs",
+      "co_changes": 3,
+      "a_total": 135,
+      "b_total": 96,
+      "jaccard": 0.013157894736842105,
+      "p_b_given_a": 0.022222222222222223,
+      "p_a_given_b": 0.03125
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-pages",
+      "co_changes": 6,
+      "a_total": 395,
+      "b_total": 71,
+      "jaccard": 0.013043478260869565,
+      "p_b_given_a": 0.015189873417721518,
+      "p_a_given_b": 0.08450704225352113
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-system",
+      "co_changes": 8,
+      "a_total": 395,
+      "b_total": 231,
+      "jaccard": 0.012944983818770227,
+      "p_b_given_a": 0.020253164556962026,
+      "p_a_given_b": 0.03463203463203463
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-surveys",
+      "co_changes": 6,
+      "a_total": 314,
+      "b_total": 157,
+      "jaccard": 0.012903225806451613,
+      "p_b_given_a": 0.01910828025477707,
+      "p_a_given_b": 0.03821656050955414
+    },
+    {
+      "a": "decidim-pages",
+      "b": "decidim-participatory_processes",
+      "co_changes": 7,
+      "a_total": 71,
+      "b_total": 479,
+      "jaccard": 0.01289134438305709,
+      "p_b_given_a": 0.09859154929577464,
+      "p_a_given_b": 0.014613778705636743
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-verifications",
+      "co_changes": 3,
+      "a_total": 96,
+      "b_total": 140,
+      "jaccard": 0.012875536480686695,
+      "p_b_given_a": 0.03125,
+      "p_a_given_b": 0.02142857142857143
+    },
+    {
+      "a": "decidim-demographics",
+      "b": "decidim-surveys",
+      "co_changes": 2,
+      "a_total": 7,
+      "b_total": 157,
+      "jaccard": 0.012345679012345678,
+      "p_b_given_a": 0.2857142857142857,
+      "p_a_given_b": 0.012738853503184714
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-surveys",
+      "co_changes": 5,
+      "a_total": 263,
+      "b_total": 157,
+      "jaccard": 0.012048192771084338,
+      "p_b_given_a": 0.019011406844106463,
+      "p_a_given_b": 0.03184713375796178
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-surveys",
+      "co_changes": 3,
+      "a_total": 96,
+      "b_total": 157,
+      "jaccard": 0.012,
+      "p_b_given_a": 0.03125,
+      "p_a_given_b": 0.01910828025477707
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-debates",
+      "co_changes": 4,
+      "a_total": 135,
+      "b_total": 210,
+      "jaccard": 0.011730205278592375,
+      "p_b_given_a": 0.02962962962962963,
+      "p_a_given_b": 0.01904761904761905
+    },
+    {
+      "a": "decidim-proposals",
+      "b": "decidim-templates",
+      "co_changes": 13,
+      "a_total": 1071,
+      "b_total": 54,
+      "jaccard": 0.011690647482014389,
+      "p_b_given_a": 0.012138188608776844,
+      "p_a_given_b": 0.24074074074074073
+    },
+    {
+      "a": "decidim-meetings",
+      "b": "decidim-templates",
+      "co_changes": 9,
+      "a_total": 729,
+      "b_total": 54,
+      "jaccard": 0.011627906976744186,
+      "p_b_given_a": 0.012345679012345678,
+      "p_a_given_b": 0.16666666666666666
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-verifications",
+      "co_changes": 4,
+      "a_total": 210,
+      "b_total": 140,
+      "jaccard": 0.011560693641618497,
+      "p_b_given_a": 0.01904761904761905,
+      "p_a_given_b": 0.02857142857142857
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-participatory_processes",
+      "co_changes": 7,
+      "a_total": 135,
+      "b_total": 479,
+      "jaccard": 0.011532125205930808,
+      "p_b_given_a": 0.05185185185185185,
+      "p_a_given_b": 0.014613778705636743
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-verifications",
+      "co_changes": 3,
+      "a_total": 135,
+      "b_total": 140,
+      "jaccard": 0.011029411764705883,
+      "p_b_given_a": 0.022222222222222223,
+      "p_a_given_b": 0.02142857142857143
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-forms",
+      "co_changes": 3,
+      "a_total": 135,
+      "b_total": 150,
+      "jaccard": 0.010638297872340425,
+      "p_b_given_a": 0.022222222222222223,
+      "p_a_given_b": 0.02
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-participatory_processes",
+      "co_changes": 6,
+      "a_total": 96,
+      "b_total": 479,
+      "jaccard": 0.01054481546572935,
+      "p_b_given_a": 0.0625,
+      "p_a_given_b": 0.012526096033402923
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-surveys",
+      "co_changes": 3,
+      "a_total": 135,
+      "b_total": 157,
+      "jaccard": 0.010380622837370242,
+      "p_b_given_a": 0.022222222222222223,
+      "p_a_given_b": 0.01910828025477707
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-collaborative_texts",
+      "co_changes": 2,
+      "a_total": 192,
+      "b_total": 12,
+      "jaccard": 0.009900990099009901,
+      "p_b_given_a": 0.010416666666666666,
+      "p_a_given_b": 0.16666666666666666
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-collaborative_texts",
+      "co_changes": 1,
+      "a_total": 96,
+      "b_total": 12,
+      "jaccard": 0.009345794392523364,
+      "p_b_given_a": 0.010416666666666666,
+      "p_a_given_b": 0.08333333333333333
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-elections",
+      "co_changes": 3,
+      "a_total": 12,
+      "b_total": 314,
+      "jaccard": 0.009287925696594427,
+      "p_b_given_a": 0.25,
+      "p_a_given_b": 0.009554140127388535
+    },
+    {
+      "a": "decidim-assemblies",
+      "b": "decidim-forms",
+      "co_changes": 5,
+      "a_total": 395,
+      "b_total": 150,
+      "jaccard": 0.009259259259259259,
+      "p_b_given_a": 0.012658227848101266,
+      "p_a_given_b": 0.03333333333333333
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-system",
+      "co_changes": 5,
+      "a_total": 314,
+      "b_total": 231,
+      "jaccard": 0.009259259259259259,
+      "p_b_given_a": 0.01592356687898089,
+      "p_a_given_b": 0.021645021645021644
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-elections",
+      "co_changes": 4,
+      "a_total": 135,
+      "b_total": 314,
+      "jaccard": 0.008988764044943821,
+      "p_b_given_a": 0.02962962962962963,
+      "p_a_given_b": 0.012738853503184714
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-elections",
+      "co_changes": 6,
+      "a_total": 368,
+      "b_total": 314,
+      "jaccard": 0.008875739644970414,
+      "p_b_given_a": 0.016304347826086956,
+      "p_a_given_b": 0.01910828025477707
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-forms",
+      "co_changes": 3,
+      "a_total": 192,
+      "b_total": 150,
+      "jaccard": 0.008849557522123894,
+      "p_b_given_a": 0.015625,
+      "p_a_given_b": 0.02
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-conferences",
+      "co_changes": 3,
+      "a_total": 96,
+      "b_total": 263,
+      "jaccard": 0.008426966292134831,
+      "p_b_given_a": 0.03125,
+      "p_a_given_b": 0.011406844106463879
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-templates",
+      "co_changes": 3,
+      "a_total": 337,
+      "b_total": 54,
+      "jaccard": 0.007731958762886598,
+      "p_b_given_a": 0.008902077151335312,
+      "p_a_given_b": 0.05555555555555555
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-pages",
+      "co_changes": 2,
+      "a_total": 192,
+      "b_total": 71,
+      "jaccard": 0.007662835249042145,
+      "p_b_given_a": 0.010416666666666666,
+      "p_a_given_b": 0.028169014084507043
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-templates",
+      "co_changes": 3,
+      "a_total": 368,
+      "b_total": 54,
+      "jaccard": 0.007159904534606206,
+      "p_b_given_a": 0.008152173913043478,
+      "p_a_given_b": 0.05555555555555555
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-demographics",
+      "co_changes": 1,
+      "a_total": 135,
+      "b_total": 7,
+      "jaccard": 0.0070921985815602835,
+      "p_b_given_a": 0.007407407407407408,
+      "p_a_given_b": 0.14285714285714285
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-collaborative_texts",
+      "co_changes": 1,
+      "a_total": 135,
+      "b_total": 12,
+      "jaccard": 0.00684931506849315,
+      "p_b_given_a": 0.007407407407407408,
+      "p_a_given_b": 0.08333333333333333
+    },
+    {
+      "a": "decidim-demographics",
+      "b": "decidim-meetings",
+      "co_changes": 5,
+      "a_total": 7,
+      "b_total": 729,
+      "jaccard": 0.006839945280437756,
+      "p_b_given_a": 0.7142857142857143,
+      "p_a_given_b": 0.006858710562414266
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-verifications",
+      "co_changes": 1,
+      "a_total": 10,
+      "b_total": 140,
+      "jaccard": 0.006711409395973154,
+      "p_b_given_a": 0.1,
+      "p_a_given_b": 0.007142857142857143
+    },
+    {
+      "a": "decidim-demographics",
+      "b": "decidim-elections",
+      "co_changes": 2,
+      "a_total": 7,
+      "b_total": 314,
+      "jaccard": 0.006269592476489028,
+      "p_b_given_a": 0.2857142857142857,
+      "p_a_given_b": 0.006369426751592357
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-forms",
+      "co_changes": 1,
+      "a_total": 12,
+      "b_total": 150,
+      "jaccard": 0.006211180124223602,
+      "p_b_given_a": 0.08333333333333333,
+      "p_a_given_b": 0.006666666666666667
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-api",
+      "co_changes": 2,
+      "a_total": 192,
+      "b_total": 135,
+      "jaccard": 0.006153846153846154,
+      "p_b_given_a": 0.010416666666666666,
+      "p_a_given_b": 0.014814814814814815
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-system",
+      "co_changes": 2,
+      "a_total": 96,
+      "b_total": 231,
+      "jaccard": 0.006153846153846154,
+      "p_b_given_a": 0.020833333333333332,
+      "p_a_given_b": 0.008658008658008658
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-blogs",
+      "co_changes": 7,
+      "a_total": 1054,
+      "b_total": 96,
+      "jaccard": 0.006124234470691163,
+      "p_b_given_a": 0.006641366223908918,
+      "p_a_given_b": 0.07291666666666667
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-system",
+      "co_changes": 3,
+      "a_total": 263,
+      "b_total": 231,
+      "jaccard": 0.006109979633401222,
+      "p_b_given_a": 0.011406844106463879,
+      "p_a_given_b": 0.012987012987012988
+    },
+    {
+      "a": "decidim-initiatives",
+      "b": "decidim-pages",
+      "co_changes": 3,
+      "a_total": 428,
+      "b_total": 71,
+      "jaccard": 0.006048387096774193,
+      "p_b_given_a": 0.007009345794392523,
+      "p_a_given_b": 0.04225352112676056
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-pages",
+      "co_changes": 1,
+      "a_total": 96,
+      "b_total": 71,
+      "jaccard": 0.006024096385542169,
+      "p_b_given_a": 0.010416666666666666,
+      "p_a_given_b": 0.014084507042253521
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-surveys",
+      "co_changes": 1,
+      "a_total": 12,
+      "b_total": 157,
+      "jaccard": 0.005952380952380952,
+      "p_b_given_a": 0.08333333333333333,
+      "p_a_given_b": 0.006369426751592357
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-templates",
+      "co_changes": 18,
+      "a_total": 3110,
+      "b_total": 54,
+      "jaccard": 0.00572155117609663,
+      "p_b_given_a": 0.005787781350482315,
+      "p_a_given_b": 0.3333333333333333
+    },
+    {
+      "a": "decidim-api",
+      "b": "decidim-templates",
+      "co_changes": 1,
+      "a_total": 135,
+      "b_total": 54,
+      "jaccard": 0.005319148936170213,
+      "p_b_given_a": 0.007407407407407408,
+      "p_a_given_b": 0.018518518518518517
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-demographics",
+      "co_changes": 1,
+      "a_total": 192,
+      "b_total": 7,
+      "jaccard": 0.005050505050505051,
+      "p_b_given_a": 0.005208333333333333,
+      "p_a_given_b": 0.14285714285714285
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-demographics",
+      "co_changes": 5,
+      "a_total": 1054,
+      "b_total": 7,
+      "jaccard": 0.004734848484848485,
+      "p_b_given_a": 0.004743833017077799,
+      "p_a_given_b": 0.7142857142857143
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-initiatives",
+      "co_changes": 2,
+      "a_total": 10,
+      "b_total": 428,
+      "jaccard": 0.0045871559633027525,
+      "p_b_given_a": 0.2,
+      "p_a_given_b": 0.004672897196261682
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-debates",
+      "co_changes": 1,
+      "a_total": 10,
+      "b_total": 210,
+      "jaccard": 0.0045662100456621,
+      "p_b_given_a": 0.1,
+      "p_a_given_b": 0.004761904761904762
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-system",
+      "co_changes": 2,
+      "a_total": 210,
+      "b_total": 231,
+      "jaccard": 0.004555808656036446,
+      "p_b_given_a": 0.009523809523809525,
+      "p_a_given_b": 0.008658008658008658
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-debates",
+      "co_changes": 1,
+      "a_total": 12,
+      "b_total": 210,
+      "jaccard": 0.004524886877828055,
+      "p_b_given_a": 0.08333333333333333,
+      "p_a_given_b": 0.004761904761904762
+    },
+    {
+      "a": "decidim-blogs",
+      "b": "decidim-forms",
+      "co_changes": 1,
+      "a_total": 96,
+      "b_total": 150,
+      "jaccard": 0.004081632653061225,
+      "p_b_given_a": 0.010416666666666666,
+      "p_a_given_b": 0.006666666666666667
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-meetings",
+      "co_changes": 3,
+      "a_total": 10,
+      "b_total": 729,
+      "jaccard": 0.004076086956521739,
+      "p_b_given_a": 0.3,
+      "p_a_given_b": 0.00411522633744856
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-pages",
+      "co_changes": 1,
+      "a_total": 210,
+      "b_total": 71,
+      "jaccard": 0.0035714285714285713,
+      "p_b_given_a": 0.004761904761904762,
+      "p_a_given_b": 0.014084507042253521
+    },
+    {
+      "a": "decidim-system",
+      "b": "decidim-templates",
+      "co_changes": 1,
+      "a_total": 231,
+      "b_total": 54,
+      "jaccard": 0.0035211267605633804,
+      "p_b_given_a": 0.004329004329004329,
+      "p_a_given_b": 0.018518518518518517
+    },
+    {
+      "a": "decidim-conferences",
+      "b": "decidim-pages",
+      "co_changes": 1,
+      "a_total": 263,
+      "b_total": 71,
+      "jaccard": 0.003003003003003003,
+      "p_b_given_a": 0.0038022813688212928,
+      "p_a_given_b": 0.014084507042253521
+    },
+    {
+      "a": "decidim-budgets",
+      "b": "decidim-collaborative_texts",
+      "co_changes": 1,
+      "a_total": 337,
+      "b_total": 12,
+      "jaccard": 0.0028735632183908046,
+      "p_b_given_a": 0.002967359050445104,
+      "p_a_given_b": 0.08333333333333333
+    },
+    {
+      "a": "decidim-debates",
+      "b": "decidim-forms",
+      "co_changes": 1,
+      "a_total": 210,
+      "b_total": 150,
+      "jaccard": 0.002785515320334262,
+      "p_b_given_a": 0.004761904761904762,
+      "p_a_given_b": 0.006666666666666667
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-meetings",
+      "co_changes": 2,
+      "a_total": 12,
+      "b_total": 729,
+      "jaccard": 0.0027063599458728013,
+      "p_b_given_a": 0.16666666666666666,
+      "p_a_given_b": 0.0027434842249657062
+    },
+    {
+      "a": "decidim-comments",
+      "b": "decidim-demographics",
+      "co_changes": 1,
+      "a_total": 368,
+      "b_total": 7,
+      "jaccard": 0.00267379679144385,
+      "p_b_given_a": 0.002717391304347826,
+      "p_a_given_b": 0.14285714285714285
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-comments",
+      "co_changes": 1,
+      "a_total": 10,
+      "b_total": 368,
+      "jaccard": 0.002652519893899204,
+      "p_b_given_a": 0.1,
+      "p_a_given_b": 0.002717391304347826
+    },
+    {
+      "a": "decidim-elections",
+      "b": "decidim-pages",
+      "co_changes": 1,
+      "a_total": 314,
+      "b_total": 71,
+      "jaccard": 0.0026041666666666665,
+      "p_b_given_a": 0.0031847133757961785,
+      "p_a_given_b": 0.014084507042253521
+    },
+    {
+      "a": "decidim-accountability",
+      "b": "decidim-system",
+      "co_changes": 1,
+      "a_total": 192,
+      "b_total": 231,
+      "jaccard": 0.002369668246445498,
+      "p_b_given_a": 0.005208333333333333,
+      "p_a_given_b": 0.004329004329004329
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-initiatives",
+      "co_changes": 1,
+      "a_total": 12,
+      "b_total": 428,
+      "jaccard": 0.002277904328018223,
+      "p_b_given_a": 0.08333333333333333,
+      "p_a_given_b": 0.002336448598130841
+    },
+    {
+      "a": "decidim-demographics",
+      "b": "decidim-participatory_processes",
+      "co_changes": 1,
+      "a_total": 7,
+      "b_total": 479,
+      "jaccard": 0.002061855670103093,
+      "p_b_given_a": 0.14285714285714285,
+      "p_a_given_b": 0.0020876826722338203
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-core",
+      "co_changes": 6,
+      "a_total": 12,
+      "b_total": 3110,
+      "jaccard": 0.0019255455712451862,
+      "p_b_given_a": 0.5,
+      "p_a_given_b": 0.0019292604501607716
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-collaborative_texts",
+      "co_changes": 2,
+      "a_total": 1054,
+      "b_total": 12,
+      "jaccard": 0.0018796992481203006,
+      "p_b_given_a": 0.0018975332068311196,
+      "p_a_given_b": 0.16666666666666666
+    },
+    {
+      "a": "decidim-collaborative_texts",
+      "b": "decidim-proposals",
+      "co_changes": 2,
+      "a_total": 12,
+      "b_total": 1071,
+      "jaccard": 0.0018501387604070306,
+      "p_b_given_a": 0.16666666666666666,
+      "p_a_given_b": 0.0018674136321195146
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-core",
+      "co_changes": 5,
+      "a_total": 10,
+      "b_total": 3110,
+      "jaccard": 0.0016051364365971107,
+      "p_b_given_a": 0.5,
+      "p_a_given_b": 0.001607717041800643
+    },
+    {
+      "a": "decidim-core",
+      "b": "decidim-demographics",
+      "co_changes": 4,
+      "a_total": 3110,
+      "b_total": 7,
+      "jaccard": 0.00128493414712496,
+      "p_b_given_a": 0.0012861736334405145,
+      "p_a_given_b": 0.5714285714285714
+    },
+    {
+      "a": "decidim-admin",
+      "b": "decidim-ai",
+      "co_changes": 1,
+      "a_total": 1054,
+      "b_total": 10,
+      "jaccard": 0.0009407337723424271,
+      "p_b_given_a": 0.0009487666034155598,
+      "p_a_given_b": 0.1
+    },
+    {
+      "a": "decidim-ai",
+      "b": "decidim-proposals",
+      "co_changes": 1,
+      "a_total": 10,
+      "b_total": 1071,
+      "jaccard": 0.000925925925925926,
+      "p_b_given_a": 0.1,
+      "p_a_given_b": 0.0009337068160597573
+    }
+  ]
+}

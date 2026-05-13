@@ -5,6 +5,6 @@
 # checklist flags. Edit OUTPUT_NAME below if a different submission filename
 # is required.
 
-my $OUTPUT_NAME = "andersen-research-project.pdf";
+my $OUTPUT_NAME = "LeoSakharov_ResearchProject_KIREPRO1PE_2026.pdf";
 
 $success_cmd = "cp -f %D $OUTPUT_NAME";

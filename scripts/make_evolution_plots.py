@@ -26,7 +26,7 @@ plt.rcParams.update({
     "axes.spines.right": False,
 })
 
-PLATFORM_ORDER = ["decidim", "consul", "polis"]
+PLATFORM_ORDER = ["decidim", "consul"]  # Polis dropped from this paper's framework application
 PLATFORM_LABELS = {"decidim": "Decidim", "consul": "Consul", "polis": "Polis"}
 PLATFORM_COLOURS = {
     "decidim": "#4c72b0",
@@ -154,15 +154,15 @@ def plot_decidim_per_engine(data: dict, out: Path) -> None:
     values = [c for _, c in items]
     totals = [all_time[eng] for eng, _ in items]
 
-    fig, ax = plt.subplots(figsize=(7.5, 5.4))
+    fig, ax = plt.subplots(figsize=(7.5, 4.8))
     y = np.arange(len(items))
-    bars = ax.barh(y, values, height=0.7, color="#4c72b0",
+    bars = ax.barh(y, values, height=0.65, color="#4c72b0",
                    edgecolor="white", linewidth=0.5)
 
     # annotations: total commits to the right of each bar
     max_v = max(values) if values else 1
     for i, (v, total) in enumerate(zip(values, totals)):
-        ax.text(v + max_v * 0.012, i, f"  ({total:,} all-time)",
+        ax.text(v + max_v * 0.02, i, f"({total:,} all-time)",
                 fontsize=7.5, color="0.45", va="center")
 
     ax.set_yticks(y)
@@ -175,7 +175,9 @@ def plot_decidim_per_engine(data: dict, out: Path) -> None:
     ax.grid(axis="x", linestyle=":", color="0.85", linewidth=0.6)
     ax.set_axisbelow(True)
     # Add right margin for annotations
-    ax.set_xlim(0, max_v * 1.35)
+    ax.set_xlim(0, max_v * 1.55)
+    # Add a small top/bottom margin so the topmost bar/annotation has breathing room
+    ax.margins(y=0.02)
 
     plt.tight_layout()
     plt.savefig(out, bbox_inches="tight", pad_inches=0.15)

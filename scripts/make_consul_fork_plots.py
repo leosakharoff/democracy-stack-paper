@@ -78,11 +78,11 @@ def plot_activity(records: list[dict], out: Path):
     total = len(pushed_years)
     recent_cutoff = max(pushed_years) - 2
     recent = sum(1 for y in pushed_years if y >= recent_cutoff)
-    ax.text(0.02, 0.98,
+    ax.text(0.98, 0.98,
             f"{total:,} forks total · {recent} pushed in last 3 years "
             f"({recent / total:.0%})",
             fontsize=8, color="0.3",
-            ha="left", va="top", transform=ax.transAxes)
+            ha="right", va="top", transform=ax.transAxes)
 
     plt.tight_layout()
     plt.savefig(out, bbox_inches="tight", pad_inches=0.15)

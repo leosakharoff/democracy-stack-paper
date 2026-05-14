@@ -389,7 +389,9 @@ This section applies the framework to Decidim and Consul. For each platform we d
 Decidim is a modular monolith built with Ruby on Rails. The codebase at \url{github.com/decidim/decidim} contains 27 first-party engines packaged as standalone Ruby gems at SHA \texttt{be39c244} (2026-05-12).
 
 \paragraph{Software structure.}
-The 27 engines fall into four groups: \texttt{decidim-core} as the foundational dependency, three infrastructure engines (\texttt{admin}, \texttt{api}, \texttt{system}), three shared-service engines (\texttt{comments}, \texttt{forms}, \texttt{verifications}), four participatory spaces (\texttt{processes}, \texttt{assemblies}, \texttt{conferences}, \texttt{initiatives}), and 13 components that attach to those spaces. Every engine except \texttt{decidim-core} declares \texttt{add\_dependency "decidim-core"} in its gemspec, matching a hub-and-spoke pattern. But 13 of the 27 engines have runtime dependencies on other Decidim engines besides core: \texttt{decidim-comments} has 6 user-facing dependents and \texttt{decidim-forms} has 5, making them Layer-2 hubs of the platform (Figure~\ref{fig:dependency}).
+The 27 engines fall into four groups: \texttt{decidim-core} as the foundational dependency, three infrastructure engines (\texttt{admin}, \texttt{api}, \texttt{system}), three shared-service engines (\texttt{comments}, \texttt{forms}, \texttt{verifications}), four participatory spaces (\texttt{processes}, \texttt{assemblies}, \texttt{conferences}, \texttt{initiatives}), and 13 components that attach to those spaces. Every engine except \texttt{decidim-core} declares \texttt{add\_dependency "decidim-core"} in its gemspec, matching a hub-and-spoke pattern.
+
+However, 13 of the 27 engines have runtime dependencies on other Decidim engines besides core: \texttt{decidim-comments} has 6 user-facing dependents and \texttt{decidim-forms} has 5, making them Layer-2 hubs of the platform (Figure~\ref{fig:dependency}).
 
 \begin{figure}[!htbp]
 \centering
@@ -400,35 +402,7 @@ The 27 engines fall into four groups: \texttt{decidim-core} as the foundational 
 
 The key architectural pattern is the space/component matrix: almost any component can attach to almost any space, creating an $N \times M$ combinatorial structure implemented through a polymorphic database association in core. \citet[p.~82]{barandiaran2024decidim} call this the ``furniture'' model: administrators mix and match components with spaces without writing code. Components are registered through a manifest API (\texttt{Decidim.register\_component}); third-party modules use the same interface as first-party ones.
 
-\newcommand{\yon}{\tikz\fill[black] (0,0) circle (4pt);}
-\newcommand{\yav}{\tikz\draw[gray!60, line width=0.6pt] (0,0) circle (3.5pt);}
-
-\begin{figure}[!htbp]
-\centering
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{l|cccc}
-\toprule
- & \textbf{Processes} & \textbf{Assemblies} & \textbf{Conferences} & \textbf{Initiatives} \\
-\midrule
-\textbf{Proposals}       & \yon & \yon & \yon & \yon \\
-\textbf{Meetings}        & \yon & \yon & \yon & \yav \\
-\textbf{Budgets}         & \yon & \yon & \yav & \yav \\
-\textbf{Surveys}         & \yon & \yav & \yon & \yav \\
-\textbf{Debates}         & \yon & \yon & \yon & \yav \\
-\textbf{Blogs}           & \yon & \yav & \yav & \yav \\
-\textbf{Accountability}  & \yon & \yon & \yav & \yav \\
-\bottomrule
-\end{tabular}
-
-\vspace{6pt}
-{\small \yon~Commonly activated \qquad \yav~Available, not default}\par
-\vspace{2pt}
-{\footnotesize\textit{Any component can attach to any space at runtime.}}
-\caption{The Decidim space/component matrix as documented in the project's own handbook \citep[Fig.~3.1]{barandiaran2024decidim}. Administrators compose participation designs by activating components within spaces --- an $N \times M$ combinatorial architecture implemented through a polymorphic database association. Filled and open circles reflect Barandiaran et al.'s reporting on common configurations, not a survey we conducted.}
-\label{fig:matrix}
-\end{figure}
-
-To examine whether modular design is reflected in modular evolution, we applied Gall et al.'s logical coupling analysis \citep{gall1998detection} to the commit history. Of 5{,}517 commits touching at least one engine, $64\%$ stay within a single engine. This suggests that the engine architecture provides meaningful change isolation at the repository level, although it does not prove runtime independence. The remaining cross-engine coupling is concentrated in the four participatory spaces (Jaccard up to $0.43$), which share infrastructure code despite having no gemspec dependencies between them (Figure~\ref{fig:coupling}).
+To examine whether modular design is reflected in modular evolution, we applied Gall et al.'s logical coupling analysis \citep{gall1998detection} to the commit history. Of 5{,}517 commits (excluding mega-commits per Section~\ref{sec:method}), $64\%$ stay within a single engine. This suggests that the engine architecture provides meaningful change isolation at the repository level, although it does not prove runtime independence. The remaining cross-engine coupling is concentrated in the four participatory spaces (Jaccard up to $0.43$), which share infrastructure code despite having no gemspec dependencies between them (Figure~\ref{fig:coupling}).
 
 \begin{figure}[!htbp]
 \centering
@@ -464,7 +438,7 @@ This is not a claim that Decidim has a healthier deployment ecosystem in raw num
 
 \emph{Interoperability} is moderate. A GraphQL API exposes most participatory content, and the project's integration choices (OpenStreetMap, Matomo, Jitsi) are deliberately open-source. There are no cross-platform standards for civic tech that would let Decidim compose with other platforms at the data layer, so interoperability remains less developed than modifiability or configurability in this case.
 
-\emph{Configurability} is high. The 4 spaces and 13 components produce many possible default configurations, each customisable through component-level settings without code changes (Figure~\ref{fig:matrix}). \citet{palacin2024configurations} document 25 distinct production configurations across studied deployments.
+\emph{Configurability} is high. The 4 spaces and 13 components produce many possible default configurations, each customisable through component-level settings without code changes. \citet{palacin2024configurations} document 25 distinct production configurations across studied deployments.
 
 \emph{Transparency and auditability} is high at the architectural level. Decidim ships an immutable \texttt{ActionLog} model with a four-level visibility enum (private, admin-only, public-only, all) and an organisation scope. The \texttt{Traceable} concern adds PaperTrail-based version history to every changeable model, so per-proposal version diffs are available. Permission-gated controllers enforce admin-log access. The GraphQL API is designed to expose public participatory content while not exposing individual votes or admin actions. Sorting is deterministic and seeded for reproducibility within a session. These mechanisms make auditability a first-class architectural concern, although they do not by themselves prove that non-technical citizens can meaningfully use the audit surfaces in practice.
 
@@ -499,7 +473,7 @@ The Foundation is funded by a patchwork: a single municipal sponsor (the City of
 \paragraph{Fork divergence.}
 We enumerated all forks of \texttt{consuldemocracy/consuldemocracy} via the GitHub API and computed each fork's divergence against upstream master. Of 1{,}030 enumerable forks, 1{,}026 had upstream comparison data. 746 ($73\%$) are unmodified ``stars in fork form''; 280 ($27\%$) have at least one commit ahead --- approximately the ``around 250 deployments'' figure previous reports cite \citep{ntari2025consul}. The distribution within those 280 is heavily skewed: most have fewer than ten commits ahead, 39 have 100 or more, and only 5 have 1{,}000 or more.
 
-The most-diverged fork is \texttt{AyuntamientoMadrid/consul} --- Madrid itself, the city that built Consul. It sits 12{,}725 commits ahead of upstream and 11{,}540 behind, last pushed 2023-05-23. The originating city therefore maintained a separate copy that drifted far from upstream and was eventually abandoned. This does not prove that the architecture alone caused the divergence, but it shows that even the originator ended up using the fork pattern that the platform made easiest. Plotted in Figure~\ref{fig:consul-divergence}, the population forms an L-shape: a dense behind-only row of dormant copies and a tall ahead-and-behind cloud reaching above 10{,}000 commits ahead, with the ahead-only quadrant empty.
+The most-diverged fork is \texttt{AyuntamientoMadrid/consul} --- Madrid itself, the city that built Consul. It sits 12{,}725 commits ahead of upstream and 11{,}540 behind, last pushed 2023-05-23. The originating city therefore maintained a separate copy that drifted far from upstream and was eventually abandoned. This does not prove that the architecture alone caused the divergence, but it shows that even the originator ended up using the fork pattern that the platform made easiest. Plotted in Figure~\ref{fig:consul-divergence}, three quadrants are populated and one is conspicuously empty: 280 ahead-and-behind silos (top-right), 745 behind-only dormant copies (bottom-right), 1 in-sync fork (bottom-left), and zero ahead-only forks (top-left). The empty top-left is the diagnostic signal --- no fork keeps up with upstream while also adding local work.
 
 \begin{figure}[!htbp]
 \centering
@@ -532,7 +506,7 @@ Two pieces of evidence make this concrete. First, Madrid itself ended up in the 
 
 \subsection{Cross-case Synthesis}\label{sec:application-synthesis}
 
-Decidim has a wider contributor base than Consul, and Consul's upstream activity collapsed in 2019. The commit history makes both patterns visible. Figure~\ref{fig:contributor-concentration} shows the concentration: Decidim has 7{,}078 human commits across 183 unique authors with a Gini coefficient of $0.85$ (top-three share $36\%$, top-ten $68\%$), against Consul's 186 unique authors with top-three $52\%$ and top-ten $87\%$. These figures indicate contributor concentration in the repository, not the full distribution of influence in the wider ecosystem. Figure~\ref{fig:commit-timeline} shows the Consul cliff in 2019--2020 following Ahora Madrid's electoral loss in May 2019 \citep{linaker2025consul, barandiaran2024decidim}, alongside Decidim's steadier plateau after 2019.
+Decidim's contributor base is less concentrated than Consul's, and Consul's upstream activity collapsed in 2019. The commit history makes both patterns visible. Figure~\ref{fig:contributor-concentration} shows the concentration: Decidim has 7{,}078 human commits across 183 unique authors with a Gini coefficient of $0.85$ (top-three share $36\%$, top-ten $68\%$), against Consul's 186 unique authors with a Gini coefficient of $0.93$ (top-three $52\%$, top-ten $87\%$). These figures indicate contributor concentration in the repository, not the full distribution of influence in the wider ecosystem. Figure~\ref{fig:commit-timeline} shows the Consul cliff in 2019--2020 following Ahora Madrid's electoral loss in May 2019 \citep{linaker2025consul, barandiaran2024decidim}, alongside Decidim's steadier plateau after 2019.
 
 \begin{figure}[!htbp]
 \centering
@@ -597,7 +571,7 @@ The two platforms can also be read through \citet{iansiti2004strategy}'s ecosyst
 
 The SECO health dimensions from \citet{jansen2014measuring} --- productivity, robustness, niche creation --- offer useful organising concepts for civic tech, but they do not by themselves distinguish ecosystem extension from silo formation. Consul's 2017--2019 peak generated thousands of commits and dozens of unique contributors --- numbers a productivity-only assessment might read as a thriving project. Yet the extension model pushed adopters toward separate forks, and when Ahora Madrid lost the city in 2019 the upstream commit rate dropped roughly $80\%$. By productivity measures, the ecosystem looked active; by fork-divergence measures, it was already vulnerable to fragmentation.
 
-Fork-divergence shape as a niche-creation diagnostic (Section~\ref{sec:framework-fd}) is one concrete methodological contribution this paper makes to SECO research, adapting the fork-mining literature \citep{zhou2020forks, wang2023forkentropy, businge2022reuse} into a population-shape reading paired with \citet{jansen2014measuring}'s niche-creation dimension for civic tech platforms. Figures~\ref{fig:consul-divergence} and~\ref{fig:decidim-divergence} plot the two cases on identical axes. Consul's L-shape --- dense behind-only row, tall ahead-and-behind cloud reaching above 10{,}000 commits ahead, empty ahead-only --- is a fragmentation signal: the deployer fork population extends away from upstream rather than around it. Decidim's shape is structurally different: the ahead-and-behind cluster is small in both count (45 forks) and magnitude (top fork at 221 commits ahead, two orders of magnitude below Consul's Madrid), and the originator sits at zero local divergence. The shapes are qualitative and visual, complementary to scalar measures used in the fork-mining literature.
+Fork-divergence shape as a niche-creation diagnostic (Section~\ref{sec:framework-fd}) is one concrete methodological contribution this paper makes to SECO research, adapting the fork-mining literature \citep{zhou2020forks, wang2023forkentropy, businge2022reuse} into a population-shape reading paired with \citet{jansen2014measuring}'s niche-creation dimension for civic tech platforms. Figures~\ref{fig:consul-divergence} and~\ref{fig:decidim-divergence} plot the two cases on identical axes. Consul's quadrant pattern --- 280 ahead-and-behind silos and 745 behind-only dormant copies, with the ahead-only quadrant empty --- is a fragmentation signal: the deployer fork population extends away from upstream rather than around it. Decidim's shape is structurally different: the ahead-and-behind cluster is small in both count (45 forks) and magnitude (top fork at 221 commits ahead, two orders of magnitude below Consul's Madrid), and the originator sits at zero local divergence. The shapes are qualitative and visual, complementary to scalar measures used in the fork-mining literature.
 
 Applying the same diagnostic to both platforms surfaces a methodological point. The shape reads different ecosystem niches in each case, and the contrast is itself the finding. For Consul, where deployers customise by forking, the fork population is approximately the deployment ecosystem and the shape reads deployment fragmentation directly. For Decidim, where deployers install the gem in their own Rails application (\texttt{decidim my\_app}), most deployments live outside the fork tree and the shape reads contributor flow plus learners instead. The near-absence of large diverged forks in the Decidim figure is therefore not merely a healthier-looking deployment ecosystem in raw numbers; it is evidence that the plugin path has displaced the deployment fork. Whether fork-divergence shape can be applied uniformly across civic tech platforms thus depends on the documented extension model, and that bound is itself a useful methodological finding.
 

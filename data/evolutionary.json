@@ -1,0 +1,516 @@
+{
+  "decidim": {
+    "repo": "decidim",
+    "snapshot_sha": "be39c244035485e2eba7181252aea487f5897cef",
+    "snapshot_date": "2026-05-12T15:05:37+02:00",
+    "total_commits_no_merges": 7756,
+    "human_commits": 7078,
+    "bot_commits": 678,
+    "unique_human_authors": 183,
+    "unique_bot_authors": 5,
+    "first_human_commit": "2016-08-17T12:41:48+02:00",
+    "last_human_commit": "2026-05-12T15:14:10+03:00",
+    "top_authors": [
+      {
+        "email": "andreslucena@users.noreply.github.com",
+        "name": "Andr\u00e9s Pereira de Lucena",
+        "commits": 956
+      },
+      {
+        "email": "contact@alecslupu.ro",
+        "name": "Alexandru Emil Lupu",
+        "commits": 866
+      },
+      {
+        "email": "mrc2407@gmail.com",
+        "name": "Marc Riera",
+        "commits": 749
+      },
+      {
+        "email": "antti.hukkanen@mainiotech.fi",
+        "name": "Antti Hukkanen",
+        "commits": 598
+      },
+      {
+        "email": "josepjaume@gmail.com",
+        "name": "Josep Jaume Rey",
+        "commits": 537
+      },
+      {
+        "email": "deivid.rodriguez@riseup.net",
+        "name": "David Rodr\u00edguez",
+        "commits": 382
+      },
+      {
+        "email": "oriolgual@users.noreply.github.com",
+        "name": "Oriol Gual",
+        "commits": 199
+      },
+      {
+        "email": "101816158+greenwoodt@users.noreply.github.com",
+        "name": "Tom Greenwood",
+        "commits": 188
+      },
+      {
+        "email": "david.morcillo@gmail.com",
+        "name": "David Morcillo",
+        "commits": 186
+      },
+      {
+        "email": "aumpfbahn@gmail.com",
+        "name": "Hugoren Martinako",
+        "commits": 165
+      },
+      {
+        "email": "oriol.gual@gmail.com",
+        "name": "Oriol Gual",
+        "commits": 109
+      },
+      {
+        "email": "ivan@platoniq.net",
+        "name": "Ivan Verg\u00e9s",
+        "commits": 102
+      },
+      {
+        "email": "agustibr@users.noreply.github.com",
+        "name": "Agusti B.R",
+        "commits": 102
+      },
+      {
+        "email": "leiodd@gmail.com",
+        "name": "leio10",
+        "commits": 99
+      },
+      {
+        "email": "eduardomech@gmail.com",
+        "name": "Eduardo Mart\u00ednez",
+        "commits": 93
+      },
+      {
+        "email": "oliver.vh@coditramuntana.com",
+        "name": "Oliver Valls",
+        "commits": 92
+      },
+      {
+        "email": "isaac.mg@coditramuntana.com",
+        "name": "Isaac Massot",
+        "commits": 89
+      },
+      {
+        "email": "89.aitor.porro@gmail.com",
+        "name": "Aitor Porro",
+        "commits": 70
+      },
+      {
+        "email": "tramuntanal@gmail.com",
+        "name": "Oliver Valls",
+        "commits": 67
+      },
+      {
+        "email": "armandfardeau@users.noreply.github.com",
+        "name": "Armand Fardeau",
+        "commits": 64
+      }
+    ],
+    "top_bots": [
+      {
+        "email": "decidim-bot@users.noreply.github.com",
+        "commits": 468
+      },
+      {
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "commits": 118
+      },
+      {
+        "email": "info+decidim-bot@codegram.com",
+        "commits": 85
+      },
+      {
+        "email": "imgbot[bot]@users.noreply.github.com",
+        "commits": 5
+      },
+      {
+        "email": "31301654+imgbot[bot]@users.noreply.github.com",
+        "commits": 2
+      }
+    ],
+    "top10_share": 0.6818310257134784,
+    "top3_share": 0.3632382028821701,
+    "gini": 0.8502973116112884,
+    "commits_per_year": {
+      "2016": 333,
+      "2017": 1028,
+      "2018": 1126,
+      "2019": 375,
+      "2020": 614,
+      "2021": 706,
+      "2022": 624,
+      "2023": 760,
+      "2024": 593,
+      "2025": 676,
+      "2026": 243
+    },
+    "per_engine": {
+      "all_time_commits_per_engine": {
+        "decidim-accountability": 668,
+        "decidim-admin": 1715,
+        "decidim-ai": 22,
+        "decidim-api": 271,
+        "decidim-assemblies": 960,
+        "decidim-blogs": 456,
+        "decidim-budgets": 917,
+        "decidim-collaborative_texts": 66,
+        "decidim-comments": 821,
+        "decidim-conferences": 705,
+        "decidim-core": 3892,
+        "decidim-debates": 675,
+        "decidim-demographics": 32,
+        "decidim-design": 133,
+        "decidim-dev": 913,
+        "decidim-elections": 622,
+        "decidim-forms": 448,
+        "decidim-generators": 632,
+        "decidim-initiatives": 910,
+        "decidim-meetings": 1384,
+        "decidim-pages": 355,
+        "decidim-participatory_processes": 1054,
+        "decidim-proposals": 1775,
+        "decidim-surveys": 533,
+        "decidim-system": 588,
+        "decidim-templates": 217,
+        "decidim-verifications": 453
+      },
+      "recent_12mo_commits_per_engine": {
+        "decidim-accountability": 78,
+        "decidim-admin": 139,
+        "decidim-ai": 13,
+        "decidim-api": 54,
+        "decidim-assemblies": 104,
+        "decidim-blogs": 61,
+        "decidim-budgets": 93,
+        "decidim-collaborative_texts": 53,
+        "decidim-comments": 66,
+        "decidim-conferences": 87,
+        "decidim-core": 332,
+        "decidim-debates": 79,
+        "decidim-demographics": 32,
+        "decidim-design": 35,
+        "decidim-dev": 88,
+        "decidim-elections": 89,
+        "decidim-forms": 63,
+        "decidim-generators": 144,
+        "decidim-initiatives": 102,
+        "decidim-meetings": 136,
+        "decidim-pages": 23,
+        "decidim-participatory_processes": 120,
+        "decidim-proposals": 141,
+        "decidim-surveys": 70,
+        "decidim-system": 42,
+        "decidim-templates": 29,
+        "decidim-verifications": 46
+      },
+      "recent_cutoff": "2025-05-12"
+    }
+  },
+  "consul": {
+    "repo": "consul",
+    "snapshot_sha": "3c3b5c4ae887d48c67ef8893f93ef101da0b6b5b",
+    "snapshot_date": "2026-05-11T16:17:25+02:00",
+    "total_commits_no_merges": 16892,
+    "human_commits": 14372,
+    "bot_commits": 2520,
+    "unique_human_authors": 186,
+    "unique_bot_authors": 7,
+    "first_human_commit": "2015-07-15T13:32:13+02:00",
+    "last_human_commit": "2026-05-11T14:47:35+02:00",
+    "top_authors": [
+      {
+        "email": "javim@elretirao.net",
+        "name": "Javi Mart\u00edn",
+        "commits": 3923
+      },
+      {
+        "email": "alberto@decabeza.es",
+        "name": "Alberto",
+        "commits": 1970
+      },
+      {
+        "email": "voodoorai2000@gmail.com",
+        "name": "rgarcia",
+        "commits": 1514
+      },
+      {
+        "email": "jjbazan@gmail.com",
+        "name": "Juanjo Baza\u0301n",
+        "commits": 1133
+      },
+      {
+        "email": "bertocq@gmail.com",
+        "name": "Bertocq",
+        "commits": 1096
+      },
+      {
+        "email": "kikito@gmail.com",
+        "name": "kikito",
+        "commits": 945
+      },
+      {
+        "email": "sebastia.roig@gmail.com",
+        "name": "taitus",
+        "commits": 851
+      },
+      {
+        "email": "senenrodero@gmail.com",
+        "name": "Sen\u00e9n Rodero Rodr\u00edguez",
+        "commits": 466
+      },
+      {
+        "email": "mariacheca@users.noreply.github.com",
+        "name": "Mar\u00eda Checa",
+        "commits": 302
+      },
+      {
+        "email": "microweb10@gmail.com",
+        "name": "Julian Herrero",
+        "commits": 285
+      },
+      {
+        "email": "iangel.p93@gmail.com",
+        "name": "Angel Perez",
+        "commits": 226
+      },
+      {
+        "email": "albertomg994@gmail.com",
+        "name": "Alberto Miedes Garce\u0301s",
+        "commits": 165
+      },
+      {
+        "email": "jsperezg@gmail.com",
+        "name": "Juan Salvador P\u00e9rez Garc\u00eda",
+        "commits": 150
+      },
+      {
+        "email": "itziar.agirre@m2c.es",
+        "name": "iagirre",
+        "commits": 120
+      },
+      {
+        "email": "amaia@amaiac.net",
+        "name": "Amaia Castro",
+        "commits": 118
+      },
+      {
+        "email": "15726+senen@users.noreply.github.com",
+        "name": "Sen\u00e9n Rodero Rodr\u00edguez",
+        "commits": 76
+      },
+      {
+        "email": "dgilperez@gmail.com",
+        "name": "David Gil",
+        "commits": 75
+      },
+      {
+        "email": "agileontheweb@gmail.com",
+        "name": "Alessandro Cuoghi",
+        "commits": 74
+      },
+      {
+        "email": "ferblape@gmail.com",
+        "name": "Fernando Blat",
+        "commits": 57
+      },
+      {
+        "email": "m@martingonzalez.net",
+        "name": "Mart\u00edn Gonz\u00e1lez",
+        "commits": 49
+      }
+    ],
+    "top_bots": [
+      {
+        "email": "consul@madrid.es",
+        "commits": 1853
+      },
+      {
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "commits": 471
+      },
+      {
+        "email": "27856297+dependabot-preview[bot]@users.noreply.github.com",
+        "commits": 108
+      },
+      {
+        "email": "depfu[bot]@users.noreply.github.com",
+        "commits": 48
+      },
+      {
+        "email": "support@dependabot.com",
+        "commits": 27
+      },
+      {
+        "email": "senen@rockandror.com",
+        "commits": 12
+      },
+      {
+        "email": "bot@depfu.com",
+        "commits": 1
+      }
+    ],
+    "top10_share": 0.8687030336765934,
+    "top3_share": 0.5153771221820206,
+    "gini": 0.9297005228206578,
+    "commits_per_year": {
+      "2015": 1997,
+      "2016": 1829,
+      "2017": 2731,
+      "2018": 2112,
+      "2019": 1728,
+      "2020": 628,
+      "2021": 1127,
+      "2022": 414,
+      "2023": 519,
+      "2024": 656,
+      "2025": 521,
+      "2026": 110
+    }
+  },
+  "polis": {
+    "repo": "polis",
+    "snapshot_sha": "e8c2b46dad830b0c686be62ae5888d989ee5ea21",
+    "snapshot_date": "2026-04-26T22:15:55+01:00",
+    "total_commits_no_merges": 8753,
+    "human_commits": 8454,
+    "bot_commits": 299,
+    "unique_human_authors": 79,
+    "unique_bot_authors": 1,
+    "first_human_commit": "2012-10-13T09:04:12-07:00",
+    "last_human_commit": "2026-04-26T23:14:39+02:00",
+    "top_authors": [
+      {
+        "email": "m@bjorkegren.com",
+        "name": "Mike Bjorkegren",
+        "commits": 4699
+      },
+      {
+        "email": "colinmegill@gmail.com",
+        "name": "Colin Megill",
+        "commits": 1277
+      },
+      {
+        "email": "metasoarous@gmail.com",
+        "name": "Christopher Small",
+        "commits": 979
+      },
+      {
+        "email": "timevko@gmail.com",
+        "name": "Tim",
+        "commits": 354
+      },
+      {
+        "email": "tim@devzero.io",
+        "name": "tevko",
+        "commits": 282
+      },
+      {
+        "email": "patrick.c.connolly@gmail.com",
+        "name": "Patrick Connolly",
+        "commits": 273
+      },
+      {
+        "email": "ben@aliencyb.org",
+        "name": "Bennie Rosas",
+        "commits": 216
+      },
+      {
+        "email": "lavalle.paula@gmail.com",
+        "name": "Paula Lavalle",
+        "commits": 63
+      },
+      {
+        "email": "cs@misscs.me",
+        "name": "claudina sarahe",
+        "commits": 58
+      },
+      {
+        "email": "julien@cornebise.com",
+        "name": "Julien Cornebise",
+        "commits": 23
+      },
+      {
+        "email": "urakagi@gmail.com",
+        "name": "Romulus Tsai",
+        "commits": 23
+      },
+      {
+        "email": "ch_weil@topiq.es",
+        "name": "Christian Weilbach",
+        "commits": 18
+      },
+      {
+        "email": "6069975+crkrenn@users.noreply.github.com",
+        "name": "Chris Krenn",
+        "commits": 14
+      },
+      {
+        "email": "christian@weilbach.name",
+        "name": "Christian Weilbach",
+        "commits": 12
+      },
+      {
+        "email": "light24bulbs@gmail.com",
+        "name": "forrest",
+        "commits": 12
+      },
+      {
+        "email": "virgile.deville@gmail.com",
+        "name": "virgile-dev",
+        "commits": 9
+      },
+      {
+        "email": "rohan.m.richards@gmail.com",
+        "name": "Rohan Richards",
+        "commits": 8
+      },
+      {
+        "email": "38562595+pitmonticone@users.noreply.github.com",
+        "name": "Pietro Monticone",
+        "commits": 7
+      },
+      {
+        "email": "bennie.rosas@blvd.co",
+        "name": "Bennie Rosas",
+        "commits": 6
+      },
+      {
+        "email": "dubmediagroup@gmail.com",
+        "name": "kdubbicles",
+        "commits": 6
+      }
+    ],
+    "top_bots": [
+      {
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "commits": 299
+      }
+    ],
+    "top10_share": 0.9727939436952922,
+    "top3_share": 0.8226874852140998,
+    "gini": 0.9415900794470746,
+    "commits_per_year": {
+      "2012": 147,
+      "2013": 725,
+      "2014": 2650,
+      "2015": 1083,
+      "2016": 637,
+      "2017": 1002,
+      "2018": 236,
+      "2019": 50,
+      "2020": 340,
+      "2021": 188,
+      "2022": 67,
+      "2023": 137,
+      "2024": 165,
+      "2025": 999,
+      "2026": 28
+    }
+  }
+}

@@ -1,29 +1,43 @@
 \documentclass[11pt,a4paper]{article}
 
-% --- Packages ---
+% --- Language and typography ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[htt]{hyphenat}  % allow hyphenation in \texttt
+
+% --- Page layout ---
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{parskip}
+
+% --- Tables and figures ---
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor=blue!60!black, citecolor=blue!60!black, urlcolor=blue!60!black}
-\usepackage{url}
-\usepackage[authoryear]{natbib}
-\bibliographystyle{plainnat}
 \usepackage{graphicx}
+\usepackage{float}     % [H] specifier
+\usepackage{placeins}  % \FloatBarrier
+\usepackage[font={small,sf}, labelfont={bf,sf}, labelsep=colon, skip=8pt, margin=1em]{caption}
+
+% --- Lists, quotes, and graphics ---
 \usepackage{enumitem}
 \usepackage{csquotes}
+\usepackage[table]{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{positioning, fit, backgrounds, calc}
-\usepackage{xcolor}
-\usepackage[htt]{hyphenat}  % allow hyphenation in \texttt
+\usepackage{fontawesome5}
+
+% Fork-divergence quadrant tints, matched to figure 1
+\definecolor{quadgreen}{HTML}{D8ECD8}
+\definecolor{quadred}{HTML}{F5D9DC}
+\definecolor{quadgray}{HTML}{E9ECEF}
+\definecolor{quadtan}{HTML}{FBEACC}
+
+% --- Code listings ---
 \usepackage{listings}
 \lstset{
   basicstyle=\ttfamily\small,
@@ -37,6 +51,19 @@
   aboveskip=0.8em,
   belowskip=0.8em,
   breaklines=true,
+}
+
+% --- Citations and links ---
+\usepackage[authoryear]{natbib}
+\bibliographystyle{plainnat}
+
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
 }
 
 % --- No default title ---
@@ -74,11 +101,12 @@
 \begin{flushleft}
 \renewcommand{\arraystretch}{1.6}
 \begin{tabular}{@{}ll}
-\textsf{\textcolor{gray}{Author}}      & \textsf{Leo Sandvig Andersen} \\
+\textsf{\textcolor{gray}{Author}}      & \textsf{Leo William Engholm Sakharov} \\
+\textsf{\textcolor{gray}{Email}}       & \textsf{leos@itu.dk} \\
 \textsf{\textcolor{gray}{Programme}}   & \textsf{MSc Software Design} \\
 \textsf{\textcolor{gray}{Supervisor}}  & \textsf{Konstantinos Manikas} \\
-\textsf{\textcolor{gray}{Course}}      & \textsf{Research Project (7.5 ECTS)} \\
-\textsf{\textcolor{gray}{Date}}        & \textsf{May 2026} \\
+\textsf{\textcolor{gray}{Course}}      & \textsf{Research Project (KIREPRO1PE, 7.5 ECTS)} \\
+\textsf{\textcolor{gray}{Date}}        & \textsf{15 May 2026} \\
 \end{tabular}
 \end{flushleft}
 
@@ -90,12 +118,13 @@
 
 \restoregeometry
 \end{titlepage}
-
 % ============================================================
 % ABSTRACT
 % ============================================================
 \begin{abstract}
-Europe is investing in democratic digital infrastructure, but there is little guidance on what good software architecture looks like when the goal is democracy rather than service delivery. Architecture shapes governance --- this idea is well established in science and technology studies (STS) and platform studies --- yet to the best of our knowledge, no study has applied software architecture or software ecosystem methods to civic technology platforms. This paper addresses that gap through a multi-case analysis of three platforms: Decidim (deep case with architectural recovery), Consul (comparison case --- shared origin, opposite architecture), and Polis (contrasting algorithmic paradigm). The analysis identifies four quality attribute trade-offs that are both technical and political: modifiability versus sustainability, interoperability versus autonomy, deployability versus transparency, and algorithmic depth versus ecosystem extensibility. The Decidim/Consul divergence --- same origin, opposite architecture, very different ecosystem outcomes --- provides the strongest evidence that architectural decisions in civic tech function as governance decisions. The paper brings software architecture and ecosystem research into the European policy debate about building a ``democracy stack.''
+Civic technology platforms have been building digital democratic infrastructure for over a decade --- software for participatory budgeting, policy proposals, and citizen consultations. European policy is now converging on the same idea, under names like the Digital Services Act, the European Digital Identity framework, IDEA's ``democracy stack'', and CEPS's case for European digital public infrastructure. But policy talks about what this infrastructure should do, not how it should be built. The platforms themselves have rarely been analysed through software architecture and software ecosystem (SECO) methods. This paper proposes a small analytical framework for reasoning about software architecture decisions in democratic digital infrastructure. The framework has three components: four quality attributes that connect architecture to democratic capacities (modifiability, interoperability, configurability, and transparency and auditability); the three-structures lens of Christensen et al.~2014, where ecosystem health depends on the fit between organisational, business, and software structures; and a set of architectural trade-offs derived from the four attributes. Alongside these, the paper adapts fork-mining analysis into a population-shape niche-creation diagnostic, \emph{fork-divergence shape}, for civic tech ecosystems.
+
+The framework is applied to a comparative case study of Decidim and Consul, two civic tech platforms with shared origins in Spain's 15M movement and opposite architectural paths. The application uses architectural recovery, evolutionary analysis, and a fork-divergence study across all public forks of both platforms (1{,}030 for Consul, 452 for Decidim). Decidim's modular software fits its coordinating Association and consultancy-anchored funding base; Consul's monolithic software requires a coordinating capacity that its small Foundation and shoestring funding cannot provide. The fork-divergence shapes invert at the originator: Madrid (Consul) sits in an abandoned 12{,}725-commit silo, Barcelona (Decidim) tracks upstream with zero local commits. On each platform the diagnostic reads a different niche --- deployment fragmentation for fork-based Consul, contributor flow for plugin-based Decidim --- bounded by the platform's extension model. The two-case scope means that quality attributes such as security, accessibility, and sovereignty, which Decidim and Consul do not strongly differentiate, are left for future work.
 \end{abstract}
 
 \newpage
@@ -107,166 +136,274 @@ Europe is investing in democratic digital infrastructure, but there is little gu
 % ============================================================
 \section{Introduction}
 
-Denmark consistently ranks among the most digitized countries in the world, placing first in the EU's Digital Economy and Society Index (DESI) and near the top of the UN e-government rankings.\footnote{European Commission, DESI 2022; UN E-Government Survey 2024.} MitID authenticates millions of citizens. Digital Post has replaced physical mail for government communication. Borger.dk is the portal for every public service. But if a Danish municipality wanted to run a participatory budget or host an online citizen deliberation, there is no platform for it. The only citizen participation tool at the national level is borgerforslag.dk, a closed-source petition site that does exactly one thing: collect signatures. Denmark has built a digital service stack, but not a democracy stack.
+European policy increasingly names digital infrastructure for democracy --- the Digital Services Act, the European Digital Identity framework, IDEA's ``democracy stack'' \citep{idea2026democracy}, and CEPS's case for European Digital Public Infrastructure \citep{ceps2025building}. These policy proposals name what they want, not what the software architecture should look like. Civic technology platforms have been building this kind of software for over a decade --- Decidim across hundreds of institutions in 32 countries \citep{barandiaran2024decidim}, Consul across over 250 cities and organisations \citep{ntari2025consul} --- yet how their architectures shaped their ecosystems remains under-analysed.
 
-Denmark is not alone. Roskilde University's Digital Democracy Index found that ``the foundations for a well-functioning digital democracy are in place --- but the full potential is not being realized'' \citep{roskilde2024democracy}. Across Europe, the gap between digital government services and digital democratic participation keeps growing. This is happening even as the EU invests in democratic digital infrastructure through the Digital Services Act, the European Digital Identity framework, and what International IDEA \citeyearpar{idea2026democracy} calls a ``democracy stack'' --- digital public infrastructure meant to support democratic participation, not just deliver services. But IDEA's report explicitly does not recommend any specific technical architecture; it provides a policy framework without answering what good architecture for democratic infrastructure actually looks like.
+This paper asks: \emph{what software architecture decisions matter for democratic digital infrastructure, and how can they be analysed through software architecture and software ecosystem methods?}
 
-At the same time, civic technology platforms have been building democratic infrastructure for over a decade. Decidim, which started in Barcelona, now serves more than 450 institutions in 30 countries. Polis, the algorithmic deliberation tool behind Taiwan's vTaiwan process, has engaged over 200,000 participants and informed 26 pieces of legislation. Consul, originally built for Madrid, has been deployed in over 250 cities. Together, their experience shows something that the policy conversation tends to miss: software architecture choices directly shape democratic outcomes.
+The methods exist across software architecture, SECO, STS/platform studies, and fork-mining research (Section~\ref{sec:background}), but have rarely been combined to analyse civic tech: \citet{manikas2016revisiting}'s 2016 review of 231 SECO studies found no work on civic or commons-based platforms.
 
-The idea that technical design choices have political consequences is not new. \citet{winner1980artifacts} argued that artifacts have politics. \citet{lessig2006code} showed that code functions as law. \citet{schneider2024governable} demonstrated that online community platforms encode ``implicit feudalism'' through their default governance structures, and \citet{zhang2020policykit} showed that platform software encodes a narrow set of governance possibilities. This insight --- that architecture is governance --- is well established across STS, law, and platform studies.
+We propose a small analytical framework combining four quality attributes (modifiability, interoperability, configurability, transparency and auditability), \citet{christensen2014analysis}'s three-structures lens, and a set of trade-offs. We apply it to Decidim and Consul --- two platforms with shared origins in Spain's 15M movement (2015--2016) but opposite architectural paths (Decidim modular, 27 Ruby engines + coordinating Association; Consul monolithic, deployers fork + small Foundation coordinates from the outside) --- using architectural recovery, commit history analysis, and a fork-divergence study across 1{,}030 Consul and 452 Decidim public forks. From the application we surface \emph{fork-divergence shape}, a population-shape niche-creation diagnostic whose reading depends on the extension model. Decidim and Consul are first worked cases, not a full validation across the field.
 
-But to the best of our knowledge, it has not been applied to civic technology using software architecture or software ecosystem methods. Software architecture research offers frameworks for analyzing quality attributes and trade-offs \citep{bass2021software}. SECO research explains how architectural decisions affect ecosystem health and governance \citep{manikas2016revisiting, christensen2014analysis}. Yet neither tradition has examined what ``good architecture'' means when the system is democratic infrastructure, where the quality attributes that matter most are not performance and availability, but modifiability, interoperability, and transparency. \citet{palacin2024configurations} come closest, studying how Decidim's modularity produces 25 distinct technical configurations and asking ``which political values should be enforced by platform design?'' --- but they do not perform architectural analysis. And borgerforslag.dk --- closed-source, single-purpose, centrally built --- shows what happens when democratic software is built without thinking about architecture at all.
-
-This paper asks: \emph{what software architecture trade-offs must builders of democratic digital infrastructure navigate, and what can we learn from the architectural decisions in existing civic tech ecosystems?} We address this through a multi-case architectural decision analysis of three platforms: Decidim (deep case with full architectural recovery), Consul (comparison case --- shared origin with Decidim but opposite architectural trajectory), and Polis (contrasting paradigm --- algorithmic rather than structural approach to participation). Out of this come four trade-offs that cut across the technical and the political --- modifiability versus sustainability, interoperability versus autonomy, deployability versus transparency, and algorithmic sophistication versus ecosystem breadth --- each visible in concrete architectural choices.
-
-The central insight is that architectural decisions in civic tech are governance decisions --- and the Decidim/Consul divergence, where the same starting point led to opposite architectures and radically different ecosystem outcomes, is the clearest demonstration. By applying software architecture and SECO methods to a domain where they have not been used, the paper provides the kind of architectural analysis that IDEA's ``democracy stack'' framework calls for but does not itself deliver.
-
+Section~\ref{sec:background} reviews the literature; Section~\ref{sec:method} describes the method; Section~\ref{sec:framework} presents the framework; Section~\ref{sec:application} applies it to Decidim and Consul; Section~\ref{sec:discussion} discusses what the framework shows and does not; Section~\ref{sec:conclusion} concludes.
 
 % ============================================================
 % 2. BACKGROUND
 % ============================================================
+\clearpage
 \section{Background}\label{sec:background}
 
-\subsection{Software Architecture for Democratic Infrastructure}\label{sec:sa}
+Software architecture research gives us quality attributes and trade-offs as a way of reasoning about design decisions. Software ecosystem research gives us a way of analysing the organisational, business, and technical structures around a platform. Architecture-as-governance literature shows that software architectures participate in governance by making some forms of action, coordination, and control easier than others. We need all three to reason about democratic digital infrastructure.
 
-Software architecture is ``the set of structures needed to reason about a system'' --- the elements, the relations between them, and the properties of both \citep[p.~2]{bass2021software}. Architecture decisions shape what a system can and cannot do over its lifetime, mainly through quality attributes: measurable properties like modifiability, interoperability, availability, performance, security, deployability, and testability. In commercial software, these are optimized for business value. When the system is democratic infrastructure, the same reasoning applies but the goal is different: which architecture best supports democratic participation and public legitimacy?
+\begin{center}
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  every node/.style={align=center},
+  src/.style={circle, fill=black, inner sep=2pt},
+  dst/.style={circle, fill=black, inner sep=2.5pt},
+]
+\node[src, label={above:Software\\architecture}]      (sa) at (-3.6, 0.8) {};
+\node[src, label={above:Software\\ecosystems}]        (se) at ( 0.0, 0.8) {};
+\node[src, label={above:Architecture\\as governance}] (ag) at ( 3.6, 0.8) {};
+\node[inner sep=0pt, label={below:\textit{This paper}}] (p)  at ( 0.0,-1.0) {\large\faFile*};
+\draw[gray!70, thick] (sa) -- (p);
+\draw[gray!70, thick] (se) -- (p);
+\draw[gray!70, thick] (ag) -- (p);
+\end{tikzpicture}\\[2pt]
+{\footnotesize\itshape Three literatures combined into one analytical framework.}
+\end{center}
 
-This paper focuses on four quality attributes that are especially important for democratic infrastructure. \emph{Modifiability} is how easily a system can be changed. In democratic infrastructure, it matters because communities with different institutional rules, languages, and participatory traditions need to adapt the platform without hard forking the codebase --- if they cannot, the platform can only accommodate one way of doing things, which limits how many different communities can use it meaningfully. \emph{Interoperability} is how well a system can exchange data and services with others. It determines whether a platform can work with other democratic tools or stays isolated. \emph{Deployability} is how easily new organizations can adopt and run the platform. A platform that requires a lot of technical expertise to deploy will in practice only be available to well-resourced institutions --- so deployability determines who gets to participate. \emph{Transparency} or auditability does not appear in Bass et al.'s standard taxonomy but is essential here. Citizens need to understand what the system does and how it handles their input. A participatory budgeting platform with opaque vote-counting logic undermines the democratic purpose it is supposed to serve.
+\subsection{Software Architecture Quality Attributes}\label{sec:sa}
 
-These attributes pull against each other. Figure~\ref{fig:tradeoffs} positions the three cases on two of them; the other trade-offs are summarised in Table~\ref{tab:tradeoffs}. They are design trade-offs, not problems to solve; \citet{heeks2025three} identify similar tensions at the policy level. The architectural lens makes them concrete: they show up in module boundaries, APIs, and deployment pipelines.
+\citet[p.~4]{bass2012software} call software architecture ``the set of structures needed to reason about a system.'' Architecture decisions affect a system's properties over its lifetime through quality attributes: measurable properties like modifiability, performance, security, and so on. Quality attributes are useful here because they let us evaluate architecture without reducing it to implementation details. They allow us to ask not only what a platform contains, but what kinds of change, inspection, integration, and adaptation its structure makes easier or harder.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/tensions.pdf}
-\caption{Decidim, Consul, and Polis positioned on two competing quality attributes. Modifiability and deployability are shown here because they separate the three cases most cleanly; the other trade-offs --- which do not all reduce to the same diagonal --- are summarised in Table~\ref{tab:tradeoffs}. Consul sits inside the frontier --- neither modular nor especially easy to deploy --- which previews the fork-fragmentation problem analysed in Section~\ref{sec:consul}.}
-\label{fig:tradeoffs}
-\end{figure}
+In commercial software, quality attributes are usually optimised for business value. For democratic digital infrastructure the goal is different: which architectural properties support democratic participation, public legitimacy, and institutional adaptability?
 
-\subsection{Software Ecosystems and Civic Tech}\label{sec:seco}
+We focus on four quality attributes.
 
-A software ecosystem (SECO) is ``the interaction of a set of actors on top of a common technological platform, which results in a number of software solutions or services'' \citep{manikas2013systematic}. The concept looks beyond a single product to include the organizations, developers, and users that develop around a shared platform.
+\paragraph{Modifiability.} How easily the system can be changed. Civic tech platforms have to adapt to communities with different rules, languages, and participatory traditions; modifiable platforms can do this without forcing each deployer to maintain a separate fork.
 
-\citet{christensen2014analysis} propose that ecosystems can be analyzed through three structures: \emph{organizational} (who is involved and how they relate), \emph{business} (how value and money flow), and \emph{software} (the technical platform and how it can be extended). In commercial ecosystems like app stores, the business structure usually dominates --- Apple's revenue model shapes what apps get built and who builds them. We hypothesize that in civic tech ecosystems, it works differently: the software structure shapes the other two. Technical decisions about modularity and APIs determine which organizations can participate and on what terms. This is not a universal law --- Christensen et al.\ do not claim any fixed ordering between the structures --- but it is a pattern we observe across all three cases and examine in the analysis (see Table~\ref{tab:threestructure}).
+\paragraph{Interoperability.} How well the system exchanges data and services with others. This matters because no single platform will serve all democratic functions, so platforms need to compose.
 
-\citet{iansiti2004strategy} classify ecosystem actors into roles: keystones create value by sharing assets and enabling others, dominators capture most of the value, and niche creators specialize in narrow segments. These roles map onto civic tech in ways we examine in the analysis: Decidim's technical office operates as a keystone (maintaining shared infrastructure while enabling independent module development), while Consul's Madrid team functioned more as a dominator (controlling the codebase without mechanisms for external contribution). We also draw on ecosystem health dimensions --- productivity, robustness, niche creation \citep{jansen2014measuring} --- as qualitative lenses in the discussion (Section~\ref{sec:disc-seco}).
+\paragraph{Configurability.} The platform's support for configuring varied participation processes (proposals, voting, deliberation, accountability) without changing the source code. PolicyKit \citep{zhang2020policykit} prototyped programmable governance for online communities, a close analogue of this property at the governance-rule layer.
 
-Ecosystem thinking is clearly useful for civic tech, but the literature has a gap. Manikas's \citeyearpar{manikas2016revisiting} systematic review covered 231 studies on software ecosystems and found none that looked at commons-based, civic, or democratic platforms. Nearly a decade has passed since that review, and we have not found later studies that fill this gap. The ecosystems studied were almost all commercial: app stores, enterprise platforms, proprietary developer ecosystems. \citet{knutas2020local} recognized this gap and proposed applying the OSSECO (open-source software ecosystem) framework to civic tech, but the empirical work was never done. The intersection of SECO analysis and democratic digital infrastructure remains mostly unexplored. This paper begins to fill that gap.
+\paragraph{Transparency and auditability.} How much of the platform's operation can be inspected by relevant observers (transparency), and how reliably those observations can be used to verify and contest outcomes (auditability). Democratic legitimacy depends partly on both, although technical auditability does not by itself guarantee that citizens can meaningfully use these mechanisms in practice.
 
-\subsection{Architecture as Governance}\label{sec:arch-gov}
+Other quality attributes (security, accessibility, sovereignty, performance) matter for democratic infrastructure too. We do not treat them as primary axes here and return to this scoping in Section~\ref{sec:discussion}.
 
-As introduced in Section~\ref{sec:sa}, the idea that architecture functions as governance is well established --- from \citet{winner1980artifacts} through \citet{lessig2006code} to \citet{schneider2024governable}. But this literature has focused mostly on online communities (Reddit, Discord, DAOs) and internet infrastructure, not on civic technology platforms used by public institutions.
+\subsection{Software Ecosystems}\label{sec:seco}
 
-The work closest to ours comes from within the Decidim project itself. \citet[p.~68]{barandiaran2024decidim} write that ``Decidim must take into account the democratic implications of any technical decision.'' \citet{palacin2024configurations} studied how Decidim's modularity translates into 25 distinct configurations across 31 participatory budgeting cases, asking ``which political values should be enforced by platform design?'' But neither performs formal software architecture analysis.
+SECO research broadens the unit of analysis from the software to the wider system around it. \citet{manikas2013systematic} define a software ecosystem (SECO) as ``the interaction of a set of actors on top of a common technological platform, which results in a number of software solutions or services.'' The concept extends beyond a single product to the organisations, developers, and users that develop around a shared platform.
 
-Our contribution is to apply architecture-as-governance using software architecture and SECO methods in civic technology --- a combination that has not been tried. We map quality attributes to democratic outcomes: modifiability to pluralism, transparency to legitimacy, interoperability to collaboration, deployability to access. These mappings are reasoned arguments, not proven causal links. Our architectural evidence shows that certain designs \emph{make it possible} for democratic outcomes to happen --- for instance, modularity lets diverse communities adapt the platform --- but proving the outcomes actually materialized would require field studies beyond this paper's scope.
+\citet{christensen2014analysis} propose that ecosystems can be analysed through three interacting structures: an \emph{organisational} structure (who participates, in what roles, how they coordinate), a \emph{business} structure (who pays, who captures value, what incentives flow), and a \emph{software} structure (the platform architecture, extension mechanisms, APIs). Their argument is that ecosystems thrive when these three structures fit together and struggle when they do not. We use this lens in Section~\ref{sec:application} to compare Decidim and Consul.
 
+We also draw on \citet{iansiti2004strategy}'s ecosystem actor classification (keystones, dominators, niche creators) and \citet{jansen2014measuring}'s ecosystem health dimensions (productivity, robustness, niche creation). In this paper, these concepts are treated as analytical lenses rather than direct measurements of democratic value.
+
+\citet{manikas2016revisiting}'s systematic review of 231 SECO studies found none on commons-based, civic, or democratic platforms. \citet{knutas2020local} proposed applying OSSECO methods to civic tech but did not carry out the empirical work. \citet{palacin2024configurations} study Decidim's modularity from a human-computer interaction perspective, but do not analyse the architecture itself as part of a software ecosystem.
+
+\subsection{Architecture as Governance}\label{sec:archgov}
+
+A long tradition in science and technology studies (STS) and platform studies has established that software architectures are not politically neutral: they distribute possibilities, making some forms of participation, oversight, and control easier than others \citep{winner1980artifacts, lessig2006code, denardis2014global, schneider2024governable}. This thesis is analytical rather than deterministic --- architecture does not by itself cause political outcomes. \citet{schneider2021modular}'s \emph{Modular Politics} moves toward design, proposing four principles (modularity, expressiveness, portability, interoperability) for a governance layer in online communities. Two of these principles overlap with QAs developed in this paper (modularity with modifiability, interoperability with interoperability), and we revisit this resonance in Section~\ref{sec:framework}. These ideas are directly relevant to civic technology platforms, but have rarely been combined with software architecture and SECO methods.
+
+Three literatures, each well-developed on its own but rarely combined for civic tech. Section~\ref{sec:method} describes the method that combines them.
 
 % ============================================================
 % 3. METHOD
 % ============================================================
 \section{Method}\label{sec:method}
 
-This study uses a multi-case architectural decision analysis to investigate how software architecture shapes the democratic capacity of civic tech platforms. Instead of treating architecture as a static description, we focus on key design decisions and trace their effects on quality attributes relevant to democratic infrastructure. For each case, the method has four steps: lightweight architectural recovery from primary sources, identification of key architectural decisions, analysis of quality attribute trade-offs, and assessment of ecosystem outcomes.
+This paper is a comparative case study of two civic technology platforms, Decidim and Consul, following the case-study guidelines for software engineering of \citet{runeson2009guidelines}. The empirical work draws on two methodological traditions: architectural recovery \citep{ducasse2009software, garcia2013comparative} for reconstructing each platform's software structure from primary sources, and Mining Software Repositories \citep{hassan2008road} for the commit-history, contributor-concentration, logical-coupling, and fork-divergence analyses. The framework presented in Section~\ref{sec:framework} is an analytical lens synthesised from existing software architecture and SECO literature; the application in Section~\ref{sec:application} demonstrates it on the two cases but does not validate it across the wider civic tech field. We therefore present the framework and apply it to one comparison, leaving evaluation across more cases as future work.
 
-For each platform, we recover the architecture from primary sources: codebase structure, dependency files, extension mechanisms, API boundaries, and official documentation. This is lightweight recovery, not full formal reconstruction --- it is enough to identify the decisions that shaped each platform without claiming completeness. We then identify key architectural decisions, drawing on the architectural decision record tradition \citep{tyree2005architecture}. We focus on choices between modular and monolithic organization, plugin versus fork extension strategies, integration approaches, and data coupling. For each decision, we trace consequences for quality attributes using the framework of \citet{bass2021software}, mapping decisions to trade-offs in modifiability, interoperability, deployability, and transparency. Finally, we assess ecosystem outcomes using SECO health metrics \citep{manikas2013systematic, jansen2014measuring} together with quantitative GitHub indicators: contributor distribution, fork activity, and module-level commit patterns.
+\paragraph{Case selection.}
+We selected Decidim and Consul as the comparative case for two reasons. First, both have publicly developed codebases, active deployments, and enough documentation for architectural recovery. Second, the two platforms share an origin in Spain's 15M movement in 2015--2016 but took opposite architectural paths: Decidim went modular (27 Rails engines, gem-based extension); Consul stayed monolithic (single Rails app, fork-based extension). The shared origin reduces some of the variance that usually confounds case comparisons in software studies, while the architectural divergence provides the contrast we want to study. This is theoretical case selection: the cases are chosen for their analytical contrast, not statistical representativeness. Other civic tech platforms (Polis, Loomio, CitizenLab, vTaiwan, Adhocracy) are not analysed; a single two-platform comparison is enough to demonstrate the framework at this stage, but not enough to generalise across civic tech as a whole.
 
-The choice of these four quality attributes --- modifiability, interoperability, deployability, and transparency --- reflects where civic tech platforms most clearly diverge from commercial systems and where architecture-as-governance predicts the strongest political consequences. \citet{bass2021software} list many more quality attributes. Security and availability matter for any system, but the architectural divergence between our cases is most visible in these four. This is a scoping choice, not a claim that other attributes do not matter.
+\paragraph{Architectural recovery.}
+For each platform we recover the software structure from primary sources: codebase organisation, gemspec files, extension mechanisms, and documentation. For Decidim, a script parses all 27 first-party gemspecs at a pinned snapshot, extracts every \texttt{add\_dependency} call, classifies each as internal or external, and identifies \texttt{Decidim.register\_component} and \texttt{Decidim.register\_participatory\_space} calls. The engine dependency graph in Section~\ref{sec:application} is recovered from this data, not asserted from documentation. Consul's recovery is structural: a Rails monolith with a file-override extension mechanism. The recovery captures dependency structure and extension mechanisms, not runtime behaviour or deployment-specific customisations.
 
-The three cases are structured asymmetrically on purpose. Decidim is the deep case and gets full architectural recovery. Its architecture --- 23 Rails engines organized through a manifest and registry pattern within a space-and-component matrix --- is the most architecturally rich civic tech platform available, making it the best case for studying the relationship between architecture and democratic capacity. Consul is the comparison case, with recovery focused on the points where it contrasts with Decidim. The two platforms share an origin in Spain's 15M movement and briefly shared early code, but went in opposite architectural directions: Decidim pursued radical modularity while Consul kept a monolithic structure that depends on forking for customization. This shared origin and divergent evolution provides a comparative case that approximates (but is not) a natural experiment --- the architectural divergence was a deliberate choice shaped by organizational and political factors as well, which we discuss in Section~\ref{sec:evaluation}. Polis is a contrasting paradigm rather than a third equal case. Its approach --- algorithmic deliberation through PCA and k-means clustering rather than structured participation processes --- produces a different trade-off profile across the same quality attributes. The Polis analysis is shorter, and it serves to test whether our framework works beyond the participatory platform genre.
+\paragraph{Evolutionary analysis.}
+For both platforms we extract commit metadata with \texttt{git log --no-merges} on partial clones. Bot authors (Dependabot, Crowdin, Weblate, GitHub Actions, named release bots) are filtered by email and name patterns. We compute total human commits, unique authors, top-three and top-ten contributor share, Gini coefficient (a measure of contributor concentration: 0 means commits are evenly distributed across authors, 1 means one author makes them all), and the per-year commit timeline; for Decidim we also extract per-engine commit counts. We use these as indicators of ecosystem activity and concentration \citep{hassan2008road, manikas2013systematic, jansen2014measuring}. They are not treated as direct measures of ecosystem health or democratic value: commit counts show activity, not necessarily meaningful maintenance; author counts show participation, not necessarily influence; and concentration metrics show distribution, not governance quality.
 
-Data sources are mainly technical. We use the public GitHub repositories of all three platforms, gemspec and dependency files, architecture documentation, and developer guides. Secondary sources include \citet{barandiaran2024decidim} on Decidim's sociotechnical design, the OSOR case study on Consul's European deployments \citep{linaker2025consul}, the FAccT 2025 paper on Polis, and the Codegram architecture blog on early Decidim design decisions \citep{codegram-decidim}. Ecosystem indicators are derived from GitHub repository metadata.
+\paragraph{Logical coupling.}
+Following \citet{gall1998detection}, we measure which Decidim engines change together. For each non-merge non-bot commit we identify the engines touched and compute Jaccard similarity (commits touching both / commits touching either) for each engine pair. Mega-commits touching more than eight engines are excluded as refactor or release commits that would otherwise dominate the signal. Logical coupling is computed only for Decidim, since Consul's monolithic structure has no engine boundary to test against. This tests whether the manifest pattern is reflected in change isolation at the repository level, not only in the gemspec dependency structure.
 
-Several limitations follow from these choices. We discuss them in detail in Section~\ref{sec:evaluation}; the most important is that our quality-attribute-to-democracy mappings are analytical arguments, not empirically validated causal claims.
+\paragraph{Fork divergence.}
+For both platforms we use the GitHub REST API to enumerate all public forks of the upstream repository (\texttt{consuldemocracy/consuldemocracy}, formerly \texttt{consul/consul}; and \texttt{decidim/decidim}) and call the compare endpoint for each, returning commits ahead and behind upstream's default branch (\texttt{master} for Consul, \texttt{develop} for Decidim), drawing on the fork-mining literature \citep{zhou2020forks, wang2023forkentropy, businge2022reuse}. Each fork is classified as \emph{modified} or \emph{unmodified} (commits ahead) and \emph{active} or \emph{dormant} (pushed in the last three years; this is a methodological choice rather than a fixed convention). The analysis covers public forks only and may miss private production forks. The two platforms have different extension models: Consul deployers customise by forking the application, while Decidim deployers install the gem in their own Rails application and extend through plugins. As a result, the same diagnostic reads different ecosystem niches in each case --- deployment fragmentation for Consul, contributor flow for Decidim --- a methodological point we return to in the cross-case synthesis and discussion.
 
+\paragraph{Three-structures application.}
+For each platform we describe the three structures from \citet{christensen2014analysis} --- organisational, business, software --- using primary documentation (Decidim Association governance documents, MetaDecidim assembly records, Consul Democracy Foundation website, OSOR case studies) and the empirical material from architectural recovery and evolutionary analysis. We then assess alignment or misalignment between the three structures. This assessment is interpretive: it asks whether the software structure appears to afford the organisational and business reality around it, and whether the organisational and business structures appear able to sustain the architectural costs. Specifically, alignment evidence includes whether the organisational structure has roles to use the software's extension mechanisms, whether the business structure can sustain the architectural maintenance costs, and whether contribution flows match the paths the software allows. It does not establish causal proof.
 
-% ============================================================
-% 4. ANALYSIS
-% ============================================================
-\section{Analysis}\label{sec:analysis}
+\paragraph{Quality-attribute assessment.}
+The four quality attributes are assessed qualitatively as low, moderate, or high. Table~\ref{tab:qa-rubric} gives the criteria per QA per level. The ratings are based on observable architectural mechanisms and supporting evidence from the repository and documentation; they are structured judgements, not measurements.
 
-\subsection{Decidim: Architecture Recovery}\label{sec:decidim}
-
-Decidim is a modular monolith built with Ruby on Rails. The monorepo at \url{github.com/decidim/decidim} contains 23 first-party engines, each packaged as a standalone Ruby gem. This section recovers the architecture from the codebase and documentation, focusing on the decisions that shaped the platform's trajectory.
-
-\paragraph{Engine structure.}
-The engines are organized in layers (see Figure~\ref{fig:dependency}). At the base is \texttt{decidim-core}, which every other engine depends on. Above that sit six infrastructure engines: \texttt{admin}, \texttt{system}, \texttt{api}, \texttt{verifications}, \texttt{forms}, and \texttt{comments}. Then come four participatory spaces (\texttt{processes}, \texttt{assemblies}, \texttt{conferences}, \texttt{initiatives}) and nine participatory components (\texttt{proposals}, \texttt{meetings}, \texttt{budgets}, \texttt{surveys}, \texttt{debates}, \texttt{blogs}, \texttt{pages}, \texttt{accountability}, \texttt{sortitions}). All are prefixed \texttt{decidim-} and packaged as separate gems.
-
-\paragraph{Dependency graph.}
-The dependency structure forms a hub-and-spoke pattern. Every engine declares \texttt{add\_dependency "decidim-core"} in its gemspec file. No engine-to-engine dependency bypasses core. \texttt{decidim-admin} and \texttt{decidim-api} serve as secondary hubs. The result is a layered star: core at layer~0, infrastructure engines at layer~1, and space and component engines at layer~2. Figure~\ref{fig:dependency} visualizes this structure.
-
-\begin{figure}[ht]
+\begin{table}[!htbp]
 \centering
-\begin{tikzpicture}[
-  core/.style={rectangle, rounded corners=3pt, draw=black, line width=1.2pt, fill=black, text=white, font=\small\bfseries\sffamily, minimum width=3cm, minimum height=0.8cm},
-  infra/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=1.8cm, minimum height=0.5cm},
-  space/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=gray!12, font=\scriptsize\bfseries\sffamily, minimum width=1.8cm, minimum height=0.5cm},
-  comp/.style={rectangle, rounded corners=2pt, draw=black, line width=0.6pt, fill=white, font=\scriptsize\sffamily, minimum width=1.5cm, minimum height=0.5cm},
-  layerbox/.style={draw=black!15, rounded corners=5pt, fill=gray!4, inner sep=8pt},
-  layerlabel/.style={font=\tiny\sffamily\bfseries, black!45},
-]
+\caption{Quality-attribute rating rubric: criteria for low, moderate, and high ratings.}
+\label{tab:qa-rubric}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm}XXX}
+\toprule
+\textbf{Quality attribute} & \textbf{Low} & \textbf{Moderate} & \textbf{High} \\
+\midrule
+Modifiability &
+\cellcolor{quadred} Extension requires core code changes or a deployment fork &
+\cellcolor{quadtan} Plugin hooks exist; some adaptation still requires forking &
+\cellcolor{quadgreen} Modules extend the platform; no core changes or forks needed \\
+\midrule
+Interoperability &
+\cellcolor{quadred} No public API or shared data formats &
+\cellcolor{quadtan} Partial API exposure or limited standard-format support &
+\cellcolor{quadgreen} Stable public API; standard formats supported (e.g., ActivityPub, OpenAPI) \\
+\midrule
+Configurability &
+\cellcolor{quadred} Participation processes fixed in code &
+\cellcolor{quadtan} Some processes configurable; limited coverage &
+\cellcolor{quadgreen} Varied processes composable via settings (proposals, voting, deliberation, accountability) \\
+\midrule
+Transparency and auditability &
+\cellcolor{quadred} Operations not logged beyond standard application logs &
+\cellcolor{quadtan} Some inspection mechanisms; not first-class architectural concerns &
+\cellcolor{quadgreen} First-class logging, versioning, permission-gated visibility, public inspection \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-% === Layer 0: Core ===
-\node[core] (core) at (0, 0) {decidim-core};
-\node[layerlabel, right] at (4.5, 0) {LAYER 0};
+\paragraph{Data sources.}
+Primary sources are the public GitHub repositories at pinned snapshots: \texttt{decidim/decidim} at \texttt{be39c244} (2026-05-12) and \texttt{consuldemocracy/consuldemocracy} at \texttt{3c3b5c4a} (2026-05-11). Secondary sources include \citet{barandiaran2024decidim} on Decidim's sociotechnical design, the OSOR case study on Consul's European deployments \citep{linaker2025consul}, the NTARI fork report \citep{ntari2025consul}, and the Codegram architecture blog on early Decidim design \citep{codegram-decidim}. Reproducibility scripts (\texttt{scripts/} directory: gemspec parsing, commit metadata extraction, fork-divergence analysis) and findings logs accompany this paper in a public repository at \url{https://github.com/leosakharoff/democracy-stack-paper} and are also submitted as a supplementary archive.
 
-% === Layer 1: Infrastructure ===
-\node[infra] (admin) at (-3.5, 1.8) {admin};
-\node[infra] (system) at (-1.8, 1.8) {system};
-\node[infra] (api) at (0, 1.8) {api};
-\node[infra] (verif) at (1.8, 1.8) {verifications};
-\node[infra] (forms) at (3.5, 1.8) {forms};
-\node[infra] (comments) at (5.2, 1.8) {comments};
-\node[layerlabel, right] at (4.5, 2.5) {LAYER 1};
+\paragraph{Limitations.}
+The main limitation is that our QA-to-democracy mappings are analytical, not empirically validated through user studies or deployment outcomes. Architectural recovery captures dependency structure and extension mechanisms, not runtime behaviour. Evolutionary metrics use email-based author identity, which conflates authors with multiple emails. Fork analysis covers public forks only. All architectural and ecosystem judgements were made by one coder; the rubric in Table~\ref{tab:qa-rubric} mitigates but does not eliminate inter-rater variance. The two-case design demonstrates the framework but does not validate it across the wider civic tech field. See Section~\ref{sec:evaluation} for the full discussion.
 
-% === Layer 2: Spaces ===
-\node[space] (proc) at (-2.8, 3.6) {processes};
-\node[space] (assem) at (-0.7, 3.6) {assemblies};
-\node[space] (conf) at (1.4, 3.6) {conferences};
-\node[space] (init) at (3.5, 3.6) {initiatives};
+% ============================================================
+% 4. FRAMEWORK
+% ============================================================
+\section{Framework}\label{sec:framework}
 
-% === Layer 2: Components ===
-\node[comp] (prop) at (-4.5, 4.6) {proposals};
-\node[comp] (meet) at (-3, 4.6) {meetings};
-\node[comp] (budg) at (-1.5, 4.6) {budgets};
-\node[comp] (surv) at (0, 4.6) {surveys};
-\node[comp] (deb) at (1.5, 4.6) {debates};
-\node[comp] (blog) at (3, 4.6) {blogs};
-\node[comp] (acc) at (-2.2, 5.5) {accountability};
-\node[comp] (pages) at (0, 5.5) {pages};
-\node[comp] (sort) at (2.2, 5.5) {sortitions};
-\node[layerlabel, right] at (4.5, 4.6) {LAYER 2};
+This section presents the framework. Section~\ref{sec:framework-three} introduces its three components: a set of quality attributes mapped to democratic capacities, the three-structures lens for analysing software ecosystems, and a derived set of architectural trade-offs. Section~\ref{sec:framework-fd} describes a separate methodological contribution, fork-divergence shape as a niche-creation diagnostic. Section~\ref{sec:framework-using} states the procedure for applying the framework to a new platform.
 
-% === Background layers ===
-\begin{scope}[on background layer]
-  \node[layerbox, fit=(admin)(system)(api)(verif)(forms)(comments)] {};
-  \node[layerbox, fit=(proc)(assem)(conf)(init)(prop)(meet)(budg)(surv)(deb)(blog)(acc)(pages)(sort), inner sep=10pt] {};
-\end{scope}
+\subsection{The Three Components}\label{sec:framework-three}
 
-% === Dependency arrows (all point DOWN to core) ===
-% Use a single thick bar to represent "all depend on core" instead of 19 arrows
-\draw[black!25, line width=4pt, rounded corners=2pt] (-4.5, 0.9) -- (5.2, 0.9);
-\draw[->, >=stealth, black!40, line width=1pt] (0, 0.9) -- (0, 0.45);
-\node[font=\tiny\sffamily, black!40, anchor=west] at (0.3, 0.65) {all engines depend on core};
+The three components below offer overlapping but complementary views of a platform: the quality attributes look at the software structure itself, the three-structures lens locates the software within its organisational and business context, and the architectural trade-offs name the choices that follow from the QA mapping.
 
-% === Legend ===
-\node[font=\tiny\sffamily, anchor=west] at (-4.5, -0.8) {%
-  \tikz[baseline=-0.5ex]{\node[space, minimum width=0.5cm, minimum height=0.2cm, font=\tiny] {};}~Participatory spaces
-  \quad
-  \tikz[baseline=-0.5ex]{\node[comp, minimum width=0.5cm, minimum height=0.2cm, font=\tiny] {};}~Components \& infrastructure
-};
+\subsubsection{Quality Attributes Mapped to Democratic Capacities}\label{sec:framework-qas}
 
-\end{tikzpicture}
-\caption{Decidim engine dependency graph. All 23 engines depend on \texttt{decidim-core} (hub-and-spoke). Infrastructure engines form Layer~1; participatory spaces and components form Layer~2. No engine-to-engine dependency bypasses core.}
+Each of the four quality attributes introduced in Section~\ref{sec:sa} connects an architecture choice to a democratic capacity the platform can support. Each one also pairs with an architectural cost the platform has to pay if it chooses that direction. Table~\ref{tab:qa-mapping} collects the mappings.
+
+\begin{table}[!htbp]
+\centering
+\caption{Quality attributes mapped to democratic capacities and the architectural costs they impose.}
+\label{tab:qa-mapping}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Quality attribute} & \textbf{Democratic capacity} & \textbf{Architectural cost} \\
+\midrule
+Modifiability & Pluralism: diverse communities can adapt the platform & Sustainability burden of $N$ composable parts \\
+\midrule
+Interoperability & Composability: platforms can join wider stacks & Reduced local autonomy under shared standards \\
+\midrule
+Configurability & Procedural pluralism: participation can be organised in different ways & Configuration surface complexity; maintenance overhead \\
+\midrule
+Transparency and auditability & Legitimacy, accountability, and contestability can be supported through inspection and verification & Audit infrastructure: logs, versioning, permissions, and API discipline \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The mappings are analytical, not causal proofs. They should not be read as claiming that these quality attributes automatically produce democratic outcomes. Rather, they identify the democratic capacities that each attribute can support when matched by appropriate organisational and institutional conditions. A system whose architecture supports modifiability, for example, creates the conditions for institutional pluralism, but does not guarantee that pluralism will emerge in practice. We therefore treat the mappings as normative design hypotheses that the application in Section~\ref{sec:application} demonstrates against two specific platforms.
+
+Other mappings are possible. Transparency can be read as a precondition for surveillance as well as for accountability; configurability can be read as administrator capture as well as procedural pluralism; interoperability under shared standards can entrench dominant platforms rather than enabling composition. The mappings we use are not the only defensible reading. They are the readings that match our two cases and the democratic capacities the platforms themselves frame their work against. A different corpus or a different normative starting point would land on different mappings, which is part of why we treat this as a small analytical framework rather than a fixed taxonomy.
+
+Configurability and modifiability sit next to each other in the table but address different audiences. Modifiability is about whether the platform can be changed at the code level (a developer's question); configurability is about whether an administrator can compose different participatory processes from the existing components without writing code (an operator's question). Both matter for democratic infrastructure, but they reach different actors and support different democratic capacities.
+
+The framework's four QAs share \emph{Modular Politics}'s structural choice of naming a small set of design-relevant properties \citep{schneider2021modular}. Two of Schneider's principles overlap in name with QAs in this paper (modularity, interoperability), but operate at a different level. Schneider's modularity is software composability at the governance-module level, designed to be usable by platform operators and community members; modifiability in this paper is software modularity at the engine/codebase level, usable by developers. Schneider's interoperability includes governance systems ``influencing each other's processes''; ours is closer to standard SA interoperability --- the exchange of meaningful information via interfaces \citep{bass2012software}. The frameworks are also asymmetric on what each leaves out: Schneider's expressiveness and portability are not in our QAs (a limitation we return to in Section~\ref{sec:discussion}), and our configurability and transparency/auditability are not in his four (a consequence of his unit of analysis being a proposed governance layer to be embedded in existing platforms, rather than the existing platform architecture itself).
+
+\subsubsection{The Three-Structures Lens}\label{sec:framework-ts}
+
+The QAs above describe properties of the software structure alone. \citet{christensen2014analysis}'s three-structures framework gives us a way to think about how the software structure relates to the broader ecosystem.
+
+The three structures --- organisational, business, software --- are introduced in Section~\ref{sec:seco}. Christensen et al. argue that ecosystems thrive when the three fit each other and struggle when they do not.
+
+This lens does two things for us. First, it locates the QAs: the four attributes above are properties of the software structure, but their consequences play out in the organisational and business structures. Modifiability matters for pluralism only if the organisational structure includes contributors who are able to use the extension mechanisms. Transparency matters for legitimacy only if there are actors (communities, regulators, deployers, researchers) able to inspect and act on what they see. Second, it identifies a failure mode beyond bad architecture: \emph{misalignment} between architecture and the organisational and business reality around it. A modular architecture without a coordinating body to review, integrate, and maintain contributions may produce fragmentation rather than pluralism. A modifiable platform without sustained funding for maintenance may produce decay rather than adaptation.
+
+\subsubsection{Architectural Trade-offs}\label{sec:framework-tradeoffs}
+
+The four QAs cannot all be optimised without cost. Each one pairs with an architectural burden (Table~\ref{tab:qa-mapping}), and choosing one direction means accepting that burden elsewhere in the ecosystem.
+
+Three pairings are particularly visible in civic tech and form the framework's architectural trade-offs:
+
+\paragraph{Modifiability against sustainability burden.} Modular architectures let many deployers --- municipalities, NGOs, civic-tech consultancies --- adapt the platform; the cost is maintaining many parts. Monolithic architectures can be easier to maintain centrally; the cost is that adaptation often requires forking or direct source modification unless other extension mechanisms are provided.
+
+\paragraph{Interoperability against reduced autonomy.} Interoperable platforms compose into wider stacks; the cost is constraints on local choice under shared standards. Stand-alone platforms preserve local autonomy; the cost is isolation.
+
+\paragraph{Configurability against maintenance overhead.} Highly configurable platforms support many different participation processes without code changes; the cost is configuration surface complexity and the maintenance of options across versions. Less configurable platforms are simpler; the cost is that adapting to a new process may require code changes.
+
+Each trade-off is not only an engineering choice but also a governance choice. The architecture makes some forms of adaptation, coordination, and oversight easier than others, whether or not the builders frame the decision politically. The framework makes these choices explicit.
+
+Transparency and auditability is treated separately. Unlike the three above, the cost of transparency (audit infrastructure) does not pull against another democratic capacity directly; it is a cost the platform pays for legitimacy, accountability, and contestability all at once. We discuss it as a primary axis in Section~\ref{sec:application} but do not pair it with another QA as a trade-off.
+
+\subsection{Fork-Divergence Shape: A Niche-Creation Diagnostic}\label{sec:framework-fd}
+
+Fork-mining research has developed several lenses on fork divergence: evolution-pattern typologies of fork--upstream pairs derived from commit-history graphs \citep{zhou2020forks}, scalar entropy measures of fork diversity in modified files \citep{wang2023forkentropy}, and longitudinal studies of code propagation between mainlines and divergent forks across software ecosystems \citep{businge2022reuse}. \citet{wang2023forkentropy} motivate their work with a premise close to ours --- that ``merely having a large number of forks does not necessarily imply a productive and healthy OSS project'' --- and \citet{businge2022reuse} report little code propagation between mainlines and divergent forks across the Android, .NET, and JavaScript ecosystems --- and the fork$\rightarrow$mainline direction is rarer still --- a pattern we replicate in the civic tech setting for Consul. None of this work has been applied to civic tech platforms, and none connects fork behaviour to SECO health dimensions explicitly.
+
+Standard SECO niche-creation metrics, in turn, count contributions but do not by themselves distinguish healthy ecosystem extension from silo formation. We adapt the fork-mining literature into a population-shape diagnostic --- \emph{fork-divergence shape} --- that reads the distribution of public forks across ahead-of-upstream and behind-upstream states, pairs with \citet{jansen2014measuring}'s niche-creation dimension, and reads as a three-structures alignment check for civic tech platforms where forks are a relevant extension mechanism.
+
+Operationally, each fork can be located in one of four states, defined by whether it has local commits ahead of upstream and whether it has fallen behind upstream. Table~\ref{tab:fork-states} names the four cells and the interpretation we attach to each.
+
+\begin{table}[!htbp]
+\centering
+\caption{The four fork-divergence states. Cell colours match the quadrants of Figure~\ref{fig:consul-divergence}, so the table reads as a legend for the figure.}
+\label{tab:fork-states}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{l X X}
+\toprule
+ & \textbf{Behind upstream = 0} & \textbf{Behind upstream > 0} \\
+\midrule
+\textbf{Ahead upstream > 0} &
+\cellcolor{quadgreen}\emph{Ahead-only} --- healthy extension; local work kept current with upstream &
+\cellcolor{quadred}\emph{Ahead-and-behind} --- diverged silo; local work drifted from upstream \\
+\midrule
+\textbf{Ahead upstream = 0} &
+\cellcolor{quadgray}\emph{In-sync} --- copy that mirrors upstream &
+\cellcolor{quadtan}\emph{Behind-only} --- dormant copy, fallen behind \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The shape of the fork population, not the total count, is the diagnostic. Healthy ecosystem extension should populate the ahead-only region: deployers keep up with upstream and add their own work, producing changes that upstream can in principle absorb. Silo formation should populate the behind-only and ahead-and-behind regions: either dormant copies fall behind, or active deployments accumulate local changes while also missing upstream changes. We apply this to Consul in Section~\ref{sec:application-consul} and find an empty ahead-only region, which we interpret as a fragmentation signal.
+
+\subsection{Using the Framework}\label{sec:framework-using}
+
+The framework is applied to a civic tech platform in five steps. First, recover the software structure from primary sources: codebase organisation, gemspec or equivalent manifests, extension mechanisms, APIs, and documentation. Second, identify the organisational structure (who participates and how they coordinate) and the business structure (who pays, who captures value, what incentives flow) from governance documents, funding records, and secondary case studies. Third, rate the four quality attributes against this evidence using the rubric in Table~\ref{tab:qa-rubric} (Section~\ref{sec:method}); each rating is justified by specific architectural choices or data. Fourth, assess whether the three structures fit each other: does the software architecture afford the organisational reality, and does the business structure sustain the architectural costs? Fifth, if the platform's deployers use forks rather than plugins or modules, plot the fork population across the ahead-of-upstream and behind-upstream states to read niche-creation health.
+
+The ratings are structured judgements rather than measurements.
+
+The output is a structured comparison the framework's tables can hold (Table~\ref{tab:qa-mapping} for the QA profile, Table~\ref{tab:threestructure} for the three structures). The next section walks through this procedure for Decidim and Consul.
+
+% ============================================================
+% 5. APPLICATION
+% ============================================================
+\section{Application: Decidim and Consul}\label{sec:application}
+
+This section applies the framework to Decidim and Consul. For each platform we describe the three structures (organisational, business, software), profile the four quality attributes, and connect the observations to the trade-offs and the architecture-as-governance thesis. The analysis treats repository data as indicators of activity, concentration, and divergence, not as direct measures of democratic value. A cross-case synthesis follows in Section~\ref{sec:application-synthesis}.
+
+\subsection{Decidim}\label{sec:application-decidim}
+
+Decidim is a modular monolith built with Ruby on Rails. The codebase at \url{github.com/decidim/decidim} contains 27 first-party engines packaged as standalone Ruby gems at SHA \texttt{be39c244} (2026-05-12).
+
+\paragraph{Software structure.}
+The 27 engines fall into four groups: \texttt{decidim-core} as the foundational dependency, three infrastructure engines (\texttt{admin}, \texttt{api}, \texttt{system}), three shared-service engines (\texttt{comments}, \texttt{forms}, \texttt{verifications}), four participatory spaces (\texttt{processes}, \texttt{assemblies}, \texttt{conferences}, \texttt{initiatives}), and 13 components that attach to those spaces. Every engine except \texttt{decidim-core} declares \texttt{add\_dependency "decidim-core"} in its gemspec, matching a hub-and-spoke pattern. But 13 of the 27 engines have runtime dependencies on other Decidim engines besides core: \texttt{decidim-comments} has 6 user-facing dependents and \texttt{decidim-forms} has 5, making them Layer-2 hubs of the platform (Figure~\ref{fig:dependency}).
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/decidim_dependency_graph.pdf}
+\caption{Decidim engine dependency graph at SHA \texttt{be39c244} (2026-05-12), recovered from the 27 gemspec files. The grey bar above \texttt{decidim-core} stands in for the 26 universal core dependencies. The dashed arrows are cross-engine runtime dependencies that bypass core; the most-depended-on are \texttt{comments} (6 dependents) and \texttt{forms} (5). Three developer-tooling engines (\texttt{design}, \texttt{dev}, \texttt{generators}) are omitted.}
 \label{fig:dependency}
 \end{figure}
 
-\paragraph{The space/component matrix.}
-This is the key architectural pattern. \citet[p.~82]{barandiaran2024decidim} use the metaphor that ``participatory components are to participatory spaces what furniture is to rooms.'' An administrator can mix and match features (proposals, budgets, surveys, debates) with participation contexts (processes, assemblies, conferences) without writing any code. Want proposals inside a participatory process? Turn it on. Want budgets inside an assembly? Turn it on. Any component can attach to any space, creating an $N \times M$ combinatorial matrix \citep[p.~75]{barandiaran2024decidim}. Technically, this works through a shared database table in \texttt{decidim-core} that stores which component is attached to which space, using a flexible association pattern. The matrix enables diverse participation designs without requiring new code for each combination. Figure~\ref{fig:matrix} illustrates this composition.
+The key architectural pattern is the space/component matrix: almost any component can attach to almost any space, creating an $N \times M$ combinatorial structure implemented through a polymorphic database association in core. \citet[p.~82]{barandiaran2024decidim} call this the ``furniture'' model: administrators mix and match components with spaces without writing code. Components are registered through a manifest API (\texttt{Decidim.register\_component}); third-party modules use the same interface as first-party ones.
 
 \newcommand{\yon}{\tikz\fill[black] (0,0) circle (4pt);}
 \newcommand{\yav}{\tikz\draw[gray!60, line width=0.6pt] (0,0) circle (3.5pt);}
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
 \centering
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{l|cccc}
@@ -284,234 +421,231 @@ This is the key architectural pattern. \citet[p.~82]{barandiaran2024decidim} use
 \end{tabular}
 
 \vspace{6pt}
-{\small \yon~Commonly activated \qquad \yav~Available, not default \qquad \textit{Any component can attach to any space at runtime}}
-\caption{The Decidim space/component matrix. Administrators compose participation designs by activating components within spaces --- an $N \times M$ combinatorial architecture implemented through a polymorphic database association. Adapted from \citet[Fig.~3.1]{barandiaran2024decidim}.}
+{\small \yon~Commonly activated \qquad \yav~Available, not default}\par
+\vspace{2pt}
+{\footnotesize\textit{Any component can attach to any space at runtime.}}
+\caption{The Decidim space/component matrix as documented in the project's own handbook \citep[Fig.~3.1]{barandiaran2024decidim}. Administrators compose participation designs by activating components within spaces --- an $N \times M$ combinatorial architecture implemented through a polymorphic database association. Filled and open circles reflect Barandiaran et al.'s reporting on common configurations, not a survey we conducted.}
 \label{fig:matrix}
 \end{figure}
 
-\paragraph{Four interaction mechanisms.}
-The engines interact through four mechanisms that define the internal API boundaries:
+To examine whether modular design is reflected in modular evolution, we applied Gall et al.'s logical coupling analysis \citep{gall1998detection} to the commit history. Of 5{,}517 commits touching at least one engine, $64\%$ stay within a single engine. This suggests that the engine architecture provides meaningful change isolation at the repository level, although it does not prove runtime independence. The remaining cross-engine coupling is concentrated in the four participatory spaces (Jaccard up to $0.43$), which share infrastructure code despite having no gemspec dependencies between them (Figure~\ref{fig:coupling}).
 
-\begin{enumerate}[nosep]
-  \item \emph{Rails engine mounting.} Each engine uses \texttt{isolate\_namespace} to keep its code separate. Component engines are mounted dynamically under the space's URL scope at runtime.
-  \item \emph{Manifest and registry pattern.} \texttt{decidim-core} maintains global registries for components and spaces (\texttt{ComponentManifest}, \texttt{ParticipatorySpaceManifest}). Engines register themselves at boot time by calling \texttt{Decidim.register\_component} or \texttt{Decidim.register\_participatory\_space}. Core reads from these registries to build menus, set up routes, and expose the API.
-  \item \emph{Shared database.} All engines write to a single PostgreSQL database. Cross-engine data access happens through ActiveRecord associations, not service calls. This means tight data coupling, but it avoids the overhead of a distributed system.
-  \item \emph{Pub/sub events.} \texttt{Decidim::EventsManager.publish} wraps \texttt{ActiveSupport::Notifications}, letting modules trigger cross-engine side effects (e.g., notifying followers when a proposal is published) without direct dependencies.
-\end{enumerate}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/decidim_coupling.pdf}
+\caption{Logical coupling between Decidim engines, computed as Jaccard similarity over the project's commit history at SHA \texttt{be39c244}. The four participatory spaces (centre block) co-change despite having no gemspec dependencies between them. The shared services (\texttt{comments}, \texttt{forms}, \texttt{verifications}) are largely isolated --- their gemspec-dependents call them as APIs without co-changing.}
+\label{fig:coupling}
+\end{figure}
 
-Listing~\ref{lst:register} shows the manifest/registry pattern concretely. This is the interface that both first-party and third-party modules use to register themselves with the platform.
+\paragraph{Organisational structure.}
+The Decidim Free Software Association was constituted on 16 February 2019 in a community assembly that approved its statutes. The Association holds the source code and trademark, transferred from Barcelona City Council in 2017. Its governance includes a General Assembly as sovereign body and four standing committees: Coordination, Research, Decidim Politics, and Public Institutions. The Public Institutions Committee brings Barcelona City Council, the Generalitat de Catalunya, the Barcelona Provincial Council, Localret, and other public bodies into the coordination structure \citep{barandiaran2024decidim}.
 
-\begin{lstlisting}[caption={Simplified Decidim component registration (based on \texttt{decidim-proposals}).}, label=lst:register, language=Ruby]
-# decidim-proposals/lib/decidim/proposals/engine.rb
-Decidim.register_component(:proposals) do |component|
-  component.engine = Decidim::Proposals::Engine
-  component.admin_engine = Decidim::Proposals::AdminEngine
-  component.icon = "media/images/decidim_proposals.svg"
+MetaDecidim is the community layer: a public Decidim instance at meta.decidim.org through which both governance and product work happen. The Decidim Social Contract, binding on members, commits signatories to AGPLv3 licensing, transparency, and ``equal opportunities for participatory objects'' --- the no-ranking-bias rule that surfaces in the software as a randomised default sort. The Association runs a small technical office (three employees per Barandiaran et al.) that handles release management and code review. Module ownership is distributed across Codegram engineers, Association staff, and the wider contributor base; 183 unique authors are visible in the commit log.
 
-  # Declare what this component can do
-  component.on(:create) do |instance|
-    # Called when an admin attaches proposals to a space
-  end
+\paragraph{Business structure.}
+The Association is funded through annual transfers from Barcelona City Council and the Generalitat de Catalunya under a formal collaboration agreement, with additional support from the Consorci Localret and the Barcelona Provincial Council \citep{barandiaran2024decidim}. Around this institutional core sits a network of anchor consultancies that fund themselves through municipal contracts: Codegram (Barcelona), Octree (Geneva), Open Source Politics (Paris), and smaller partners. The economic loop is: municipalities procure deployments from these consultancies; the consultancies are paid for installation, customisation, hosting, and bespoke modules; some of the work can flow back upstream as gem-based community modules or core pull requests. Decidim documents more than 80 community-developed gems, a visible artefact of this return flow.
 
-  component.settings(:global) do |settings|
-    settings.attribute :vote_limit, type: :integer, default: 0
-    settings.attribute :minimum_votes_per_user, type: :integer
-  end
-end
-\end{lstlisting}
+\paragraph{Fork divergence.}
+Of 452 enumerated forks of \texttt{decidim/decidim}, 444 had upstream comparison data. The distribution is concentrated in the behind-only quadrant: 399 forks ($90\%$) have no local commits but have fallen behind upstream as Decidim ships on \texttt{develop}. Forty-five forks sit in the ahead-and-behind quadrant; none in ahead-only or in-sync. The most-divergent fork is 221 commits ahead --- a Spanish-language rebrand of the documentation website. Consul's deepest silo, by contrast, is 12{,}725 commits ahead. Two orders of magnitude separate the two cases.
 
-\paragraph{Third-party extension mechanism.}
-Community modules use the same interface as first-party ones. A developer creates a Ruby gem, declares a dependency on \texttt{decidim-core}, and calls \texttt{Decidim.register\_component} in an initializer. The module is installed by adding one line to the deployer's \texttt{Gemfile}. It is auto-discovered through Rails engine loading. A CLI scaffold (\texttt{decidim --component my-component}) generates boilerplate. This design has produced over 80 community-developed modules (listed in the Decidim module directory and published as Ruby gems) that work alongside the core engines.
+The originator pattern inverts. Madrid (Consul originator) abandoned a 12{,}725-commit fork in 2023. Barcelona (Decidim originator, \texttt{AjuntamentdeBarcelona/decidim}) sits at zero commits ahead and forty-six behind, with a push timestamp from the day before the snapshot --- the originator is tracking upstream. Codegram, the consultancy that built Decidim, also sits at zero commits ahead. AjuntamentManacor and other municipal forks show the same pattern. Figure~\ref{fig:decidim-divergence} plots all 444 comparable forks on identical axes to Figure~\ref{fig:consul-divergence}, so the contrast reads directly.
+
+This is not a claim that Decidim has a healthier deployment ecosystem in raw numbers. The documented installation path is \texttt{gem install decidim; decidim my\_app}, which produces a new Rails application living in its own repository rather than as a fork of upstream. Most Decidim deployments are therefore invisible to fork-tree analysis. The 444 fork population captures contributors with PRs in flight (typically single-digit ahead counts), learners reading the codebase (zero ahead, accumulating behind), and a small minority of deep-customisation deployers. The displacement of the deployment fork by the plugin path --- not the small ahead-and-behind cluster --- is the empirical signal.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/decidim_fork_divergence.pdf}
+\caption{Decidim forks plotted by commits ahead of upstream \texttt{develop} against commits behind (snapshot 2026-05-14), on the same axes as Figure~\ref{fig:consul-divergence}. The ahead-only region is empty, as for Consul. The mass sits in the behind-only quadrant (399 dormant or learner copies, $90\%$). The ahead-and-behind cluster is small in both count (45 forks) and magnitude (top fork at 221 commits ahead, two orders of magnitude below Consul's Madrid). Barcelona, the Decidim originator, sits at zero ahead and forty-six behind --- the inverse of Madrid's silo. Of 452 enumerated forks, 444 had upstream comparison data.}
+\label{fig:decidim-divergence}
+\end{figure}
 
 \paragraph{Quality attribute profile.}
-\emph{Modifiability} is high. The engine architecture lets deployers add, remove, or replace components without touching core code. Customization happens through modules, not forks. \emph{Interoperability} is moderate. There is a GraphQL API for data access, and integration choices are deliberately open-source (OpenStreetMap instead of Google Maps, Matomo instead of Google Analytics, Jitsi instead of Zoom). But there are no cross-platform standards for civic tech interoperability. \emph{Deployability} is moderate to low. Setup is complex: a Rails application, module configuration, database, and 23 engines that need to work together. Multi-tenancy helps --- one installation can serve multiple organizations --- but the initial barrier is still high. \emph{Transparency} is high. Proposals are sorted randomly to prevent a ``rich get richer'' dynamic. Administrators cannot delete proposals, which serves as an anti-censorship measure. The project frames its design as ``participant experience (PX)'' rather than ``user experience (UX).'' All code is licensed under AGPL~v3.
+\emph{Modifiability} is high. The engine architecture lets deployers add, remove, or replace components without touching core code; customisation happens through modules, not deployment forks. The 80+ community modules are evidence that this modifiability is used in practice.
 
-\paragraph{Ecosystem indicators.}
-As of May 2026, Decidim has approximately 1,700 stars and 460 forks on GitHub. The platform is deployed in over 450 institutions across 30 countries. Barcelona alone has over 120,000 registered participants. However, the technical office consists of only three employees, and the project is critically dependent on Catalan institutional funding \citep{barandiaran2024decidim}. \citet{cobos2025comparison} find that activity ``tends to concentrate on a few contributors,'' raising bus factor concerns. The ecosystem is productive and diverse, but its robustness is fragile.
+\emph{Interoperability} is moderate. A GraphQL API exposes most participatory content, and the project's integration choices (OpenStreetMap, Matomo, Jitsi) are deliberately open-source. There are no cross-platform standards for civic tech that would let Decidim compose with other platforms at the data layer, so interoperability remains less developed than modifiability or configurability in this case.
 
+\emph{Configurability} is high. The 4 spaces and 13 components produce many possible default configurations, each customisable through component-level settings without code changes (Figure~\ref{fig:matrix}). \citet{palacin2024configurations} document 25 distinct production configurations across studied deployments.
 
-\subsection{Consul: The Comparison Case}\label{sec:consul}
+\emph{Transparency and auditability} is high at the architectural level. Decidim ships an immutable \texttt{ActionLog} model with a four-level visibility enum (private, admin-only, public-only, all) and an organisation scope. The \texttt{Traceable} concern adds PaperTrail-based version history to every changeable model, so per-proposal version diffs are available. Permission-gated controllers enforce admin-log access. The GraphQL API is designed to expose public participatory content while not exposing individual votes or admin actions. Sorting is deterministic and seeded for reproducibility within a session. These mechanisms make auditability a first-class architectural concern, although they do not by themselves prove that non-technical citizens can meaningfully use the audit surfaces in practice.
 
-Consul and Decidim share an origin. Both emerged from Spain's 15M/Indignados movement. Barcelona initially contributed to Consul (which powered decide.madrid.es), but proposed modularizing the codebase. According to the Codegram architecture blog, ``the talks on this document didn't come to a successful end'' \citep{codegram-decidim}. Barcelona then rewrote from scratch, creating Decidim in 2016--2017. The architectural divergence between the two platforms starts here.
+Figure~\ref{fig:decidim-engine-activity} plots per-engine commits in the 12 months before the snapshot. All 24 user-facing engines see activity, with three new engines (\texttt{ai}, \texttt{demographics}, \texttt{collaborative\_texts}) accumulating their first hundreds. The modular architecture is therefore matched by visible maintenance activity across the engine set; no user-facing engine is dormant in this snapshot.
 
-\paragraph{Architecture.}
-Consul is a single monolithic Rails application. There is no gem separation and no engine isolation. Features --- proposals, debates, budgets, legislation, voting, polls --- all share the same codebase, the same \texttt{ApplicationController}, and the same routes file. The \texttt{config/routes.rb} file defines all feature routes in a single file. Models live in \texttt{app/models/} with functional subdirectories (for example, \texttt{budget/investment.rb}), but there are no module-level namespace boundaries enforced at the code level --- a budget model can freely reference a proposal model without going through any API or registry. All tables sit in one database schema with no migration isolation. There is no \texttt{ARCHITECTURE.md} and no \texttt{Gemfile} separation of features into independent packages. Technical documentation covers installation and customization, but does not describe the architecture formally.
-
-\paragraph{Extension mechanism.}
-Consul uses what can be called a ``custom shadow folder'' pattern. The documentation describes a file-override system: to change how a budget investment works, you create a file at the same path under \texttt{app/models/custom/}, which overrides the original. This is monkey-patching, not module isolation. The practical effect is that customization requires forking the entire repository --- the documentation's ``Getting Started'' step~1 is literally ``Create your fork.'' The deployer then maintains that fork across upgrades manually, resolving conflicts between their custom overrides and upstream changes every release. A \texttt{Gemfile\_custom} convention exists for adding dependencies, but these load into the same process, not as separately versioned components.
-
-\paragraph{The fork problem.}
-The OSOR/Interoperable Europe case study found ``fragmented development, with multiple forks adapted to different local needs\ldots\ difficult to synchronise updates and maintain security across installations'' \citep{linaker2025consul}. It also reports that ``some expressed the belief that Consul felt like it was being forked by each local government\ldots\ with little getting contributed back upstream.'' According to the NTARI forks report \citep{ntari2025consul}, there are roughly 250 global implementations, most maintaining separate repositories with local modifications that rarely flow back.
-
-\paragraph{Architectural comparison.}
-The contrast with Decidim can be summarized in Table~\ref{tab:consul-decidim}.
-
-\begin{table}[ht]
+\begin{figure}[!htbp]
 \centering
-\caption{Architectural comparison: Consul vs.\ Decidim}
-\label{tab:consul-decidim}
+\includegraphics[width=0.9\textwidth]{figures/decidim_engine_activity.pdf}
+\caption{Decidim commits per user-facing engine in the 12 months before the snapshot (2025-05-12 to 2026-05-12). Bar values are commits in the period; the annotations show all-time commits for context. Three developer-tooling engines (\texttt{design}, \texttt{dev}, \texttt{generators}) are excluded, matching Figure~\ref{fig:dependency}.}
+\label{fig:decidim-engine-activity}
+\end{figure}
+
+\paragraph{Three-structures alignment.}
+The three structures appear aligned. The modular software lets external contributors ship gems without negotiating commit access to the core repository; the Association coordinates contributions and runs keystone functions such as releases, code review, and integration; the consultancy network has a business model around incremental deployment and module work; and the Public Institutions Committee channels public-body requirements back upstream. When Barcelona pays for accessibility work, that work can land in \texttt{decidim-core} and become available to other municipalities, which is the commons logic Barandiaran et al. articulate. The 80+ community modules and the steady commit rate after 2019 are visible indicators of this alignment.
+
+
+\subsection{Consul}\label{sec:application-consul}
+
+Consul and Decidim share an origin in Spain's 15M/Indignados movement. Barcelona initially contributed to Consul but proposed modularising the codebase. The proposal was rejected; Barcelona rewrote from scratch, creating Decidim in 2016--2017 \citep{codegram-decidim}. The original repository has since been renamed from \texttt{consul/consul} to \texttt{consuldemocracy/consuldemocracy}. Recovery is pinned to SHA \texttt{3c3b5c4a} (2026-05-11).
+
+\paragraph{Software structure.}
+Consul is a single Rails application: no gem separation, no engine isolation. Features (proposals, debates, budgets, legislation, voting, polls) share the same codebase, the same \texttt{ApplicationController}, and one \texttt{config/routes.rb}. Models live in \texttt{app/models/} with functional subdirectories but no module-level namespace boundaries enforced. All tables sit in one schema. There is no \texttt{ARCHITECTURE.md}, and the technical documentation covers installation but not architecture.
+
+Customisation uses a ``custom shadow folder'' pattern: to change how a budget investment works, a deployer creates a file at the same path under \texttt{app/models/custom/} that overrides the original. This reduces some file-level conflicts but does not provide module isolation. The documentation's ``Getting Started'' step~1 is ``Create your fork'', making deployment forks part of the expected customisation path.
+
+\paragraph{Organisational structure.}
+The Consul Democracy Foundation was founded in 2019 as a Dutch non-profit \citep{linaker2025consul}. It was set up specifically because Madrid's institutional backing for Consul collapsed after the May 2019 municipal election. The Foundation is very small: a Director, a Network Coordinator, a Tech Coordinator, and a three-person board. Crucially, the Foundation does not employ developers. \citet{linaker2025consul} report that maintenance relies on ``a technical core group dominated by Spanish service suppliers dating to Consul's early days.'' The community is held together through annual ConsulCon events, a Slack workspace of 700--800 users, and a two-tier Certified Tech Partner programme. There is no Decidim-style Social Contract, no Public Institutions Committee, and no MetaDecidim-equivalent space where deployers participate in governance.
+
+\paragraph{Business structure.}
+The Foundation is funded by a patchwork: a single municipal sponsor (the City of Munich at EUR~20{,}000 per year), EU project grants, private donations, and revenue contributions from Certified Tech Partners \citep{linaker2025consul}. The Foundation does not commission core development directly; it cannot afford to. Municipalities procure Consul deployments from certified suppliers, but the architecture means much customisation happens inside the deployer's own fork rather than as a returnable contribution. \citet{linaker2025consul} report that contributions ``come largely from certified service suppliers, with fewer contributions from local governments and NGOs'' and that ``many development features rarely merge back to the core codebase due to architectural barriers and fragmentation across installations.''
+
+\paragraph{Fork divergence.}
+We enumerated all forks of \texttt{consuldemocracy/consuldemocracy} via the GitHub API and computed each fork's divergence against upstream master. Of 1{,}030 enumerable forks, 1{,}026 had upstream comparison data. 746 ($73\%$) are unmodified ``stars in fork form''; 280 ($27\%$) have at least one commit ahead --- approximately the ``around 250 deployments'' figure previous reports cite \citep{ntari2025consul}. The distribution within those 280 is heavily skewed: most have fewer than ten commits ahead, 39 have 100 or more, and only 5 have 1{,}000 or more.
+
+The most-diverged fork is \texttt{AyuntamientoMadrid/consul} --- Madrid itself, the city that built Consul. It sits 12{,}725 commits ahead of upstream and 11{,}540 behind, last pushed 2023-05-23. The originating city therefore maintained a separate copy that drifted far from upstream and was eventually abandoned. This does not prove that the architecture alone caused the divergence, but it shows that even the originator ended up using the fork pattern that the platform made easiest. Plotted in Figure~\ref{fig:consul-divergence}, the population forms an L-shape: a dense behind-only row of dormant copies and a tall ahead-and-behind cloud reaching above 10{,}000 commits ahead, with the ahead-only quadrant empty.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/consul_fork_divergence.pdf}
+\caption{Consul forks plotted by commits ahead of upstream master against commits behind, on log scales (snapshot 2026-05-12). Each fork occupies one of four quadrants. The ahead-only region --- where healthy contributor forks would live --- is empty: no fork has added local commits while staying in sync with upstream. The mass sits in the behind-only region (745 dormant copies) and the ahead-and-behind region (280 diverged silos, including Madrid). Of 1{,}030 enumerated forks, 1{,}026 had upstream comparison data; the remaining four are excluded.}
+\label{fig:consul-divergence}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/consul_fork_activity.pdf}
+\caption{Last-push year distribution for the 1{,}030 enumerable Consul forks (snapshot 2026-05-12). Each bar counts forks whose most recent push falls in that year. Activity peaks in 2019 and declines; only $14\%$ of forks have been touched since the start of 2024.}
+\label{fig:consul-forks}
+\end{figure}
+
+\paragraph{Quality attribute profile.}
+\emph{Modifiability} is low. Customisation is expected to happen through forks and shadow-folder overrides rather than through isolated modules. Shadow folders reduce file-level conflicts but do not remove logical coupling to the upstream codebase. The 1{,}030 forks are the visible signature of this extension model, although not every fork represents a production deployment.
+
+\emph{Interoperability} is moderate. The public GraphQL API at \texttt{/graphql} exposes participatory content including individual vote records, but the data model is monolithic and there are no cross-platform standards.
+
+\emph{Configurability} is moderate. Several components (proposals, debates, budgets, voting) can be enabled or disabled per deployment, with phase- and quorum-level settings. The configuration is less rich than Decidim's space/component matrix.
+
+\emph{Transparency and auditability} is moderate. Consul uses the off-the-shelf \texttt{audited} gem to track per-record changes, but the UI exposes audit history only for Budget Investments. A separate \texttt{Activity} model logs five specific moderation verbs (hide, block, restore, valuate, email). Both surfaces are admin-only. There is no Decidim-style organisation-scoped \texttt{ActionLog} with public visibility options.
+
+\paragraph{Three-structures misalignment.}
+The three structures appear misaligned. The problem is not monolithic architecture as such: a monolith can work well when it is matched by strong central maintenance and clear contribution pathways. The problem is the fit between Consul's monolithic extension model and its organisational and business structures. The software structure makes local adaptation easiest through forks; reintegrating that work would require a strong coordinating body with sustained development capacity; the small Foundation cannot provide that capacity; and the business structure does not reliably pay anyone to provide it. The architecture's costs therefore land on individual deployers, who absorb them by maintaining isolated forks. The misalignment shows up in the fork data: 1{,}030 forks, 750 unmodified copies, and 280 modified forks with limited evidence of upstream return.
+
+Two pieces of evidence make this concrete. First, Madrid itself ended up in the same fork pattern as other deployers, even with the resources and motivation of the originating city. Second, the post-2019 collapse: when Ahora Madrid lost the mayoralty in May 2019, the upstream commit rate dropped roughly $80\%$ within a year. The Foundation was constituted that same year specifically to fill the institutional vacuum, but without core developers or significant funding it could coordinate the ecosystem more easily than it could maintain the core. The hedge here matters: the claim is not that the monolith caused the misalignment, but that this monolithic extension model required a coordinating capacity that the organisational reality could not provide.
+
+
+\subsection{Cross-case Synthesis}\label{sec:application-synthesis}
+
+Decidim has a wider contributor base than Consul, and Consul's upstream activity collapsed in 2019. The commit history makes both patterns visible. Figure~\ref{fig:contributor-concentration} shows the concentration: Decidim has 7{,}078 human commits across 183 unique authors with a Gini coefficient of $0.85$ (top-three share $36\%$, top-ten $68\%$), against Consul's 186 unique authors with top-three $52\%$ and top-ten $87\%$. These figures indicate contributor concentration in the repository, not the full distribution of influence in the wider ecosystem. Figure~\ref{fig:commit-timeline} shows the Consul cliff in 2019--2020 following Ahora Madrid's electoral loss in May 2019 \citep{linaker2025consul, barandiaran2024decidim}, alongside Decidim's steadier plateau after 2019.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/contributor_concentration.pdf}
+\caption{Share of human commits captured by the top three and top ten authors per repository. Decidim has a longer tail of unique contributors; Consul is more concentrated. Bot commits (Dependabot, Crowdin, etc.) are excluded.}
+\label{fig:contributor-concentration}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/commit_timeline.pdf}
+\caption{Human commits per year for each repository (no merges, bots excluded). The Consul cliff in 2019--2020 follows Ahora Madrid's electoral loss in May 2019; Decidim shows a steadier plateau after 2019. The 2026 numbers are partial (cut-off at clone date).}
+\label{fig:commit-timeline}
+\end{figure}
+
+\paragraph{Three-structures comparison.}
+Table~\ref{tab:threestructure} maps the two cases onto the three-structures framework.
+
+\begin{table}[!htbp]
+\centering
+\caption{Three-structures analysis \citep{christensen2014analysis} applied to Decidim and Consul.}
+\label{tab:threestructure}
+\renewcommand{\arraystretch}{1.3}
 \begin{tabularx}{\textwidth}{lXX}
 \toprule
-\textbf{Dimension} & \textbf{Consul} & \textbf{Decidim} \\
+\textbf{Structure} & \textbf{Decidim} & \textbf{Consul} \\
 \midrule
-App structure       & Single Rails app            & 23 Rails engines (gems) \\
-Extension model     & Fork + shadow folders       & Install additional gems \\
-Feature isolation   & Flat, shared codebase       & Per-gem with own migrations \\
-Versioning          & One version for everything  & Per-component semantic versioning \\
-Upgrade path        & Manual conflict resolution  & \texttt{bundle update decidim-proposals} \\
-Multitenancy        & No                          & Yes \\
-Documented step~1   & ``Create your fork''        & \texttt{rails generate decidim:install} \\
-Ecosystem result    & $\sim$250 diverging forks   & 80+ shared modules \\
+Software       & Modular: 27 engines, registry pattern, shared DB, gem-based extension & Monolithic: single Rails app, shadow folder pattern, fork-based extension \\
+\midrule
+Organisational & Decidim Association as keystone; MetaDecidim community; Social Contract; Public Institutions Committee & Consul Democracy Foundation (6 people, no developers); informal supplier network; weak coordination \\
+\midrule
+Business       & Catalan institutional funding + anchor consultancies (Codegram, Octree, Open Source Politics) + Public Institutions Committee feedback loop & EUR~20{,}000/yr from Munich + EU grants + supplier certification revenue; no anchor consultancy \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\paragraph{Quality attribute profile.}
-\emph{Modifiability} is low. Customization requires forking, and shadow folders reduce file-level conflicts but not logical coupling. \emph{Deployability} is moderate --- standard Rails deployment is well understood, but each deployer maintains a separate fork. \emph{Transparency} is moderate: the code is open source (AGPL~v3), but the monolithic structure means understanding any feature requires navigating the entire codebase.
+Decidim's structures appear aligned. The modular software affords incremental contribution; the Association coordinates it; the consultancies help sustain it. Consul's structures appear misaligned. The monolithic extension model requires a strong coordinator that the Foundation cannot afford to be, and deployers absorb the misalignment by maintaining forks.
 
-\paragraph{Democratic consequence.}
-Consul's low modifiability forced a binary choice: accept the platform as-is, or fork it entirely. Barcelona chose to fork and then rewrite. The 250 other deployers mostly forked with local modifications that never came back upstream. In SECO terms, this means loss of collective learning, duplicated effort, and reduced robustness. The architecture did not just constrain the code --- it constrained who could participate in shaping the platform.
+The fork-divergence figures (Figures~\ref{fig:consul-divergence} and~\ref{fig:decidim-divergence}, on identical axes) make this contrast visible. Madrid, the Consul originator, sits in the far corner of the ahead-and-behind quadrant with a 12{,}725-commit fork abandoned in 2023. Barcelona, the Decidim originator, sits at zero local commits with a fork pushed the day before the snapshot. The largest divergent Decidim fork is 221 commits ahead --- two orders of magnitude below Consul's Madrid. The same diagnostic reads each platform's structural alignment empirically: the architecture that pushed Consul's deployers into silos is absent from Decidim, and the originator pattern on each side fits the structural prediction.
 
+\paragraph{Trade-off positioning.}
+The two platforms sit at opposite ends of the modifiability trade-off identified in Section~\ref{sec:framework-tradeoffs}. Decidim chose high modifiability and pays the sustainability burden of a 27-engine codebase maintained by a small technical office. Consul chose lower modifiability and pays the cost in fork fragmentation: 280 modified forks with little visible upstream return. On interoperability, both are open-source and have GraphQL APIs but neither pursues cross-platform civic tech standards; the trade-off does not differentiate them strongly and remains under-tested in this two-case application. On configurability, Decidim's space/component matrix is high and Consul's per-feature settings are moderate; the cost on the Decidim side is the configuration complexity \citet{palacin2024configurations} document.
 
-\subsection{Polis: The Contrasting Paradigm}\label{sec:polis}
-
-Polis takes a fundamentally different approach. It does not solve the same problem as Decidim and Consul (structured participation processes). Instead, it synthesizes opinions through algorithmic deliberation. It is included not as a third case in the same comparison, but as evidence of a different trade-off profile.
-
-\paragraph{Architecture.}
-Polis has a Clojure backend and a JavaScript frontend. It is monolithic but algorithmically specialized. The core innovation is a pipeline: participants vote agree, disagree, or pass on statements, producing a vote matrix. Principal component analysis (PCA) --- a statistical technique that reduces many variables to a few key dimensions --- compresses this matrix into a two-dimensional ``opinion landscape'' that can be visualized. K-means clustering (a standard machine learning algorithm that groups similar data points, with $k$ selected automatically) then identifies groups of like-minded voters on this landscape. The system then finds ``bridging statements'' that resonate across divided groups and ``consensus statements'' agreed on by all clusters. This algorithm is the product --- everything else is infrastructure around it.
-
-\paragraph{The different trade-off.}
-Polis trades ecosystem breadth for algorithmic depth. There are few third-party modules and a thin contributor ecosystem (roughly 236 forks and about 1,000 stars on GitHub as of May 2026). But the tightly coupled architecture ensures the deliberation algorithm works as designed. Docker-based deployment makes it relatively easy to run. However, deployers can run it without understanding --- or being able to audit --- the PCA algorithm that determines what counts as consensus.
-
-\paragraph{Quality attribute profile.}
-\emph{Modifiability} is low: tight coupling around the core algorithm and no plugin system. \emph{Deployability} is high: Docker containers make spinning up an instance straightforward. \emph{Transparency} is low to moderate: the code is open source, but the algorithmic core --- dimensionality reduction and clustering --- is opaque to most users and deployers. The opinion landscape visualization is readable, but the mechanism producing it is not.
-
-\paragraph{Democratic implication.}
-Polis shows that architectural decisions about algorithms are also governance decisions. The PCA + k-means approach embeds an epistemological assumption: that consensus is findable through dimensionality reduction of opinion space. This is not neutral. It determines what kinds of agreement become visible and what kinds remain hidden. \citet{bono2025artificial} identify algorithmic transparency as a key design principle for AI in participation platforms --- a concern that Polis predates but does not fully address.
-
-
-\subsection{Synthesis: The Trade-off Map}\label{sec:synthesis}
-
-Table~\ref{tab:ecosystem} summarizes the three platforms across key ecosystem and architectural indicators. The numbers make concrete what the case descriptions narrate: Decidim's modular architecture produced a shared-module ecosystem, Consul's monolith produced diverging forks, and Polis's tight coupling produced algorithmic depth but ecosystem thinness.
-
-\begin{table}[ht]
-\centering
-\caption{Ecosystem comparison of the three platforms. GitHub data as of May 2026; figures are approximate and should be read as rough indicators, not precise measures.}
-\label{tab:ecosystem}
-\begin{tabularx}{\textwidth}{lXXX}
-\toprule
-\textbf{Indicator} & \textbf{Decidim} & \textbf{Consul} & \textbf{Polis} \\
-\midrule
-Architecture     & Modular monolith (23 Rails engines) & Monolithic Rails app & Monolithic (Clojure + JS) \\
-Extension model  & Gem-based plugins            & Fork + shadow folders      & None (tight coupling) \\
-License          & AGPL v3                      & AGPL v3                    & AGPL v3 \\
-GitHub stars     & $\sim$1,700                  & $\sim$1,500                & $\sim$1,000 \\
-Forks            & $\sim$460                    & $\sim$700                  & $\sim$236 \\
-Community modules & 80+                         & Few                        & Few \\
-Deployments      & 450+ in 30 countries         & 250+ cities                & 20--30 documented \\
-Governance       & Democratic association        & Municipal $\to$ foundation & Project maintainer \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-Table~\ref{tab:threestructure} maps the three cases onto the three-structure framework of \citet{christensen2014analysis}. What stands out is that in all three cases, the software structure seems to have shaped the organizational and business structures, not the other way around. Decidim's modularity made it possible for independent deployers to contribute modules back, which kept costs shared. Consul's monolith, despite good intentions, pushed deployers into isolated forks where each one pays the full maintenance cost alone. This supports the hypothesis from Section~\ref{sec:seco}, though it does not prove it --- the organizational and political contexts differed too.
-
-\begin{table}[ht]
-\centering
-\caption{Three-structure analysis \citep{christensen2014analysis} applied to the three platforms}
-\label{tab:threestructure}
-\begin{tabularx}{\textwidth}{lXXX}
-\toprule
-\textbf{Structure} & \textbf{Decidim} & \textbf{Consul} & \textbf{Polis} \\
-\midrule
-Software        & Modular (23 engines, registry pattern, shared DB) & Monolithic (single app, shadow folders) & Monolithic (tight algorithmic coupling) \\
-Organizational  & Distributed: Decidim Association, Metadecidim, independent module developers & Centralized $\to$ fragmented: Madrid team, then isolated fork maintainers & Small core team, few external contributors \\
-Business        & Commons-based: institutional funding, shared modules reduce per-deployer cost & Each deployer bears full fork-maintenance cost independently & Grant-funded; deployers self-serve via Docker \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-The three cases also reveal four trade-offs that any builder of democratic digital infrastructure needs to navigate. These are summarized in Table~\ref{tab:tradeoffs}.
-
-\begin{table}[ht]
-\centering
-\caption{Quality attribute trade-offs in democratic digital infrastructure}
-\label{tab:tradeoffs}
-\begin{tabularx}{\textwidth}{lXXX}
-\toprule
-\textbf{Quality Attribute} & \textbf{Democratic Benefit} & \textbf{Architectural Cost} & \textbf{Primary Evidence} \\
-\midrule
-Modifiability     & Pluralism --- diverse communities can adapt the platform & Sustainability burden, complexity & Decidim's 80+ modules vs.\ Consul's 250 diverging forks \\
-Interoperability  & Ecosystem coherence, cross-platform collaboration & Standardization pressure, reduced autonomy & Decidim's open-source integration stack; civic tech platforms as silos \\
-Deployability     & Broader access to democratic tools & Reduced local control, potential opacity & Polis Docker ease vs.\ Decidim complexity \\
-Transparency      & Citizen trust, democratic legitimacy & Design complexity, performance cost & Decidim's PX design vs.\ Polis's opaque algorithm \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-The central finding is that no architecture maximizes all democratic quality attributes at once. Every civic tech platform navigates trade-offs that are both technical and political. Decidim optimized for modifiability and gained pluralism, but at the cost of sustainability and deployment complexity. Polis optimized for algorithmic sophistication and got a powerful deliberation tool, but a thin ecosystem. Consul maintained its original monolithic architecture --- whether by choice or inertia --- which lowered the initial barrier to deployment but produced fragmentation over time. The architecture is the governance decision --- and the Decidim/Consul divergence, starting from the same point, is the clearest evidence of this.
-
+\paragraph{Transparency.}
+Transparency and auditability differ sharply across the two at the architectural level. Decidim treats auditability as a first-class architectural concern through the \texttt{ActionLog}/\texttt{Traceable} infrastructure; Consul treats it more narrowly as a moderation oversight feature implemented via off-the-shelf gems. This differentiation supports including transparency and auditability as a primary axis of the framework, while leaving open the separate question of how usable these mechanisms are for non-technical citizens.
+\FloatBarrier
 
 % ============================================================
-% 5. DISCUSSION
+% 6. DISCUSSION
 % ============================================================
 \section{Discussion}\label{sec:discussion}
 
 \subsection{Architecture as Governance in Practice}\label{sec:disc-gov}
 
-Decidim's modular architecture did not just make the code flexible --- it made it possible for diverse communities to shape the platform without needing permission from the core team. Any organization can build a module, publish it as a gem, and have it work alongside the official engines. This resembles what \citet{schneider2021modular} call ``modular politics'' --- composable governance primitives implemented as software. Decidim achieves something analogous at the participation-design level, where spaces and components can be combined freely. Consul's monolith, by contrast, concentrated decision-making. If you wanted to change how the platform works, you either convinced the Madrid team or you forked. In practice, most deployers forked, and the changes stayed local. \citet{schneider2024governable} argues that platform defaults encode governance --- Consul's defaults encoded centralization, even though nobody intended it.
+The Decidim/Consul comparison shows how architectural decisions participate in governance in civic technology. Decidim's modular architecture did not only make the code flexible; it also made it possible for communities and service providers to shape the platform without first negotiating commit access to the core repository. An organisation can build a module, publish it as a gem, and have it work alongside the official engines. This is close to what \citet{schneider2021modular} call ``modular politics'': composable governance primitives implemented as software. The 80+ community modules are one visible artefact of this politics in action.
 
-Polis shows a different version of the same pattern. The PCA + k-means algorithm is a decision about what counts as consensus. It is not technically wrong --- it is a reasonable approach to finding common ground in large groups. But it is also not neutral. It makes certain kinds of agreement visible (clusters that converge on bridging statements) and other kinds invisible (minority positions that do not form clean clusters). As \citet{bowker1999sorting} argue, classification systems are political because every category privileges one view and silences another. Dimensionality reduction on opinion space is a classification system: PCA decides which axes of disagreement matter most, and k-means decides where the boundaries between groups fall. Opinions that do not align with the principal components get compressed away --- they are still there in the raw data, but invisible in the output that decision-makers see.
+Consul's monolithic extension model made a different path easier. The fork-and-shadow pattern made isolated local adaptation more straightforward than upstream contribution: deployers could either accept the platform as-is or maintain a separate fork. \citet{schneider2024governable} argues that platform defaults encode governance; in Consul's case, the default extension path pulled local adaptation toward forked copies rather than shared modules. The pattern reached its most visible case in Consul's own originator: Madrid maintained a fork 12{,}725 commits ahead of upstream, last touched in May 2023. This does not prove that architecture alone caused the fragmentation, but it shows that even the originator ended up in the same divergence pattern visible across the wider deployer base.
 
-This extends the SECO literature into new territory. \citet{christensen2014analysis} describe how software structure shapes organizational and business structures. Our cases show that this relationship is especially strong in civic tech, where the political consequences of architectural choices are explicit. The Decidim/Consul divergence is the clearest example: the same starting point, the same political movement, but opposite architectural decisions produced radically different ecosystems. This parallels what \citet{noori2025patterns} find in open-source projects more broadly --- that governance transitions are constrained by early architectural choices. Civic tech is no different, except that the stakes are democratic rather than commercial.
+The two platforms can also be read through \citet{iansiti2004strategy}'s ecosystem actor roles. Decidim's Association operates as a keystone, maintaining shared infrastructure while enabling third-party modules on top; the 80+ community modules are the niche-creation activity this keystone structure makes possible. Consul's Madrid team operated more like a dominator while the city's institutional backing held: it controlled the codebase, rejected the modularisation path proposed by Barcelona, and offered no equivalent module mechanism for external contribution. When the institutional backing collapsed in 2019, no successor keystone with comparable development capacity emerged. The vacuum was partly absorbed by deployers maintaining their own versions in forks.
 
-\subsection{What SECO Research Gains from Democratic Analysis}\label{sec:disc-seco}
+\subsection{What SECO Research Gains}\label{sec:disc-seco}
 
-The SECO health dimensions from \citet{jansen2014measuring} --- productivity, robustness, niche creation --- offer useful organizing concepts for civic tech, though we apply them as qualitative lenses rather than with their full operationalized measurement frameworks (which would require longitudinal data on application survival rates, revenue flows, and developer retention that we do not have). At this coarser level: Decidim's 80+ community modules suggest a productive ecosystem; Consul's fragmentation into diverging forks suggests low robustness (the ecosystem cannot easily absorb disruptions or share improvements); Polis's thin contributor base suggests limited niche creation. But even a fully operationalized health assessment would miss something important: it would not tell us whether the architecture actually enables the democratic participation it claims to support.
+The SECO health dimensions from \citet{jansen2014measuring} --- productivity, robustness, niche creation --- offer useful organising concepts for civic tech, but they do not by themselves distinguish ecosystem extension from silo formation. Consul's 2017--2019 peak generated thousands of commits and dozens of unique contributors --- numbers a productivity-only assessment might read as a thriving project. Yet the extension model pushed adopters toward separate forks, and when Ahora Madrid lost the city in 2019 the upstream commit rate dropped roughly $80\%$. By productivity measures, the ecosystem looked active; by fork-divergence measures, it was already vulnerable to fragmentation.
 
-A civic tech ecosystem can look ``healthy'' by standard metrics while being architecturally hostile to democratic participation. Consul had a growing contributor base and many deployments, but the extension mechanism forced adopters to maintain separate forks. By productivity measures, it looked fine. By democratic measures --- whether diverse communities can meaningfully shape the platform --- it failed.
+Fork-divergence shape as a niche-creation diagnostic (Section~\ref{sec:framework-fd}) is one concrete methodological contribution this paper makes to SECO research, adapting the fork-mining literature \citep{zhou2020forks, wang2023forkentropy, businge2022reuse} into a population-shape reading paired with \citet{jansen2014measuring}'s niche-creation dimension for civic tech platforms. Figures~\ref{fig:consul-divergence} and~\ref{fig:decidim-divergence} plot the two cases on identical axes. Consul's L-shape --- dense behind-only row, tall ahead-and-behind cloud reaching above 10{,}000 commits ahead, empty ahead-only --- is a fragmentation signal: the deployer fork population extends away from upstream rather than around it. Decidim's shape is structurally different: the ahead-and-behind cluster is small in both count (45 forks) and magnitude (top fork at 221 commits ahead, two orders of magnitude below Consul's Madrid), and the originator sits at zero local divergence. The shapes are qualitative and visual, complementary to scalar measures used in the fork-mining literature.
 
-The architecture-as-governance lens adds an evaluative layer: not just ``is the ecosystem growing?'' but ``does the architecture enable the participation it claims to support?'' --- what \citet{palacin2024configurations} frame as ``which political values should be enforced by platform design.'' This goes beyond civic tech. Any mission-driven ecosystem --- health technology, education, environmental monitoring --- faces similar tensions. \citet{koskinen2020understanding} show this in DHIS2, the health information platform used in 80+ countries, where data model decisions determine what health authorities can count and report.
+Applying the same diagnostic to both platforms surfaces a methodological point. The shape reads different ecosystem niches in each case, and the contrast is itself the finding. For Consul, where deployers customise by forking, the fork population is approximately the deployment ecosystem and the shape reads deployment fragmentation directly. For Decidim, where deployers install the gem in their own Rails application (\texttt{decidim my\_app}), most deployments live outside the fork tree and the shape reads contributor flow plus learners instead. The near-absence of large diverged forks in the Decidim figure is therefore not merely a healthier-looking deployment ecosystem in raw numbers; it is evidence that the plugin path has displaced the deployment fork. Whether fork-divergence shape can be applied uniformly across civic tech platforms thus depends on the documented extension model, and that bound is itself a useful methodological finding.
+
+The three-structures framework of \citet{christensen2014analysis}, applied here to civic tech, also extends the SECO toolkit. The misalignment reading of Consul's fork fragmentation makes the structural argument concrete: not that the architecture was simply bad, but that the extension model required a coordinating capacity the organisational and business structures could not provide. Architecture and organisation diverged regardless of which way the causal arrow runs.
 
 \subsection{Implications for the Democracy Stack}\label{sec:disc-stack}
 
-International IDEA \citeyearpar{idea2026democracy} proposes building a ``democracy stack'' --- digital public infrastructure designed to support democratic rights and participation. \citet{ceps2025building} advocates for interoperable European digital public infrastructure. But neither specifies what good architecture looks like in this context.
+International IDEA \citeyearpar{idea2026democracy} calls for a democracy stack but leaves the architectural decisions implicit. \citet{ceps2025building} advocates for interoperable European digital public infrastructure but does not engage the modifiability-against-sustainability trade-off that shapes whether interoperable infrastructure can actually be adapted by the communities it serves. Two lessons from our cases speak to these gaps.
 
-Our cases point to some concrete lessons. The Decidim/Consul comparison makes the strongest case for modular over monolithic architecture --- modularity let communities adapt the platform, while the monolith forced forking and fragmentation. Interoperability standards should be open, but standards that ignore local variation risk excluding the communities they are meant to serve. Deployability matters for access, though not at the cost of transparency --- Polis is easy to deploy but hard to audit. And the governance structure should match how power is distributed in the architecture. Decidim's community governance (the Decidim Association, Metadecidim) works partly because it mirrors the distributed technical design.
+\paragraph{Modularity as a condition for pluralistic adaptation.}
+Trade-off 1 (modifiability against sustainability burden) makes the strongest case for modular architecture in a democracy stack. The Decidim/Consul comparison shows what can happen on either side. The trade-off is real: modular maintenance is harder than maintaining a smaller central codebase. But the alternative, when local adaptation is needed and no other extension mechanism exists, is fork fragmentation that upstream cannot easily absorb. For a democracy stack that must accommodate diverse institutional contexts, modularity appears to be a central architectural condition for pluralistic adaptation. The sustainability burden should therefore be treated not as an implementation inconvenience, but as a governance cost that must be deliberately funded and coordinated.
 
-\subsection{Evaluating the Approach}\label{sec:evaluation}
+\paragraph{Transparency by design, not by audit.}
+Decidim's transparency and auditability come from architectural decisions made early: a first-class \texttt{ActionLog}, the \texttt{Traceable} concern wired into changeable models, and a GraphQL API designed to expose public participatory content while protecting sensitive data. Consul's transparency mechanisms are narrower and implemented mainly through off-the-shelf audit and activity-tracking features. For a democracy stack that has to remain auditable across deployments and over time, transparency is difficult to add as a superficial feature after launch; it has to be treated as an architectural property. The cost --- audit infrastructure across models, permissions, visibility levels, and APIs --- is real, but without it the legitimacy of participatory outcomes is harder to verify.
 
-The approach worked well in some places and less well in others.
+\subsection{Quality Attributes Not in the Framework}\label{sec:disc-missing}
 
-Where it worked best was the Decidim/Consul divergence. The causal chain there is unusually clean for a software study: Barcelona proposed modularizing Consul, the proposal was rejected, Barcelona rewrote from scratch, and ten years later the two platforms have opposite architectures and very different ecosystems. That said, architecture was not the only thing that differed. Barcelona and Madrid also had different governance cultures and different political trajectories --- Madrid's Ahora Madrid government lost power in 2019, which hurt Consul's institutional backing. Separating what the architecture caused from what politics caused would need interview-based research we did not do.
+Three quality attributes that matter for democratic infrastructure are not primary axes in our framework: security, accessibility, and sovereignty. We left them out because the Decidim/Consul comparison does not strongly differentiate the platforms along these axes. Both follow standard Rails security practices; both have accessibility statements and basic WCAG compliance work; both are AGPL-licensed and self-hostable. Engaging these QAs properly would need either different methods (threat modelling for security; user studies for accessibility) or different cases (a commercial SaaS for sovereignty; a federated or anonymous platform for security). They belong in a fuller framework. We name them here to be explicit about what our two cases can and cannot teach.
 
-The four quality attributes captured the most visible trade-offs, but probably missed things. Security is the obvious gap --- it did not vary much across our three cases, but for platforms handling verified identities and votes it clearly matters. Decidim's ElectionGuard integration for end-to-end verifiable elections hints at this. We also stayed at the platform level and said little about hosting, data sovereignty, or vendor dependence, which may matter just as much for democratic outcomes.
+Two of \citet{schneider2021modular}'s principles for \emph{Modular Politics} --- expressiveness and portability --- are also absent from our framework, but for a different reason: they are normative design goals for a future governance layer (a proposed standard plus supporting libraries to be embedded in existing platforms), not measurable properties of the existing platform architecture itself. Whether a participatory budgeting tool can move from Decidim to Consul is a legitimate civic-tech question, but it requires a different unit of analysis than the architectural recovery this paper does. They belong in a research programme that takes Schneider et al.'s proposal seriously and asks how existing civic tech platforms could support such a layer.
 
-Lightweight recovery was sufficient to identify key decisions and trade-offs, but the depth of analysis varies across cases. The Decidim analysis drew on gemspec files, code structure, and detailed documentation. The Consul analysis relied more on the OSOR case study, and the Polis analysis was the thinnest, relying mostly on published descriptions. Formal dependency analysis and commit-pattern mining could strengthen the Consul and Polis cases.
+\subsection{Limitations}\label{sec:evaluation}
 
-Finally, GitHub metrics --- stars, forks, contributor counts --- are proxies, not direct measures of ecosystem health. Fork counts are ambiguous: a Consul fork may represent a genuine deployment, an abandoned experiment, or a one-time contribution attempt.
+The two-platform comparison is the framework's first worked application, not a validation across the field. Several limitations bound what we can claim.
 
+\emph{Causality.} The architecture-as-governance reading is correlational. Barcelona and Madrid had different governance cultures and political trajectories; Madrid's Ahora Madrid government lost power in 2019, hurting Consul's institutional backing. Separating what the architecture caused from what politics caused would need interview research we did not do. The hedge is real: the architecture and the organisational reality diverged in opposite directions, and the misalignment matters regardless of which way the causal arrow runs.
+
+\emph{Single coder.} The architectural and ecosystem judgements were made by one author; a second coder could disagree on edge cases (which engine counts as ``shared service'', which fork counts as ``substantively modified''). Where possible we triangulated against published characterisations --- \citet{linaker2025consul} on Consul's organisational structure, \citet{barandiaran2024decidim} on Decidim's governance, the OSOR and NTARI reports on Consul deployments --- and noted disagreements explicitly.
+
+\emph{Anglophone bias.} Almost all our sources are English; Decidim has substantial Spanish- and Catalan-language documentation, and the Consul fork landscape is heavily Spanish, Catalan, and Latin American. We likely missed material that would refine our reading.
+
+\emph{Selection on the dependent variable.} We chose two platforms that exist; the civic tech graveyard --- platforms that never reached production or failed invisibly --- is invisible to this study. The trade-offs we identify are conditional on survival.
+
+\emph{Architectural recovery limits.} Architectural recovery captures dependency structure and extension mechanisms, not runtime behaviour. Evolutionary metrics use email-based author identity, which conflates authors with multiple emails. Fork analysis covers public forks only and may miss private production deployments. Each of these is a real limit on what the methods can see.
 
 % ============================================================
-% 6. CONCLUSION
+% 7. CONCLUSION
 % ============================================================
 \section{Conclusion}\label{sec:conclusion}
 
-This paper asked what software architecture trade-offs builders of democratic digital infrastructure must navigate. Through multi-case analysis of Decidim, Consul, and Polis, we identified four trade-offs that are both technical and political: modifiability versus sustainability, interoperability versus autonomy, deployability versus transparency, and algorithmic sophistication versus ecosystem breadth.
+Decidim and Consul started from similar political and historical origins but developed into different software ecosystems. Decidim's modular software appears to fit its coordinating Association and consultancy-anchored funding base. Consul's monolithic extension model appears less well matched to its small Foundation and shoestring funding, and this misalignment is visible in the platform's fork fragmentation. This paper makes sense of that contrast by bringing together three established literatures: software architecture quality attributes, \citet{christensen2014analysis}'s three-structures lens for software ecosystems, and the architecture-as-governance thesis from STS and platform studies. The contribution is not to invent those components, but to combine them into an analytical framework for civic technology platforms and demonstrate how the framework reads two worked cases. The main methodological contribution that emerged from the application is \emph{fork-divergence shape}: a diagnostic for whether a civic tech ecosystem extends around a shared upstream or fragments into diverged forks.
 
-These are not abstract observations. If Copenhagen, or any European city, wanted to build democratic participation infrastructure tomorrow, these are the trade-offs they would face. A decade of civic tech experience shows what happens when you navigate them in one direction versus another.
+We applied the framework to Decidim and Consul: two civic technology platforms with shared origins in Spain's 15M movement and different architectural paths. Decidim's modular software, coordinating Association, and consultancy-anchored funding form a structurally aligned ecosystem in this reading. Consul's monolithic extension model, weak coordinating body, and limited funding form a structurally misaligned ecosystem whose fragmentation is visible in fork divergence. The framework reads both cases consistently by asking not only what the software architecture looks like, but whether the organisational and business structures can sustain the architectural choices the platform has made.
 
-The architecture-as-governance thesis is well established in STS, law, and platform studies \citep{winner1980artifacts, lessig2006code, schneider2024governable}. This paper shows what it looks like in practice when applied to civic technology through software architecture and SECO methods. The Decidim/Consul divergence --- same origin, opposite architecture, radically different ecosystem outcomes --- is the clearest demonstration. For European policymakers debating democratic digital public infrastructure, this means that architecture is not a procurement detail --- it is a governance choice. And for SECO research, it means that ecosystem health metrics need a normative layer: not just ``is the ecosystem growing?'' but ``does the architecture actually support the democratic values it claims to serve?''
-
-\paragraph{Returning to Denmark.}
-Borgerforslag.dk made every trade-off in the direction of simplicity: closed-source, single-purpose, no ecosystem. That works for a petition tool. But if Denmark wants participation infrastructure that lets diverse communities deliberate, adapt, and govern, the architectural lessons from a decade of civic tech suggest very different choices. The architecture is the democratic decision.
-
-\paragraph{Limitations.}
-This study relies on secondary sources and lightweight architectural recovery rather than formal reconstruction. GitHub metrics are proxies, not direct measures of democratic impact. Three platforms, however carefully selected, cannot represent all civic tech architectures --- the field includes at least 25 platforms with genuine architectural variety (from Django-based Adhocracy to LiquidFeedback's database-as-application approach). The mappings from quality attributes to democratic outcomes are analytical claims, not empirically validated through deployment studies.
+This is a foundational step rather than a full validation. A fuller framework would need to examine quality attributes the Decidim/Consul comparison does not strongly differentiate --- security, accessibility, and sovereignty --- and would benefit from more cases that evaluate the framework against a wider design space.
 
 \paragraph{Future research.}
-Two directions are promising, and both could serve as the basis for a master's thesis building on this project. First, an empirical study of how specific architectural decisions changed governance dynamics over time --- combining repository mining, architectural analysis, and stakeholder interviews with Decidim deployers and contributors. This would address the causal limitations discussed in Section~\ref{sec:evaluation} by grounding the architecture-governance connection in direct evidence from practitioners. Second, a design-oriented approach: what would a democratic participation architecture for a Nordic municipality actually look like, given these trade-offs? A design science approach could test the principles identified here against real institutional requirements.
-
+Two directions invite follow-on work and could each ground a master's thesis. First, extending the framework to a wider set of platforms: CitizenLab to examine sovereignty under commercial SaaS models, Loomio to examine worker-cooperative governance, and a federated platform to examine security and identity. Second, stakeholder interviews with Decidim deployers, Consul fork maintainers, and Decidim Association members would complement the repository-mining done here with practitioner evidence and address the causal limitations in Section~\ref{sec:evaluation}.
 
 % ============================================================
 % USE OF GENERATIVE AI
@@ -519,18 +653,15 @@ Two directions are promising, and both could serve as the basis for a master's t
 \section*{Use of Generative AI}
 \addcontentsline{toc}{section}{Use of Generative AI}
 
-\textbf{Tool used:} Claude (Anthropic, models claude-sonnet-4-20250514 and claude-opus-4-20250514), accessed via the Claude desktop application (Cowork mode).
+\textbf{Tool used:} Claude (Anthropic; Claude Sonnet 4 and Claude Opus 4), accessed via the Claude desktop application.
 
-\textbf{How it was used:} The AI was used as a research and writing assistant for: (1)~literature search and synthesis --- identifying relevant papers and summarizing their arguments, (2)~structuring and outlining the paper, (3)~drafting and iterating on prose based on the author's notes and outlines, (4)~web-based research on civic tech platform architectures and GitHub repository data, and (5)~LaTeX formatting and figure generation.
+\textbf{Use in the project:} Generative AI was used as an assistant during the research and writing process. It supported literature discovery, outlining, language refinement, exploratory web research, and the drafting and debugging of Python and matplotlib scripts used to collect, process, and visualise repository data. The scripts are included in the project repository together with the paper source.
 
-\textbf{How prompts were structured:} The author provided topic descriptions, outlines, source material references, and specific instructions (e.g., ``draft the Decidim analysis section based on these source notes''). The AI generated draft text that the author reviewed, revised, and validated against primary sources.
+\textbf{Author contribution and validation:} The research question, case selection, architectural framing, quality-attribute analysis, interpretation of findings, and final argumentative structure were developed by the author. AI-generated suggestions, draft passages, and code were reviewed, revised, tested, and validated by the author against primary sources, public documentation, and repository data. The analytical claims, figures, and conclusions presented in the paper are the author's own responsibility.
 
-\textbf{What the author did independently:} All architectural analysis, analytical claims, quality attribute mappings, and theoretical arguments were developed by the author through direct engagement with primary sources (GitHub repositories, official documentation, published studies). The AI did not perform independent architectural recovery or make analytical judgments.
+\textbf{Data, copyright, and confidentiality:} No confidential material, personal data, or copyrighted full-text academic articles were provided to the AI tool. The work was based on the author's notes, public documentation, public repositories, and publicly available sources.
 
-\textbf{Copyrighted material:} No copyrighted full-text documents were provided to the AI tool. The author worked from personal reading notes and publicly available sources. Quotations in the paper are short extracts used for academic commentary under fair use principles.
-
-All content was reviewed, edited, and validated by the author.
-
+All submitted text, figures, code, and analysis were reviewed, edited, and approved by the author.
 
 % ============================================================
 % REFERENCES

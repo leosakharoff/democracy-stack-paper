@@ -1,5 +1,5 @@
 """Generate tensions.pdf — positioning map of Decidim, Consul, Polis on
-modifiability x deployability. Used as Figure 1 in main.tex (Section 2.1).
+modifiability x algorithmic depth. Used as Figure 1 in main.tex (Section 2.1).
 
 Writes tensions.pdf next to this script regardless of CWD."""
 
@@ -17,7 +17,7 @@ plt.rcParams.update({
 
 fig, ax = plt.subplots(figsize=(7.2, 4.6))
 
-# --- Trade-off frontier (subtle dashed diagonal) ---
+# --- Trade-off frontier (subtle dashed diagonal: depth costs modifiability) ---
 ax.plot([0.08, 0.92], [0.92, 0.08],
         linestyle=(0, (4, 4)), color="black", alpha=0.18, linewidth=1.2, zorder=1)
 ax.text(0.62, 0.42, "trade-off frontier",
@@ -25,19 +25,21 @@ ax.text(0.62, 0.42, "trade-off frontier",
         ha="left", va="bottom", rotation=-30)
 
 # --- Platforms ---
-# Each: (label, x, y, descriptor lines, label_pos)
-# label_pos = "left" | "right"  — which side of the dot the text block sits
+# Positions on (modifiability, algorithmic depth):
+#   Decidim — modular, algorithmically shallow → high modifiability, low depth (bottom-right)
+#   Polis   — monolithic, algorithmically deep → low modifiability, high depth (top-left)
+#   Consul  — monolithic, algorithmically shallow → low on both (bottom-left, dominated)
 platforms = [
     ("Polis",   0.20, 0.85,
-     ["tight algorithmic coupling",
+     ["PCA + k-means at the core",
       "no extension model"], "right"),
-    ("Consul",  0.22, 0.58,
-     ["monolithic Rails app",
-      "fork to customize",
-      "~250 diverging forks"], "right"),
-    ("Decidim", 0.85, 0.18,
-     ["23 Rails engines",
+    ("Decidim", 0.85, 0.20,
+     ["27 Rails engines",
       "80+ community modules"], "left"),
+    ("Consul",  0.22, 0.20,
+     ["monolithic Rails app",
+      "fork to customise",
+      "280 modified forks of 1,030"], "right"),
 ]
 
 for name, x, y, desc_lines, pos in platforms:
@@ -61,7 +63,7 @@ for name, x, y, desc_lines, pos in platforms:
 
 # --- Axis labels ---
 ax.set_xlabel("Modifiability  →", fontsize=11, labelpad=10, color="0.2")
-ax.set_ylabel("Deployability  →", fontsize=11, labelpad=10, color="0.2")
+ax.set_ylabel("Algorithmic depth  →", fontsize=11, labelpad=10, color="0.2")
 
 # --- Frame ---
 ax.set_xlim(0, 1)

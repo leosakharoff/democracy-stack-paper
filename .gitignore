@@ -11,3 +11,6 @@
 
 # Scrape cache (firecrawl outputs)
 .firecrawl/
+
+# Bibliography source material (third-party PDFs / search results)
+refs/

@@ -1,3 +1,4 @@
+# LaTeX build artifacts
 *.aux
 *.bbl
 *.blg
@@ -7,7 +8,9 @@
 *.out
 *.synctex.gz
 *.toc
-*.pdf
+
+# Build intermediate (the renamed final copy is tracked)
+main.pdf
 
 # Scrape cache (firecrawl outputs)
 .firecrawl/

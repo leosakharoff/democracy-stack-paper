@@ -104,8 +104,9 @@
 \textsf{\textcolor{gray}{Author}}      & \textsf{Leo William Engholm Sakharov} \\
 \textsf{\textcolor{gray}{Email}}       & \textsf{leos@itu.dk} \\
 \textsf{\textcolor{gray}{Programme}}   & \textsf{MSc Software Design} \\
+\textsf{\textcolor{gray}{Course}}      & \textsf{Research Project (7.5 ECTS)} \\
+\textsf{\textcolor{gray}{STADS code}}  & \textsf{KIREPRO1PE} \\
 \textsf{\textcolor{gray}{Supervisor}}  & \textsf{Konstantinos Manikas} \\
-\textsf{\textcolor{gray}{Course}}      & \textsf{Research Project (KIREPRO1PE, 7.5 ECTS)} \\
 \textsf{\textcolor{gray}{Date}}        & \textsf{15 May 2026} \\
 \end{tabular}
 \end{flushleft}
@@ -471,7 +472,7 @@ The Consul Democracy Foundation was founded in 2019 as a Dutch non-profit \citep
 The Foundation is funded by a patchwork: a single municipal sponsor (the City of Munich at EUR~20{,}000 per year), EU project grants, private donations, and revenue contributions from Certified Tech Partners \citep{linaker2025consul}. The Foundation does not commission core development directly; it cannot afford to. Municipalities procure Consul deployments from certified suppliers, but the architecture means much customisation happens inside the deployer's own fork rather than as a returnable contribution. \citet{linaker2025consul} report that contributions ``come largely from certified service suppliers, with fewer contributions from local governments and NGOs'' and that ``many development features rarely merge back to the core codebase due to architectural barriers and fragmentation across installations.''
 
 \paragraph{Fork divergence.}
-We enumerated all forks of \texttt{consuldemocracy/consuldemocracy} via the GitHub API and computed each fork's divergence against upstream master. Of 1{,}030 enumerable forks, 1{,}026 had upstream comparison data. 746 ($73\%$) are unmodified ``stars in fork form''; 280 ($27\%$) have at least one commit ahead --- approximately the ``around 250 deployments'' figure previous reports cite \citep{ntari2025consul}. The distribution within those 280 is heavily skewed: most have fewer than ten commits ahead, 39 have 100 or more, and only 5 have 1{,}000 or more.
+We enumerated all forks of \texttt{consuldemocracy/consuldemocracy} via the GitHub API and computed each fork's divergence against upstream master. Of 1{,}030 enumerable forks, 1{,}026 had upstream comparison data. 746 ($73\%$) are unmodified ``stars in fork form''; 280 ($27\%$) have at least one commit ahead --- approximately the ``around 250 deployments'' figure previous reports cite \citep{ntari2025consul}. The distribution within those 280 is heavily skewed: most have fewer than ten commits ahead, 39 have 100 or more, and only 5 have 1{,}000 or more. Activity has been declining: pushes peaked in 2019 and only $14\%$ of forks have been touched since the start of 2024 (Figure~\ref{fig:consul-forks}).
 
 The most-diverged fork is \texttt{AyuntamientoMadrid/consul} --- Madrid itself, the city that built Consul. It sits 12{,}725 commits ahead of upstream and 11{,}540 behind, last pushed 2023-05-23. The originating city therefore maintained a separate copy that drifted far from upstream and was eventually abandoned. This does not prove that the architecture alone caused the divergence, but it shows that even the originator ended up using the fork pattern that the platform made easiest. Plotted in Figure~\ref{fig:consul-divergence}, three quadrants are populated and one is conspicuously empty: 280 ahead-and-behind silos (top-right), 745 behind-only dormant copies (bottom-right), 1 in-sync fork (bottom-left), and zero ahead-only forks (top-left). The empty top-left is the diagnostic signal --- no fork keeps up with upstream while also adding local work.
 

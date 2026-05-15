@@ -398,14 +398,14 @@ Of 452 enumerated forks of \texttt{decidim/decidim}, 444 had upstream comparison
 
 The originator pattern inverts. Madrid (Consul originator) abandoned a 12{,}725-commit fork in 2023. Barcelona (Decidim originator, \texttt{AjuntamentdeBarcelona/decidim}) sits at zero commits ahead and forty-six behind, with a push timestamp from the day before the snapshot --- the originator is tracking upstream. Codegram, the consultancy that built Decidim, also sits at zero commits ahead. AjuntamentManacor and other municipal forks show the same pattern. Figure~\ref{fig:decidim-divergence} plots all 444 comparable forks on identical axes to Figure~\ref{fig:consul-divergence}, so the contrast reads directly.
 
-This is not a claim that Decidim has a healthier deployment ecosystem in raw numbers. The documented installation path is \texttt{gem install decidim; decidim my\_app}, which produces a new Rails application living in its own repository rather than as a fork of upstream. Most Decidim deployments are therefore invisible to fork-tree analysis. The 444 fork population captures contributors with PRs in flight (typically single-digit ahead counts), learners reading the codebase (zero ahead, accumulating behind), and a small minority of deep-customisation deployers. The plugin path has displaced the deployment fork --- not the small ahead-and-behind cluster --- and that is the empirical signal.
-
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/decidim_fork_divergence.pdf}
 \caption{Decidim forks plotted by commits ahead of upstream \texttt{develop} against commits behind (snapshot 2026-05-14), on the same axes as Figure~\ref{fig:consul-divergence}. The ahead-only region is empty, as for Consul. The mass sits in the behind-only quadrant (399 dormant or learner copies, $90\%$). The ahead-and-behind cluster is small in both count (45 forks) and magnitude (top fork at 221 commits ahead, two orders of magnitude below Consul's Madrid). Barcelona, the Decidim originator, sits at zero ahead and forty-six behind --- the inverse of Madrid's silo. Of 452 enumerated forks, 444 had upstream comparison data.}
 \label{fig:decidim-divergence}
 \end{figure}
+
+This is not a claim that Decidim has a healthier deployment ecosystem in raw numbers. The documented installation path is \texttt{gem install decidim; decidim my\_app}, which produces a new Rails application living in its own repository rather than as a fork of upstream. Most Decidim deployments are therefore invisible to fork-tree analysis. The 444 fork population captures contributors with PRs in flight (typically single-digit ahead counts), learners reading the codebase (zero ahead, accumulating behind), and a small minority of deep-customisation deployers. The plugin path has displaced the deployment fork --- not the small ahead-and-behind cluster --- and that is the empirical signal.
 
 \paragraph{Quality attribute profile.}
 \emph{Modifiability} is high. The engine architecture lets deployers add, remove, or replace components without touching core code; customisation happens through modules, not deployment forks. The 80+ community modules are evidence that this modifiability is used in practice.

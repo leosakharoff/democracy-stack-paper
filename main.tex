@@ -317,7 +317,7 @@ Three pairings are particularly visible in civic tech and form the framework's a
 
 \paragraph{Modifiability against sustainability burden.} Modular architectures let many deployers --- municipalities, NGOs, civic-tech consultancies --- adapt the platform; the cost is maintaining many parts. Monolithic architectures can be easier to maintain centrally; the cost is that adaptation often requires forking or direct source modification unless other extension mechanisms are provided.
 
-\paragraph{Interoperability against reduced autonomy.} Interoperable platforms compose into wider stacks; the cost is constraints on local choice under shared standards. Stand-alone platforms preserve local autonomy; the cost is isolation.
+\paragraph{Interoperability against reduced autonomy.} Interoperable platforms can plug into wider stacks via shared standards like ActivityPub, OAuth, or OpenAPI; the cost is that those standards constrain what the platform can change unilaterally --- switching to a different data model or auth flow would break the integration. Stand-alone platforms keep that local autonomy but cannot share users, data, or features with other systems.
 
 \paragraph{Configurability against maintenance overhead.} Highly configurable platforms support many different participation processes without code changes; the cost is configuration surface complexity and the maintenance of options across versions. Less configurable platforms are simpler; the cost is that adapting to a new process may require code changes.
 

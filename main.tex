@@ -235,7 +235,7 @@ The four quality attributes are assessed qualitatively as low, moderate, or high
 \centering
 \caption{Quality-attribute rating rubric: criteria for low, moderate, and high ratings.}
 \label{tab:qa-rubric}
-\renewcommand{\arraystretch}{1.3}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.5cm}XXX}
 \toprule
 \textbf{Quality attribute} & \textbf{Low} & \textbf{Moderate} & \textbf{High} \\
@@ -253,12 +253,12 @@ Interoperability &
 Configurability &
 \cellcolor{quadred} Participation processes fixed in code &
 \cellcolor{quadtan} Some processes configurable; limited coverage &
-\cellcolor{quadgreen} Varied processes composable via settings (proposals, voting, deliberation, accountability) \\
+\cellcolor{quadgreen} Varied processes composable via settings; no code changes \\
 \midrule
 Transparency and auditability &
 \cellcolor{quadred} Operations not logged beyond standard application logs &
 \cellcolor{quadtan} Some inspection mechanisms; not first-class architectural concerns &
-\cellcolor{quadgreen} First-class logging, versioning, permission-gated visibility, public inspection \\
+\cellcolor{quadgreen} First-class logging, versioning, and gated public inspection \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -279,11 +279,11 @@ The three components below offer overlapping but complementary views of a platfo
 
 Each of the four quality attributes introduced in Section~\ref{sec:sa} connects an architecture choice to a democratic capacity the platform can support. Each one also pairs with an architectural cost the platform has to pay if it chooses that direction. Table~\ref{tab:qa-mapping} collects the mappings.
 
-\begin{table}[!htbp]
+\begin{table}[!ht]
 \centering
 \caption{Quality attributes mapped to democratic capacities and the architectural costs they impose.}
 \label{tab:qa-mapping}
-\renewcommand{\arraystretch}{1.3}
+\renewcommand{\arraystretch}{1.15}
 \begin{tabularx}{\textwidth}{lXX}
 \toprule
 \textbf{Quality attribute} & \textbf{Democratic capacity} & \textbf{Architectural cost} \\

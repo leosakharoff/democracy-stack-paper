@@ -137,7 +137,7 @@ The framework is applied to a comparative case study of Decidim and Consul, two 
 % ============================================================
 \section{Introduction}
 
-European policy is starting to call for digital infrastructure for democracy --- the Digital Services Act, the European Digital Identity framework, IDEA's ``democracy stack'' \citep{idea2026democracy}, and CEPS's case for European Digital Public Infrastructure \citep{ceps2025building}. These proposals say what the infrastructure should do, not how it should be built. Civic technology platforms have been building this kind of software for over a decade --- Decidim across hundreds of institutions in 32 countries \citep{barandiaran2024decidim}, Consul across over 250 cities and organisations \citep{ntari2025consul} --- yet how their architectures shaped their ecosystems remains under-analysed.
+European policy is starting to call for digital infrastructure for democracy --- the Digital Services Act \citep{eu2022dsa}, the European Digital Identity framework \citep{eu2024eid}, IDEA's ``democracy stack'' \citep{idea2026democracy}, and CEPS's case for European Digital Public Infrastructure \citep{ceps2025building}. These proposals say what the infrastructure should do, not how it should be built. Civic technology platforms have been building this kind of software for over a decade --- Decidim across hundreds of institutions in 32 countries \citep{barandiaran2024decidim}, Consul across over 250 cities and organisations \citep{ntari2025consul} --- yet how their architectures shaped their ecosystems remains under-analysed.
 
 This paper asks: \emph{what software architecture decisions matter for democratic digital infrastructure, and how can they be analysed through software architecture and software ecosystem methods?}
 
@@ -148,11 +148,11 @@ We propose a small analytical framework combining four quality attributes (modif
 % ============================================================
 % 2. BACKGROUND
 % ============================================================
-\clearpage
 \section{Background}\label{sec:background}
 
 Reasoning about democratic digital infrastructure needs three literatures: software architecture (for quality attributes and trade-offs), software ecosystems (for the organisational, business, and technical structures around a platform), and architecture-as-governance (for how software architectures make some forms of action, coordination, and control easier than others).
 
+\vspace{0.8em}
 \begin{center}
 \begin{tikzpicture}[
   font=\sffamily\small,
@@ -163,7 +163,7 @@ Reasoning about democratic digital infrastructure needs three literatures: softw
 \node[src, label={above:Software\\architecture}]      (sa) at (-3.6, 0.8) {};
 \node[src, label={above:Software\\ecosystems}]        (se) at ( 0.0, 0.8) {};
 \node[src, label={above:Architecture\\as governance}] (ag) at ( 3.6, 0.8) {};
-\node[inner sep=0pt, label={below:\textit{This paper}}] (p)  at ( 0.0,-1.0) {\large\faFile*};
+\node[draw, rounded corners, fill=gray!10, inner sep=5pt, font=\sffamily\small\bfseries] (p) at ( 0.0,-1.0) {Analytical framework};
 \draw[gray!70, thick] (sa) -- (p);
 \draw[gray!70, thick] (se) -- (p);
 \draw[gray!70, thick] (ag) -- (p);
